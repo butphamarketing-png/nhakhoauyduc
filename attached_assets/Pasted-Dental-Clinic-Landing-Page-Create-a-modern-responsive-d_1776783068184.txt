@@ -1,0 +1,95 @@
+Dental Clinic Landing Page
+
+Create a modern, responsive dental clinic landing page using a blue – white – gold color scheme, clean UI/UX, soft shadows, rounded corners, and modern fonts (Poppins/Roboto).
+
+1. Header (Top Bar)
+Left: Logo (tooth icon + “Nha Khoa HT”)
+Right:
+Working hours:
+Mon–Sat: 8:00–20:00
+Sunday: 8:00–12:00
+Hotline: 0974166440
+Social icons: Facebook, YouTube, TikTok, Instagram, Zalo
+CTA button: “Book Appointment” (rounded, dark blue)
+2. Navbar
+
+Menu:
+Home, About, Services, Knowledge, Promotions, Feedback, News, Contact + Search icon
+
+3. Hero Slideshow (3–4 slides)
+
+Main slide:
+
+Blue gradient medical background
+Title: GRAND OPENING
+Promo:
+Scaling: 100,000
+Filling: 150,000
+Badges:
+Free Consultation
+Free Checkup
+Voucher:
+1,900,000 (Zirconia)
+Smiling model image (right)
+Next/Prev controls
+4. Quick Contact Form
+Title: 24/7 Consultation Support
+Inputs: Name, Phone
+Button: Register
+5. About Section
+2 columns:
+Left: dentist consulting image
+Right:
+Title
+Description
+Button: Learn More
+6. Featured Services (Slider)
+
+4 cards:
+
+Filling & Extraction
+Teeth Whitening
+Root Canal
+Dentures
+Each card: image + blue overlay + title
+7. Commitments
+Left: implant image
+Right:
+Title: 5 Commitments
+Best price, Fast service, Dedicated care, Safety, Warranty
+8. Statistics
+Dark blue background
+4 counters:
+10+ years experience
+100% modern tech
+6000+ implants
+10000+ customers
+9. Testimonials
+Slider (3 cards):
+Image, Name, Service, Rating, Button
+10. Booking CTA Section
+Left: model image
+Right:
+Form: Name, Phone, Service dropdown
+Button: Book Now
+11. Blog Section
+
+3 posts:
+
+Kids dental check
+Teeth grinding effects
+Healthy foods for teeth
+Each: image + title + short description + button
+12. Footer (4 columns)
+Social + Payment (Visa, Mastercard)
+Address, Hotline, Email
+Services list
+Policies + About + Contact
+13. Floating Buttons
+Call button (red)
+Booking button
+Fixed on right side
+14. Tech Requirements
+Responsive (mobile + desktop)
+Use: HTML/CSS/JS or React + Tailwind
+Animations: hover effects, fade slider

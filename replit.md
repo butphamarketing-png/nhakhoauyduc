@@ -1,27 +1,39 @@
-# Workspace
+# Nha Khoa HT — Dental Clinic Website
 
-## Overview
-
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+Vietnamese dental clinic website with public landing page and admin dashboard.
 
 ## Stack
+- **Monorepo**: pnpm workspace
+- **Web**: React + Vite + TailwindCSS (`artifacts/nha-khoa-ht`, served at `/`)
+- **API**: Express + Drizzle ORM (`artifacts/api-server`, served at `/api`)
+- **Database**: PostgreSQL (Replit-provisioned)
+- **Auth**: Cookie-based session for admin (`nkht_admin` cookie)
+- **API Codegen**: OpenAPI spec at `lib/api-spec/openapi.yaml` → `@workspace/api-client-react` and `@workspace/api-zod`
 
-- **Monorepo tool**: pnpm workspaces
-- **Node.js version**: 24
-- **Package manager**: pnpm
-- **TypeScript version**: 5.9
-- **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod (`zod/v4`), `drizzle-zod`
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+## Brand
+- Hotline: **0974166440**
+- Address: Quận 12, TP.HCM
+- Colors: Blue `hsl(215,80%,35%)`, Gold `hsl(45,90%,55%)`, white
+- Fonts: Poppins, Roboto
 
-## Key Commands
+## Public Page Sections (`/`)
+Header with hotline → hero slideshow → quick contact bar → about → services slider →
+5 commitments → animated stats → promotions → testimonials → booking form → blog → footer.
+Floating call/zalo/booking buttons.
 
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/api-server run dev` — run API server locally
+## Admin (`/admin`)
+- Login: `/admin/login` (default: `admin@nhakhoaht.vn` / `admin123`)
+- Pages: dashboard overview (charts), banners, services, promotions, feedback, posts, bookings, settings
+- Booking statuses: "Chưa xử lý", "Đã liên hệ", "Hoàn tất", "Huỷ"
 
-See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+## Database (Drizzle, `lib/db/src/schema/index.ts`)
+Tables: `admins`, `banners`, `services`, `promotions`, `feedback`, `posts`, `bookings`, `settings`
+
+## Seeding
+Seed script at `artifacts/api-server/src/seed.ts`. Run via:
+```
+pnpm exec esbuild artifacts/api-server/src/seed.ts --bundle --platform=node --format=esm \
+  --outfile=artifacts/api-server/dist/seed.mjs \
+  --banner:js="import { createRequire as __cr } from 'node:module'; globalThis.require = __cr(import.meta.url);"
+node artifacts/api-server/dist/seed.mjs
+```

@@ -1,36 +1,709 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Nha Khoa HT API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
-    description: Health operations
+  - name: bookings
+  - name: services
+  - name: promotions
+  - name: feedback
+  - name: blog
+  - name: banners
+  - name: contact
+  - name: settings
+  - name: dashboard
+  - name: auth
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
           content:
             application/json:
+              schema: { $ref: "#/components/schemas/HealthStatus" }
+
+  /auth/login:
+    post:
+      operationId: adminLogin
+      tags: [auth]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LoginBody" }
+      responses:
+        "200":
+          description: Logged in
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AuthSession" }
+  /auth/logout:
+    post:
+      operationId: adminLogout
+      tags: [auth]
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      responses:
+        "200":
+          description: Current admin
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AuthSession" }
+
+  /banners:
+    get:
+      operationId: listBanners
+      tags: [banners]
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
               schema:
-                $ref: "#/components/schemas/HealthStatus"
+                type: array
+                items: { $ref: "#/components/schemas/Banner" }
+    post:
+      operationId: createBanner
+      tags: [banners]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BannerInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Banner" }
+  /banners/{id}:
+    put:
+      operationId: updateBanner
+      tags: [banners]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BannerInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Banner" }
+    delete:
+      operationId: deleteBanner
+      tags: [banners]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /services:
+    get:
+      operationId: listServices
+      tags: [services]
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Service" }
+    post:
+      operationId: createService
+      tags: [services]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ServiceInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Service" }
+  /services/{id}:
+    put:
+      operationId: updateService
+      tags: [services]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ServiceInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Service" }
+    delete:
+      operationId: deleteService
+      tags: [services]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /promotions:
+    get:
+      operationId: listPromotions
+      tags: [promotions]
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Promotion" }
+    post:
+      operationId: createPromotion
+      tags: [promotions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PromotionInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Promotion" }
+  /promotions/{id}:
+    put:
+      operationId: updatePromotion
+      tags: [promotions]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PromotionInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Promotion" }
+    delete:
+      operationId: deletePromotion
+      tags: [promotions]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /feedback:
+    get:
+      operationId: listFeedback
+      tags: [feedback]
+      parameters:
+        - in: query
+          name: approved
+          required: false
+          schema: { type: boolean }
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Feedback" }
+    post:
+      operationId: createFeedback
+      tags: [feedback]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/FeedbackInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Feedback" }
+  /feedback/{id}:
+    put:
+      operationId: updateFeedback
+      tags: [feedback]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/FeedbackInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Feedback" }
+    delete:
+      operationId: deleteFeedback
+      tags: [feedback]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /posts:
+    get:
+      operationId: listPosts
+      tags: [blog]
+      parameters:
+        - in: query
+          name: q
+          required: false
+          schema: { type: string }
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Post" }
+    post:
+      operationId: createPost
+      tags: [blog]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PostInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Post" }
+  /posts/{id}:
+    get:
+      operationId: getPost
+      tags: [blog]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Post
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Post" }
+    put:
+      operationId: updatePost
+      tags: [blog]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PostInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Post" }
+    delete:
+      operationId: deletePost
+      tags: [blog]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /bookings:
+    get:
+      operationId: listBookings
+      tags: [bookings]
+      parameters:
+        - in: query
+          name: status
+          required: false
+          schema: { type: string }
+        - in: query
+          name: q
+          required: false
+          schema: { type: string }
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Booking" }
+    post:
+      operationId: createBooking
+      tags: [bookings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BookingInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Booking" }
+  /bookings/{id}:
+    put:
+      operationId: updateBooking
+      tags: [bookings]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BookingUpdate" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Booking" }
+    delete:
+      operationId: deleteBooking
+      tags: [bookings]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /contact:
+    post:
+      operationId: createContact
+      tags: [contact]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ContactInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Ok" }
+
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [settings]
+      responses:
+        "200":
+          description: Settings
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Settings" }
+    put:
+      operationId: updateSettings
+      tags: [settings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Settings" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Settings" }
+
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      responses:
+        "200":
+          description: Summary
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DashboardSummary" }
+  /dashboard/bookings-by-day:
+    get:
+      operationId: getBookingsByDay
+      tags: [dashboard]
+      responses:
+        "200":
+          description: Per day
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/BookingsByDay" }
+
 components:
   schemas:
     HealthStatus:
       type: object
       properties:
-        status:
-          type: string
-      required:
-        - status
-
+        status: { type: string }
+      required: [status]
+    Ok:
+      type: object
+      properties:
+        ok: { type: boolean }
+      required: [ok]
+    LoginBody:
+      type: object
+      properties:
+        email: { type: string }
+        password: { type: string }
+      required: [email, password]
+    AuthSession:
+      type: object
+      properties:
+        authenticated: { type: boolean }
+        email: { type: string, nullable: true }
+      required: [authenticated]
+    Banner:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        subtitle: { type: string, nullable: true }
+        imageUrl: { type: string }
+        ctaText: { type: string, nullable: true }
+        sortOrder: { type: integer }
+      required: [id, title, imageUrl, sortOrder]
+    BannerInput:
+      type: object
+      properties:
+        title: { type: string }
+        subtitle: { type: string, nullable: true }
+        imageUrl: { type: string }
+        ctaText: { type: string, nullable: true }
+        sortOrder: { type: integer }
+      required: [title, imageUrl, sortOrder]
+    Service:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        description: { type: string }
+        imageUrl: { type: string }
+      required: [id, name, description, imageUrl]
+    ServiceInput:
+      type: object
+      properties:
+        name: { type: string }
+        description: { type: string }
+        imageUrl: { type: string }
+      required: [name, description, imageUrl]
+    Promotion:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        content: { type: string }
+        price: { type: string }
+        validUntil: { type: string }
+      required: [id, title, content, price, validUntil]
+    PromotionInput:
+      type: object
+      properties:
+        title: { type: string }
+        content: { type: string }
+        price: { type: string }
+        validUntil: { type: string }
+      required: [title, content, price, validUntil]
+    Feedback:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        service: { type: string }
+        content: { type: string }
+        rating: { type: integer }
+        imageUrl: { type: string }
+        approved: { type: boolean }
+      required: [id, name, service, content, rating, imageUrl, approved]
+    FeedbackInput:
+      type: object
+      properties:
+        name: { type: string }
+        service: { type: string }
+        content: { type: string }
+        rating: { type: integer }
+        imageUrl: { type: string }
+        approved: { type: boolean }
+      required: [name, service, content, rating, imageUrl, approved]
+    Post:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        excerpt: { type: string }
+        content: { type: string }
+        imageUrl: { type: string }
+        category: { type: string }
+        createdAt: { type: string }
+      required: [id, title, excerpt, content, imageUrl, category, createdAt]
+    PostInput:
+      type: object
+      properties:
+        title: { type: string }
+        excerpt: { type: string }
+        content: { type: string }
+        imageUrl: { type: string }
+        category: { type: string }
+      required: [title, excerpt, content, imageUrl, category]
+    Booking:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        phone: { type: string }
+        service: { type: string, nullable: true }
+        appointmentTime: { type: string, nullable: true }
+        status: { type: string }
+        createdAt: { type: string }
+      required: [id, name, phone, status, createdAt]
+    BookingInput:
+      type: object
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        service: { type: string, nullable: true }
+        appointmentTime: { type: string, nullable: true }
+      required: [name, phone]
+    BookingUpdate:
+      type: object
+      properties:
+        status: { type: string }
+      required: [status]
+    ContactInput:
+      type: object
+      properties:
+        name: { type: string }
+        phone: { type: string }
+      required: [name, phone]
+    Settings:
+      type: object
+      properties:
+        logo: { type: string }
+        hotline: { type: string }
+        address: { type: string }
+        email: { type: string }
+        facebook: { type: string }
+        youtube: { type: string }
+        tiktok: { type: string }
+        instagram: { type: string }
+        zalo: { type: string }
+        metaTitle: { type: string }
+        metaDescription: { type: string }
+      required: [logo, hotline, address, email, facebook, youtube, tiktok, instagram, zalo, metaTitle, metaDescription]
+    DashboardSummary:
+      type: object
+      properties:
+        totalBookings: { type: integer }
+        totalPosts: { type: integer }
+        totalServices: { type: integer }
+        totalFeedback: { type: integer }
+        pendingBookings: { type: integer }
+      required: [totalBookings, totalPosts, totalServices, totalFeedback, pendingBookings]
+    BookingsByDay:
+      type: object
+      properties:
+        day: { type: string }
+        count: { type: integer }
+      required: [day, count]

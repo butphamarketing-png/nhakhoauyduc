@@ -1,0 +1,143 @@
+Tạo một website landing page cho phòng khám nha khoa (tone màu xanh dương – trắng – vàng), thiết kế hiện đại, chuẩn UI/UX, responsive.
+
+1. HEADER (Top bar)
+Bên trái:
+Logo nha khoa (icon răng + text “Nha Khoa HT”)
+Bên phải:
+Giờ làm việc:
+Thứ 2 – Thứ 7: 8h00 – 20h00
+Chủ nhật: 8h00 – 12h00
+Hotline: 0974166440
+Icon mạng xã hội: Facebook, YouTube, TikTok, Instagram, Zalo
+Nút CTA: “ĐẶT HẸN” (bo tròn, màu xanh đậm)
+2. NAVBAR (Thanh menu)
+
+Menu ngang gồm:
+
+Trang chủ
+Giới thiệu
+Dịch vụ
+Kiến thức
+Khuyến mãi
+Feedback
+Tin tức
+Liên hệ
+Icon tìm kiếm
+3. HERO SLIDESHOW
+Slideshow gồm 3–4 slide
+Slide chính gồm:
+Background xanh gradient + pattern y khoa
+Tiêu đề lớn: GRAND OPENING
+Nội dung khuyến mãi:
+Cạo vôi: 100.000
+Trám răng: 150.000
+2 badge:
+Miễn phí tư vấn
+Miễn phí thăm khám
+Voucher:
+Giảm còn 1.900.000 cho răng sứ
+Nhấn mạnh: Zirconia
+Hình người mẫu cười (bên phải)
+Có nút next/prev
+4. FORM ĐĂNG KÝ NHANH
+Title: HỖ TRỢ TƯ VẤN 24/7
+Form gồm:
+Input: Họ và tên
+Input: Số điện thoại
+Button: Đăng ký
+5. GIỚI THIỆU PHÒNG KHÁM
+Layout 2 cột:
+Trái: hình ảnh bác sĩ tư vấn khách
+Phải:
+Title: Phòng Khám Nha Khoa HT
+Đoạn mô tả dài
+Button: Xem thêm
+6. DỊCH VỤ NỔI BẬT
+Title: DỊCH VỤ NỔI BẬT
+Hiển thị dạng card slider (4 item):
+Trám răng, nhổ răng
+Tẩy trắng răng
+Chữa tủy nội nha
+Phục hình tháo lắp
+Mỗi card:
+Hình ảnh
+Overlay màu xanh
+Tên dịch vụ
+7. CAM KẾT (5 ITEMS)
+Layout:
+Trái: hình răng implant
+Phải:
+Title: 5 CAM KẾT AN TOÀN HIỆU QUẢ
+5 bullet:
+Giá cả tốt nhất
+Thời gian nhanh chóng
+Phục vụ tận tâm
+An toàn hiệu quả
+Bảo hành chính hãng
+8. THỐNG KÊ (COUNTER)
+Background xanh đậm
+4 số lớn:
+10 năm kinh nghiệm
+100% công nghệ hiện đại
+6000 ca implant
+10000 khách hàng
+Text mô tả dưới mỗi số
+9. FEEDBACK KHÁCH HÀNG
+Title: cảm nhận khách hàng
+Slider 3 card:
+Ảnh khách hàng
+Tên
+Dịch vụ
+Rating sao
+Nút xem thêm
+10. FORM ĐẶT LỊCH (CTA lớn)
+Background xanh + quà tặng
+Bên trái: hình người mẫu
+Bên phải:
+Form:
+Họ tên
+Số điện thoại
+Chọn dịch vụ (dropdown)
+Button: Đặt lịch ngay
+11. BLOG / KIẾN THỨC
+Title: KIẾN THỨC NHA KHOA
+3 bài viết:
+Trẻ em có nên khám răng sớm?
+Tác hại nghiến răng
+Thực phẩm tốt cho răng
+Mỗi card:
+Hình ảnh
+Tiêu đề
+Mô tả ngắn
+Nút Chi tiết
+12. FOOTER
+
+Chia 4 cột:
+
+Cột 1:
+Kết nối mạng xã hội
+Thanh toán (Visa, Mastercard)
+Cột 2:
+Địa chỉ:
+2-6B Trường Chinh, Quận 12, HCM
+Hotline
+Email
+Cột 3:
+Danh sách dịch vụ
+Cột 4:
+Chính sách
+Giới thiệu
+Liên hệ
+13. FLOATING BUTTON
+Nút gọi điện (màu đỏ)
+Nút đặt lịch
+Luôn hiển thị bên phải màn hình
+14. YÊU CẦU KỸ THUẬT
+Responsive mobile + desktop
+Dùng:
+HTML + CSS + JS (hoặc React / Tailwind nếu cần)
+Animation:
+Hover card
+Fade slider
+Font: hiện đại (Poppins / Roboto)
+Bo góc + shadow mềm
