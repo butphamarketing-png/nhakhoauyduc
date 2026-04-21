@@ -51,46 +51,41 @@ function HeroSlider({
   const b = banners[idx];
 
   return (
-    <section id="home" className="relative h-[70vh] min-h-[480px] overflow-hidden">
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-[hsl(215,80%,35%)] to-[hsl(215,80%,20%)] transition-opacity duration-700"
-        style={
-          b.imageUrl
-            ? {
-                backgroundImage: `linear-gradient(to right, hsla(215,80%,20%,0.85), hsla(215,80%,30%,0.5)), url(${b.imageUrl})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }
-            : undefined
-        }
-      />
-      <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
-        <div className="max-w-2xl text-white">
-          <div className="inline-block px-3 py-1 rounded-full bg-[hsl(45,90%,55%)] text-[hsl(215,80%,20%)] text-xs font-bold mb-4">
-            ƯU ĐÃI ĐẶC BIỆT
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            {b.title}
-          </h1>
-          {b.subtitle && (
-            <p className="text-lg md:text-xl text-blue-100 mb-6">
-              {b.subtitle}
-            </p>
-          )}
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#booking"
-              className="px-6 py-3 bg-[hsl(45,90%,55%)] text-[hsl(215,80%,20%)] font-bold rounded-md hover:bg-[hsl(45,90%,50%)] transition inline-flex items-center gap-2"
-            >
-              <CalendarIcon className="h-4 w-4" />
-              {b.ctaText || "ĐẶT HẸN NGAY"}
-            </a>
-            <a
-              href="tel:0974166440"
-              className="px-6 py-3 bg-white/10 backdrop-blur text-white font-bold rounded-md hover:bg-white/20 transition inline-flex items-center gap-2 border border-white/30"
-            >
-              <Phone className="h-4 w-4" /> Gọi ngay
-            </a>
+    <section id="home" className="relative w-full overflow-hidden bg-[hsl(215,80%,20%)]">
+      <div className="relative w-full" style={{ aspectRatio: "1366 / 550" }}>
+        {banners.map((bn, i) => (
+          <img
+            key={bn.id}
+            src={bn.imageUrl ?? ""}
+            alt={bn.title}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              i === idx ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        {/* Bottom CTA strip — does not cover the slideshow image */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent pt-10 pb-5">
+          <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="text-white drop-shadow">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[hsl(45,90%,70%)]">
+                {b.ctaText || "Ưu đãi đặc biệt"}
+              </div>
+              <div className="text-lg md:text-2xl font-bold">{b.title}</div>
+            </div>
+            <div className="flex gap-2">
+              <a
+                href="#booking"
+                className="px-5 py-2.5 bg-[hsl(45,90%,55%)] text-[hsl(215,80%,20%)] font-bold rounded-full hover:bg-[hsl(45,90%,50%)] transition inline-flex items-center gap-2 text-sm"
+              >
+                <CalendarIcon className="h-4 w-4" /> ĐẶT HẸN
+              </a>
+              <a
+                href="tel:0395352639"
+                className="px-5 py-2.5 bg-white/15 backdrop-blur text-white font-bold rounded-full hover:bg-white/25 transition inline-flex items-center gap-2 border border-white/40 text-sm"
+              >
+                <Phone className="h-4 w-4" /> Gọi ngay
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -186,7 +181,7 @@ function About() {
             {CLINIC_NAME} – Nụ cười khỏe đẹp tự nhiên
           </h2>
           <p className="text-gray-600 mb-4">
-            {CLINIC_NAME} là nha khoa thẩm mỹ uy tín tại TP.HCM với hơn 10 năm
+            {CLINIC_NAME} là phòng khám nha khoa uy tín tại Gia Kiệm – Đồng Nai với hơn 10 năm
             kinh nghiệm. Chúng tôi sở hữu đội ngũ bác sĩ giỏi cùng hệ thống
             trang thiết bị hiện đại, đạt chuẩn quốc tế.
           </p>
