@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { FloatingActions } from "@/components/site/FloatingActions";
+import { ReferenceHeroSlider } from "@/components/site/ReferenceHeroSlider";
 import { SeoHead } from "@/components/site/SeoHead";
 import {
   buildArticleSchema,
@@ -1434,7 +1435,7 @@ export function HomePage() {
         path="/"
       />
       <StructuredData data={[buildLocalBusinessSchema(), buildWebsiteSchema(), buildFaqSchema(FAQ_HOME)]} />
-      <HeroSlider banners={banners} />
+      <ReferenceHeroSlider banners={banners} />
       <QuickLeadForm />
       <AboutPreview services={services} />
       <ServicesPreview services={services} loading={servicesQuery.isLoading} />
