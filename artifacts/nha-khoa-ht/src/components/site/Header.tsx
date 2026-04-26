@@ -125,7 +125,7 @@ export function Header() {
 
             <Link
               href="/lien-he#booking"
-              className="inline-flex items-center justify-center rounded-full bg-[hsl(216,65%,33%)] px-8 py-5 text-lg font-extrabold uppercase text-white transition hover:bg-[hsl(221,68%,41%)]"
+              className="inline-flex items-center justify-center rounded-full bg-[hsl(216,65%,33%)] px-7 py-4 text-base font-bold uppercase tracking-[0.04em] text-white transition hover:bg-[hsl(221,68%,41%)]"
             >
               Đặt hẹn
             </Link>
@@ -151,7 +151,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`inline-flex items-center justify-center px-8 py-5 text-lg font-extrabold uppercase tracking-[0.02em] text-white transition ${
+                  className={`inline-flex min-w-0 items-center justify-center whitespace-nowrap px-6 py-4 text-[15px] font-bold uppercase tracking-[0.04em] text-white transition ${
                     active
                       ? "bg-[rgba(20,45,122,.24)]"
                       : "hover:bg-[rgba(255,255,255,.1)]"
@@ -164,10 +164,10 @@ export function Header() {
           </nav>
           <button
             type="button"
-            className="grid w-20 place-items-center text-white transition hover:bg-[rgba(255,255,255,.1)]"
+            className="grid w-16 place-items-center text-white transition hover:bg-[rgba(255,255,255,.1)]"
             aria-label="Tìm kiếm"
           >
-            <Search className="h-6 w-6" />
+            <Search className="h-5 w-5" />
           </button>
         </div>
       </div>
@@ -183,7 +183,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-2xl px-4 py-3 text-base font-bold uppercase transition ${
+                className={`rounded-2xl px-4 py-3 text-sm font-bold uppercase tracking-[0.04em] transition ${
                   isActivePath(location, item.href)
                     ? "bg-[hsl(219,82%,94%)] text-[hsl(221,68%,41%)]"
                     : "text-slate-700 hover:bg-slate-50"
