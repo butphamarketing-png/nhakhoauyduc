@@ -1,8 +1,10 @@
-import aboutPreviewImage from "@assets/image_1776782858611.png";
+import heroSmileImage from "@assets/image_1776782858611.png";
 import clinicConsultationImage from "@assets/image_1776782870001.png";
-import implantShowcaseImage from "@assets/image_1776782901886.png";
+import implantFeatureImage from "@assets/image_1776782892625.png";
+import treatmentFeatureImage from "@assets/image_1776782901886.png";
+import clinicLoungeImage from "@assets/image_1776784860830.png";
 
-export const FALLBACK_ABOUT_IMAGE = aboutPreviewImage;
+export const FALLBACK_ABOUT_IMAGE = clinicLoungeImage;
 
 export const FALLBACK_SERVICES = [
   {
@@ -10,16 +12,16 @@ export const FALLBACK_SERVICES = [
     name: "Trồng răng Implant",
     description:
       "Giải pháp phục hình răng mất bền vững, hỗ trợ ăn nhai chắc chắn và giữ thẩm mỹ tự nhiên trong thời gian dài.",
-    imageUrl: implantShowcaseImage,
+    imageUrl: implantFeatureImage,
   },
   {
     id: 1002,
     name: "Răng sứ thẩm mỹ",
     description:
       "Cải thiện hình dáng, màu sắc và nụ cười bằng giải pháp bọc hoặc phục hình răng sứ theo tình trạng thực tế.",
-    imageUrl: aboutPreviewImage,
+    imageUrl: heroSmileImage,
   },
-    {
+  {
     id: 1003,
     name: "Niềng răng",
     description:
@@ -31,7 +33,7 @@ export const FALLBACK_SERVICES = [
     name: "Nha khoa điều trị",
     description:
       "Thăm khám kỹ, điều trị rõ ràng theo từng tình trạng răng miệng từ sâu răng, viêm nướu đến nội nha.",
-    imageUrl: clinicConsultationImage,
+    imageUrl: treatmentFeatureImage,
   },
   {
     id: 1005,
@@ -45,34 +47,94 @@ export const FALLBACK_SERVICES = [
     name: "Tẩy trắng răng",
     description:
       "Hỗ trợ cải thiện màu răng xỉn màu do thực phẩm, cà phê hoặc thuốc lá để nụ cười sáng và khỏe hơn.",
-    imageUrl: aboutPreviewImage,
+    imageUrl: heroSmileImage,
   },
   {
     id: 1007,
     name: "Nhổ răng khôn",
     description:
       "Xử lý răng khôn mọc lệch hoặc mọc ngầm nhằm giảm đau, hạn chế viêm và bảo vệ các răng bên cạnh.",
-    imageUrl: clinicConsultationImage,
+    imageUrl: treatmentFeatureImage,
   },
   {
     id: 1008,
     name: "Răng tháo lắp",
     description:
       "Phương án tiết kiệm cho người mất răng muốn cải thiện ăn nhai, giao tiếp và sinh hoạt hằng ngày.",
-    imageUrl: implantShowcaseImage,
+    imageUrl: implantFeatureImage,
   },
   {
     id: 1009,
     name: "Phục hình răng",
     description:
       "Tái tạo hình dáng răng bị mẻ, thưa, xỉn màu hoặc mất răng để cải thiện thẩm mỹ và chức năng ăn nhai.",
-    imageUrl: implantShowcaseImage,
+    imageUrl: implantFeatureImage,
   },
   {
     id: 1010,
     name: "Điều trị tủy",
     description:
       "Điều trị nội nha cho răng viêm tủy, đau nhức hoặc nhiễm trùng nhằm giữ lại răng thật tối đa.",
+    imageUrl: treatmentFeatureImage,
+  },
+];
+
+export const FALLBACK_PROMOTIONS = [
+  {
+    id: 2001,
+    title: "Ưu đãi tẩy trắng răng sáng hơn mỗi lần cười",
+    content:
+      "Kiểm tra men răng trước khi thực hiện và tư vấn khung giá phù hợp để khách hàng chủ động đặt lịch.",
+    price: "Từ 1.200.000đ",
+    validUntil: "31/05/2026",
+    imageUrl: heroSmileImage,
+  },
+  {
+    id: 2002,
+    title: "Gói Implant theo dõi trọn lộ trình",
+    content:
+      "Thăm khám, chụp phim và hướng dẫn tái khám rõ ràng để khách hàng yên tâm hơn trước khi bắt đầu.",
+    price: "Ưu đãi theo tình trạng",
+    validUntil: "30/06/2026",
+    imageUrl: implantFeatureImage,
+  },
+  {
+    id: 2003,
+    title: "Khám và tư vấn ban đầu cho nhu cầu phục hình",
+    content:
+      "Phù hợp với khách hàng cần nghe rõ phương án điều trị, chi phí dự kiến và khung giờ thực hiện.",
+    price: "Đăng ký linh hoạt",
+    validUntil: "Theo lịch trống",
+    imageUrl: clinicLoungeImage,
+  },
+];
+
+export const FALLBACK_FEEDBACK = [
+  {
+    id: 3001,
+    name: "Chị Hồng",
+    service: "Bọc răng sứ",
+    content:
+      "Ngay từ buổi đầu mình đã được giải thích rất kỹ, làm xong nhìn tự nhiên hơn và cười tự tin hơn hẳn.",
+    rating: 5,
+    imageUrl: heroSmileImage,
+  },
+  {
+    id: 3002,
+    name: "Cô Nguyệt",
+    service: "Trồng răng Implant",
+    content:
+      "Mình thích nhất là đội ngũ theo dõi rất sát sau điều trị, dặn dò rõ ràng nên đi lại ăn nhai cũng yên tâm hơn.",
+    rating: 5,
+    imageUrl: clinicLoungeImage,
+  },
+  {
+    id: 3003,
+    name: "Bạn Minh Anh",
+    service: "Niềng răng",
+    content:
+      "Lịch hẹn gọn, khám kỹ và giao tiếp dễ chịu nên cả quá trình chỉnh nha không còn áp lực như mình từng nghĩ.",
+    rating: 5,
     imageUrl: clinicConsultationImage,
   },
 ];
@@ -81,11 +143,11 @@ export function getFallbackServiceImage(serviceName: string) {
   const name = serviceName.toLowerCase();
 
   if (name.includes("implant") || name.includes("phục hình") || name.includes("tháo lắp")) {
-    return implantShowcaseImage;
+    return implantFeatureImage;
   }
 
   if (name.includes("sứ") || name.includes("tẩy trắng")) {
-    return aboutPreviewImage;
+    return heroSmileImage;
   }
 
   return clinicConsultationImage;

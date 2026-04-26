@@ -16,8 +16,11 @@ import { Footer } from "@/components/site/Footer";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { ReferenceHeroSlider } from "@/components/site/ReferenceHeroSlider";
 import { AboutPreviewSection } from "@/components/site/AboutPreviewSection";
+import { CommitmentsShowcaseSection } from "@/components/site/CommitmentsShowcaseSection";
 import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
+import { PromotionsShowcaseSection } from "@/components/site/PromotionsShowcaseSection";
 import { SeoHead } from "@/components/site/SeoHead";
+import { TestimonialsShowcaseSection } from "@/components/site/TestimonialsShowcaseSection";
 import {
   buildArticleSchema,
   buildBreadcrumbSchema,
@@ -46,7 +49,12 @@ import {
   Users,
 } from "lucide-react";
 import { LOGO_URL } from "@/lib/api";
-import { FALLBACK_SERVICES } from "@/lib/fallback-content";
+import {
+  FALLBACK_ABOUT_IMAGE,
+  FALLBACK_FEEDBACK,
+  FALLBACK_PROMOTIONS,
+  FALLBACK_SERVICES,
+} from "@/lib/fallback-content";
 import {
   BOOKING_STEPS,
   buildExcerpt,
@@ -94,6 +102,10 @@ function withFallbackServices(items: ServiceItem[]) {
   return items.length ? items : (FALLBACK_SERVICES as ServiceItem[]);
 }
 
+function withFallbackPromotions(items: PromotionItem[]) {
+  return items.length ? items : (FALLBACK_PROMOTIONS as PromotionItem[]);
+}
+
 type PromotionItem = {
   id: number;
   title: string;
@@ -110,6 +122,10 @@ type FeedbackItem = {
   rating?: number | null;
   imageUrl: string;
 };
+
+function withFallbackFeedback(items: FeedbackItem[]) {
+  return items.length ? items : (FALLBACK_FEEDBACK as FeedbackItem[]);
+}
 
 const phoneRules = {
   required: "Vui lòng nhập số điện thoại",
@@ -1429,8 +1445,8 @@ export function HomePage() {
   const postsQuery = useListPosts();
   const banners = (bannersQuery.data ?? []) as BannerItem[];
   const services = withFallbackServices((servicesQuery.data ?? []) as ServiceItem[]);
-  const promotions = (promotionsQuery.data ?? []) as PromotionItem[];
-  const feedback = (feedbackQuery.data ?? []) as FeedbackItem[];
+  const promotions = withFallbackPromotions((promotionsQuery.data ?? []) as PromotionItem[]);
+  const feedback = withFallbackFeedback((feedbackQuery.data ?? []) as FeedbackItem[]);
   const posts = (postsQuery.data ?? []) as PostItem[];
 
   return (
@@ -1443,12 +1459,12 @@ export function HomePage() {
       <StructuredData data={[buildLocalBusinessSchema(), buildWebsiteSchema(), buildFaqSchema(FAQ_HOME)]} />
       <ReferenceHeroSlider banners={banners} />
       <QuickLeadForm />
-      <AboutPreviewSection imageUrl={services[0]?.imageUrl || LOGO_URL} />
+      <AboutPreviewSection imageUrl={services[0]?.imageUrl || FALLBACK_ABOUT_IMAGE} />
       <FeaturedServicesSection services={services} />
-      <CommitmentsSection />
+      <CommitmentsShowcaseSection />
       <StatsSection />
-      <PromotionsPreview promotions={promotions} loading={promotionsQuery.isLoading} />
-      <TestimonialsSection feedback={feedback} loading={feedbackQuery.isLoading} />
+      <PromotionsShowcaseSection promotions={promotions} />
+      <TestimonialsShowcaseSection feedback={feedback} />
       <FaqSection
         title="Những điều khách hàng thường hỏi trước khi đặt lịch"
         description="Giải đáp nhanh các thắc mắc thường gặp để bạn dễ quyết định hơn trước khi đến thăm khám."
@@ -1480,8 +1496,8 @@ export function AboutPage() {
         path="/gioi-thieu"
       />
       <Breadcrumb title={`Giới thiệu ${CLINIC_PROFILE.name}`} current="Giới thiệu" />
-      <AboutPreviewSection imageUrl={services[0]?.imageUrl || LOGO_URL} />
-      <CommitmentsSection />
+      <AboutPreviewSection imageUrl={services[0]?.imageUrl || FALLBACK_ABOUT_IMAGE} />
+      <CommitmentsShowcaseSection />
       <StatsSection />
       <ContactInformation />
     </PublicLayout>
@@ -1705,7 +1721,8 @@ export function PostDetailPage() {
 }
 
 export function PromotionsPage() {
-  const { data: promotions = [] } = useListPromotions();
+  const { data: rawPromotions = [] } = useListPromotions();
+  const promotions = withFallbackPromotions(rawPromotions as PromotionItem[]);
 
   return (
     <PublicLayout softBackground>
@@ -1742,7 +1759,7 @@ export function PromotionsPage() {
 
 export function ReviewsPage() {
   const feedbackQuery = useListFeedback({ approved: true });
-  const feedback = (feedbackQuery.data ?? []) as FeedbackItem[];
+  const feedback = withFallbackFeedback((feedbackQuery.data ?? []) as FeedbackItem[]);
   const reviewsStructuredData = [
     buildBreadcrumbSchema([
       { name: "Trang chá»§", path: "/" },
@@ -1759,7 +1776,7 @@ export function ReviewsPage() {
         path="/nhan-xet"
       />
       <Breadcrumb title="Nháº­n xÃ©t khÃ¡ch hÃ ng" current="Nháº­n xÃ©t" />
-      <TestimonialsSection feedback={feedback} loading={feedbackQuery.isLoading} />
+      <TestimonialsShowcaseSection feedback={feedback} />
       <ContactInformation />
     </PublicLayout>
   );
