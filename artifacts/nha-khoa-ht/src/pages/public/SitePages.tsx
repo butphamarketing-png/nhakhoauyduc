@@ -15,6 +15,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { ReferenceHeroSlider } from "@/components/site/ReferenceHeroSlider";
+import { AboutPreviewSection } from "@/components/site/AboutPreviewSection";
 import { SeoHead } from "@/components/site/SeoHead";
 import {
   buildArticleSchema,
@@ -502,14 +503,13 @@ function AboutPreview({ services }: { services: ServiceItem[] }) {
   const imageUrl = services[0]?.imageUrl || LOGO_URL;
 
   return (
-    <section className="py-20">
-      <Reveal className="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+    <section className="py-14 sm:py-16">
+      <Reveal className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
         <div className="relative">
-          <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-[2rem] bg-[linear-gradient(180deg,rgba(255,214,125,.85),rgba(255,236,194,.65))]" />
           <img
             src={imageUrl}
             alt={`${CLINIC_PROFILE.name} không gian và dịch vụ`}
-            className="relative h-[430px] w-full rounded-[2rem] object-cover shadow-xl"
+            className="relative h-[320px] w-full rounded-[1.5rem] object-cover shadow-[0_16px_36px_rgba(20,41,102,.1)] sm:h-[380px] lg:h-[430px]"
           />
           <div className="premium-panel absolute -bottom-6 right-6 max-w-xs rounded-[1.6rem] p-5">
             <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[hsl(223,68%,39%)]">
@@ -1437,7 +1437,7 @@ export function HomePage() {
       <StructuredData data={[buildLocalBusinessSchema(), buildWebsiteSchema(), buildFaqSchema(FAQ_HOME)]} />
       <ReferenceHeroSlider banners={banners} />
       <QuickLeadForm />
-      <AboutPreview services={services} />
+      <AboutPreviewSection imageUrl={services[0]?.imageUrl || LOGO_URL} />
       <ServicesPreview services={services} loading={servicesQuery.isLoading} />
       <CommitmentsSection />
       <StatsSection />
@@ -1473,7 +1473,7 @@ export function AboutPage() {
         path="/gioi-thieu"
       />
       <Breadcrumb title={`Giới thiệu ${CLINIC_PROFILE.name}`} current="Giới thiệu" />
-      <AboutPreview services={services as ServiceItem[]} />
+      <AboutPreviewSection imageUrl={(services as ServiceItem[])[0]?.imageUrl || LOGO_URL} />
       <CommitmentsSection />
       <StatsSection />
       <ContactInformation />
