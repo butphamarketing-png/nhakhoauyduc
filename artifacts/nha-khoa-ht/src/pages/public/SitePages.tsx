@@ -45,6 +45,7 @@ import {
   Users,
 } from "lucide-react";
 import { LOGO_URL } from "@/lib/api";
+import { FALLBACK_SERVICES } from "@/lib/fallback-content";
 import {
   BOOKING_STEPS,
   buildExcerpt,
@@ -87,6 +88,10 @@ type PostItem = {
   category: string;
   createdAt: string;
 };
+
+function withFallbackServices(items: ServiceItem[]) {
+  return items.length ? items : (FALLBACK_SERVICES as ServiceItem[]);
+}
 
 type PromotionItem = {
   id: number;
@@ -1422,7 +1427,7 @@ export function HomePage() {
   const feedbackQuery = useListFeedback({ approved: true });
   const postsQuery = useListPosts();
   const banners = (bannersQuery.data ?? []) as BannerItem[];
-  const services = (servicesQuery.data ?? []) as ServiceItem[];
+  const services = withFallbackServices((servicesQuery.data ?? []) as ServiceItem[]);
   const promotions = (promotionsQuery.data ?? []) as PromotionItem[];
   const feedback = (feedbackQuery.data ?? []) as FeedbackItem[];
   const posts = (postsQuery.data ?? []) as PostItem[];
@@ -1455,7 +1460,8 @@ export function HomePage() {
 }
 
 export function AboutPage() {
-  const { data: services = [] } = useListServices();
+  const { data: rawServices = [] } = useListServices();
+  const services = withFallbackServices(rawServices as ServiceItem[]);
   const aboutStructuredData = [
     buildLocalBusinessSchema(),
     buildBreadcrumbSchema([
@@ -1473,7 +1479,7 @@ export function AboutPage() {
         path="/gioi-thieu"
       />
       <Breadcrumb title={`Giới thiệu ${CLINIC_PROFILE.name}`} current="Giới thiệu" />
-      <AboutPreviewSection imageUrl={(services as ServiceItem[])[0]?.imageUrl || LOGO_URL} />
+      <AboutPreviewSection imageUrl={services[0]?.imageUrl || LOGO_URL} />
       <CommitmentsSection />
       <StatsSection />
       <ContactInformation />
@@ -1482,7 +1488,8 @@ export function AboutPage() {
 }
 
 export function ServicesPage() {
-  const { data: services = [] } = useListServices();
+  const { data: rawServices = [] } = useListServices();
+  const services = withFallbackServices(rawServices as ServiceItem[]);
   const servicesStructuredData = [
     buildBreadcrumbSchema([
       { name: "Trang chủ", path: "/" },
@@ -1507,7 +1514,7 @@ export function ServicesPage() {
           </p>
         </div>
       </section>
-      <ServicesListing services={services as ServiceItem[]} />
+      <ServicesListing services={services} />
       <FaqSection
         title="Câu hỏi thường gặp khi chọn dịch vụ"
         description="Một vài giải đáp ngắn gọn trước khi bạn quyết định đi khám hoặc làm dịch vụ."
@@ -1519,8 +1526,9 @@ export function ServicesPage() {
 
 export function ServiceDetailPage() {
   const { slug = "" } = useParams<{ slug: string }>();
-  const { data: services = [] } = useListServices();
-  const service = (services as ServiceItem[]).find((item) => slugify(item.name) === slug);
+  const { data: rawServices = [] } = useListServices();
+  const services = withFallbackServices(rawServices as ServiceItem[]);
+  const service = services.find((item) => slugify(item.name) === slug);
 
   return (
     <PublicLayout softBackground>
@@ -1549,7 +1557,7 @@ export function ServiceDetailPage() {
           />
           <ServiceDetailBody
             service={service}
-            related={(services as ServiceItem[]).filter((item) => item.id !== service.id).slice(0, 3)}
+            related={services.filter((item) => item.id !== service.id).slice(0, 3)}
           />
         </>
       ) : (
@@ -1757,7 +1765,8 @@ export function ReviewsPage() {
 }
 
 export function ContactPage() {
-  const { data: services = [] } = useListServices();
+  const { data: rawServices = [] } = useListServices();
+  const services = withFallbackServices(rawServices as ServiceItem[]);
   const contactStructuredData = [
     buildLocalBusinessSchema(),
     buildBreadcrumbSchema([
@@ -1782,7 +1791,7 @@ export function ContactPage() {
         description="Một vài thông tin thường gặp về thời gian phản hồi, đổi lịch và cách liên hệ nhanh nhất."
         items={FAQ_CONTACT}
       />
-      <BookingSection services={services as ServiceItem[]} />
+      <BookingSection services={services} />
     </PublicLayout>
   );
 }
