@@ -63,10 +63,10 @@ export function Header() {
   }, [location]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-[0_10px_28px_rgba(23,55,128,.08)]">
+    <header className="sticky top-0 z-50 overflow-hidden bg-white shadow-[0_10px_28px_rgba(23,55,128,.08)]">
       <div className={`border-b border-slate-200 bg-white transition-all duration-300 ${scrolled ? "py-3" : "py-5"}`}>
-        <div className="mx-auto flex max-w-[1720px] items-center justify-between gap-4 px-4 sm:px-6">
-          <Link href="/" className="flex min-w-[320px] flex-none items-center gap-3 xl:min-w-[380px]">
+        <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 px-4 sm:px-6">
+          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 lg:max-w-[330px] xl:max-w-[380px]">
             <img
               src={LOGO_URL}
               alt={CLINIC_LOGO_ALT}
@@ -82,7 +82,7 @@ export function Header() {
             </div>
           </Link>
 
-          <div className="hidden items-center gap-4 lg:flex xl:gap-5">
+          <div className="hidden items-center gap-3 lg:flex xl:gap-4">
             <div className="flex items-center gap-3 border-l border-slate-300 pl-5">
               <span className="grid h-12 w-12 place-items-center rounded-full bg-[hsl(228,90%,63%)]/14 text-[hsl(231,80%,58%)]">
                 <Clock3 className="h-6 w-6" />
@@ -154,7 +154,7 @@ export function Header() {
       </div>
 
       <div className="hidden bg-[linear-gradient(90deg,#5b67f6,#4d5cf3)] lg:block">
-        <div className="mx-auto flex max-w-[1720px] items-stretch">
+        <div className="mx-auto flex max-w-[1480px] items-stretch">
           <nav className="mx-auto flex flex-1 items-stretch justify-center overflow-hidden">
             {PRIMARY_NAV.map((item) => {
               const active = isActivePath(location, item.href);
@@ -162,7 +162,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`inline-flex items-center justify-center whitespace-nowrap px-7 py-6 text-[15px] font-bold uppercase leading-none text-white transition xl:px-8 ${
+                  className={`inline-flex items-center justify-center whitespace-nowrap px-6 py-6 text-[14px] font-bold uppercase leading-none text-white transition xl:px-7 ${
                     active ? "bg-[rgba(36,51,168,.24)]" : "hover:bg-[rgba(255,255,255,.08)]"
                   }`}
                 >

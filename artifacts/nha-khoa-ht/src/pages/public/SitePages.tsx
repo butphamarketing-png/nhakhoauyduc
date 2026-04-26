@@ -218,7 +218,7 @@ function PublicLayout({
   softBackground?: boolean;
 }) {
   return (
-    <div className={softBackground ? "bg-[linear-gradient(180deg,#fff_0%,#f6f9ff_100%)]" : "bg-white"}>
+    <div className={softBackground ? "overflow-x-hidden bg-[linear-gradient(180deg,#fff_0%,#f6f9ff_100%)]" : "overflow-x-hidden bg-white"}>
       <Header />
       <main>{children}</main>
       <Footer />
