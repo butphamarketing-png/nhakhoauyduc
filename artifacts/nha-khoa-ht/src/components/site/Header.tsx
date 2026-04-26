@@ -65,8 +65,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_10px_28px_rgba(23,55,128,.08)]">
       <div className={`border-b border-slate-200 bg-white transition-all duration-300 ${scrolled ? "py-3" : "py-5"}`}>
-        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-4 sm:px-6">
-          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 lg:max-w-[350px]">
+        <div className="mx-auto flex max-w-[1720px] items-center justify-between gap-4 px-4 sm:px-6">
+          <Link href="/" className="flex min-w-[320px] flex-none items-center gap-3 xl:min-w-[380px]">
             <img
               src={LOGO_URL}
               alt={CLINIC_LOGO_ALT}
@@ -76,7 +76,7 @@ export function Header() {
               <div className="truncate text-[18px] font-extrabold uppercase leading-none text-[hsl(218,61%,27%)] sm:text-[21px]">
                 {CLINIC_PROFILE.name}
               </div>
-              <div className="mt-1 max-w-[430px] text-[14px] italic leading-6 text-slate-500">
+              <div className="mt-1 hidden max-w-[360px] text-[14px] italic leading-6 text-slate-500 xl:block">
                 {CLINIC_PROFILE.slogan}
               </div>
             </div>
@@ -154,7 +154,7 @@ export function Header() {
       </div>
 
       <div className="hidden bg-[linear-gradient(90deg,#5b67f6,#4d5cf3)] lg:block">
-        <div className="mx-auto flex max-w-[1320px] items-stretch">
+        <div className="mx-auto flex max-w-[1720px] items-stretch">
           <nav className="mx-auto flex flex-1 items-stretch justify-center overflow-hidden">
             {PRIMARY_NAV.map((item) => {
               const active = isActivePath(location, item.href);

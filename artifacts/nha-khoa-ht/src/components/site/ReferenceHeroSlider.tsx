@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { LOGO_URL } from "@/lib/api";
-import fallbackSlideOne from "../../../../../attached_assets/image_1776782870001.png";
-import fallbackSlideTwo from "../../../../../attached_assets/image_1776782883752.png";
-import fallbackSlideThree from "../../../../../attached_assets/image_1776782911811.png";
 
 type BannerSlide = {
   id: number;
@@ -16,23 +13,9 @@ type BannerSlide = {
 const FALLBACK_SLIDES: BannerSlide[] = [
   {
     id: 0,
-    title: "Phòng khám nha khoa gia đình tại Gia Kiệm",
+    title: "Grand Opening",
     subtitle: null,
-    imageUrl: fallbackSlideOne,
-    ctaText: null,
-  },
-  {
-    id: 1,
-    title: "Dịch vụ nha khoa nổi bật",
-    subtitle: null,
-    imageUrl: fallbackSlideTwo,
-    ctaText: null,
-  },
-  {
-    id: 2,
-    title: "Cảm nhận từ khách hàng",
-    subtitle: null,
-    imageUrl: fallbackSlideThree,
+    imageUrl: "https://nhakhoaht.com.vn/storage/slides/01JVBJ80VB94Y282TQJNJZXFV3.png",
     ctaText: null,
   },
 ];
