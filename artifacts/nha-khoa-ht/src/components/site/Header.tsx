@@ -36,7 +36,7 @@ function SocialCircle({
     <a
       href={href}
       aria-label={label}
-      className={`grid h-12 w-12 place-items-center rounded-full text-white transition hover:scale-105 ${className}`}
+      className={`grid h-11 w-11 place-items-center rounded-full text-white transition hover:scale-105 ${className}`}
     >
       {children}
     </a>
@@ -64,76 +64,80 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_10px_28px_rgba(23,55,128,.08)]">
-      <div className={`border-b border-slate-200 bg-white transition-all duration-300 ${scrolled ? "py-3" : "py-4"}`}>
-        <div className="mx-auto flex max-w-[1820px] items-center justify-between gap-4 px-6">
-          <Link href="/" className="flex min-w-0 items-center gap-4 xl:min-w-[290px]">
+      <div className={`border-b border-slate-200 bg-white transition-all duration-300 ${scrolled ? "py-3" : "py-5"}`}>
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-4 sm:px-6">
+          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 lg:max-w-[350px]">
             <img
               src={LOGO_URL}
               alt={CLINIC_LOGO_ALT}
-              className="h-20 w-20 rounded-full border border-slate-200 bg-white object-cover shadow-sm"
+              className="h-16 w-16 rounded-full border border-slate-200 bg-white object-cover shadow-sm sm:h-[72px] sm:w-[72px]"
             />
             <div className="min-w-0">
-              <div className="truncate text-[26px] font-extrabold uppercase leading-none text-[hsl(218,61%,27%)]">
+              <div className="truncate text-[18px] font-extrabold uppercase leading-none text-[hsl(218,61%,27%)] sm:text-[21px]">
                 {CLINIC_PROFILE.name}
               </div>
-              <div className="mt-2 max-w-[500px] text-[15px] italic leading-8 text-slate-500">
+              <div className="mt-1 max-w-[430px] text-[14px] italic leading-6 text-slate-500">
                 {CLINIC_PROFILE.slogan}
               </div>
             </div>
           </Link>
 
-          <div className="hidden items-center xl:flex">
-            <div className="flex items-center gap-4 border-l border-slate-300 px-6">
-              <span className="grid h-14 w-14 place-items-center rounded-full bg-[hsl(228,90%,63%)]/14 text-[hsl(231,80%,58%)]">
-                <Clock3 className="h-7 w-7" />
+          <div className="hidden items-center gap-4 lg:flex xl:gap-5">
+            <div className="flex items-center gap-3 border-l border-slate-300 pl-5">
+              <span className="grid h-12 w-12 place-items-center rounded-full bg-[hsl(228,90%,63%)]/14 text-[hsl(231,80%,58%)]">
+                <Clock3 className="h-6 w-6" />
               </span>
-              <div className="text-[18px] leading-[1.45] text-slate-900">
+              <div className="text-[15px] leading-[1.45] text-slate-900">
                 <div>{CLINIC_PROFILE.hours.weekdays}</div>
                 <div>{CLINIC_PROFILE.hours.sunday}</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 border-l border-slate-300 px-6">
-              <span className="grid h-14 w-14 place-items-center rounded-full bg-[hsl(228,90%,63%)]/14 text-[hsl(231,80%,58%)]">
-                <Phone className="h-7 w-7" />
+            <div className="flex items-center gap-3 border-l border-slate-300 pl-5">
+              <span className="grid h-12 w-12 place-items-center rounded-full bg-[hsl(228,90%,63%)]/14 text-[hsl(231,80%,58%)]">
+                <Phone className="h-6 w-6" />
               </span>
               <div className="leading-tight">
-                <div className="text-[17px] text-slate-900">Hotline</div>
-                <div className="mt-1 text-[20px] font-bold text-slate-950">{CLINIC_PROFILE.hotline}</div>
+                <div className="text-[15px] text-slate-900">Hotline</div>
+                <div className="mt-1 text-[17px] font-bold text-slate-950">{CLINIC_PROFILE.hotline}</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 border-l border-slate-300 px-6">
+            <div className="flex items-center gap-3 border-l border-slate-300 pl-5">
               <SocialCircle href={CLINIC_PROFILE.social.facebook} label="Facebook" className="bg-[#4069e5]">
-                <Facebook className="h-6 w-6" />
+                <Facebook className="h-5 w-5" />
               </SocialCircle>
               <SocialCircle href={CLINIC_PROFILE.social.youtube} label="YouTube" className="bg-[#ff2a23]">
-                <Youtube className="h-6 w-6" />
+                <Youtube className="h-5 w-5" />
               </SocialCircle>
               <SocialCircle href={CLINIC_PROFILE.social.tiktok} label="TikTok" className="bg-[#4b59e6]">
-                <FaTiktok className="h-5 w-5" />
+                <FaTiktok className="h-4 w-4" />
               </SocialCircle>
               <SocialCircle href={CLINIC_PROFILE.social.instagram} label="Instagram" className="bg-[#6d55f5]">
-                <Instagram className="h-6 w-6" />
+                <Instagram className="h-5 w-5" />
               </SocialCircle>
-              <SocialCircle href={CLINIC_PROFILE.social.zalo} label="Zalo" className="bg-[#5464ff] text-[11px] font-bold uppercase tracking-[0.08em]">
+              <SocialCircle
+                href={CLINIC_PROFILE.social.zalo}
+                label="Zalo"
+                className="bg-[#5464ff] text-[10px] font-bold uppercase tracking-[0.08em]"
+              >
                 Zalo
               </SocialCircle>
             </div>
 
-            <div className="flex items-center gap-5 border-l border-slate-300 pl-7">
+            <div className="flex items-center gap-4 border-l border-slate-300 pl-5">
               <Link
                 href="/lien-he#booking"
-                className="inline-flex min-w-[255px] items-center justify-center rounded-full bg-[linear-gradient(180deg,#5f6dff,#2839b9)] px-8 py-4 text-[18px] font-bold uppercase tracking-[0.04em] text-white shadow-[0_10px_22px_rgba(48,67,177,.24)] transition hover:translate-y-[-1px]"
+                className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[linear-gradient(180deg,#5f6dff,#2839b9)] px-7 py-4 text-[16px] font-bold uppercase tracking-[0.04em] text-white shadow-[0_10px_22px_rgba(48,67,177,.24)] transition hover:translate-y-[-1px]"
               >
                 ĐẶT HẸN
               </Link>
               <button
                 type="button"
-                className="grid h-14 w-14 place-items-center text-[hsl(231,80%,58%)]"
+                className="grid h-11 w-11 place-items-center text-[hsl(231,80%,58%)]"
                 aria-label="Mở menu"
               >
-                <Menu className="h-10 w-10 stroke-[1.75]" />
+                <Menu className="h-8 w-8 stroke-[1.75]" />
               </button>
             </div>
           </div>
@@ -141,7 +145,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="grid h-12 w-12 place-items-center rounded-2xl border border-slate-200 text-[hsl(218,61%,27%)] transition hover:bg-slate-50 xl:hidden"
+            className="grid h-12 w-12 place-items-center rounded-2xl border border-slate-200 text-[hsl(218,61%,27%)] transition hover:bg-slate-50 lg:hidden"
             aria-label={open ? "Đóng menu" : "Mở menu"}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -149,16 +153,16 @@ export function Header() {
         </div>
       </div>
 
-      <div className="hidden bg-[linear-gradient(90deg,#5b67f6,#4d5cf3)] xl:block">
-        <div className="mx-auto flex max-w-[1820px] items-stretch px-0">
-          <nav className="mx-auto flex flex-1 items-stretch justify-center">
+      <div className="hidden bg-[linear-gradient(90deg,#5b67f6,#4d5cf3)] lg:block">
+        <div className="mx-auto flex max-w-[1320px] items-stretch">
+          <nav className="mx-auto flex flex-1 items-stretch justify-center overflow-hidden">
             {PRIMARY_NAV.map((item) => {
               const active = isActivePath(location, item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`inline-flex items-center justify-center whitespace-nowrap px-16 py-[26px] text-[18px] font-bold uppercase leading-none text-white transition ${
+                  className={`inline-flex items-center justify-center whitespace-nowrap px-7 py-6 text-[15px] font-bold uppercase leading-none text-white transition xl:px-8 ${
                     active ? "bg-[rgba(36,51,168,.24)]" : "hover:bg-[rgba(255,255,255,.08)]"
                   }`}
                 >
@@ -169,16 +173,16 @@ export function Header() {
           </nav>
           <button
             type="button"
-            className="grid w-24 place-items-center text-white transition hover:bg-[rgba(255,255,255,.08)]"
+            className="grid w-20 place-items-center text-white transition hover:bg-[rgba(255,255,255,.08)]"
             aria-label="Tìm kiếm"
           >
-            <Search className="h-8 w-8 stroke-[1.9]" />
+            <Search className="h-7 w-7 stroke-[1.9]" />
           </button>
         </div>
       </div>
 
       <div
-        className={`overflow-hidden border-t border-slate-200 bg-white transition-all duration-300 xl:hidden ${
+        className={`overflow-hidden border-t border-slate-200 bg-white transition-all duration-300 lg:hidden ${
           open ? "max-h-[85vh] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
