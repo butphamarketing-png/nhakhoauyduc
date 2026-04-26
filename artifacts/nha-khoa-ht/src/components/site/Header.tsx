@@ -76,9 +76,6 @@ export function Header() {
               <div className="truncate text-[18px] font-extrabold uppercase leading-none text-[hsl(218,61%,27%)] sm:text-[21px]">
                 {CLINIC_PROFILE.name}
               </div>
-              <div className="mt-1 hidden max-w-[360px] text-[14px] italic leading-6 text-slate-500 xl:block">
-                {CLINIC_PROFILE.slogan}
-              </div>
             </div>
           </Link>
 
