@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -68,8 +67,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
 :root {
   --button-outline: rgba(0,0,0, .10);
   --badge-outline: rgba(0,0,0, .05);
@@ -79,59 +76,57 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  /* Clean Medical Blue and Gold Palette */
-  /* Blue primary: 215 80% 35% */
-  /* Gold accent: 45 90% 55% */
+  /* Clean, high-contrast palette for a trustworthy dental brand. */
 
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  --background: 215 45% 98%;
+  --foreground: 222 44% 13%;
 
-  --border: 214.3 31.8% 91.4%;
+  --border: 214 31% 88%;
   --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --card-border: 214.3 31.8% 91.4%;
+  --card-foreground: 222 44% 13%;
+  --card-border: 214 31% 88%;
 
-  --sidebar: 215 80% 20%;
+  --sidebar: 221 69% 26%;
   --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 215 80% 15%;
-  --sidebar-primary: 45 90% 55%;
-  --sidebar-primary-foreground: 222.2 84% 4.9%;
-  --sidebar-accent: 215 80% 25%;
+  --sidebar-border: 221 69% 20%;
+  --sidebar-primary: 38 94% 61%;
+  --sidebar-primary-foreground: 222 44% 13%;
+  --sidebar-accent: 220 60% 32%;
   --sidebar-accent-foreground: 0 0% 100%;
-  --sidebar-ring: 45 90% 55%;
+  --sidebar-ring: 221 72% 45%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --popover-border: 214.3 31.8% 91.4%;
+  --popover-foreground: 222 44% 13%;
+  --popover-border: 214 31% 88%;
 
-  --primary: 215 80% 35%;
+  --primary: 221 69% 39%;
   --primary-foreground: 210 40% 98%;
 
-  --secondary: 45 90% 55%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 38 94% 61%;
+  --secondary-foreground: 222 44% 13%;
 
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted: 215 42% 95%;
+  --muted-foreground: 220 16% 35%;
 
-  --accent: 45 90% 55%;
-  --accent-foreground: 222.2 47.4% 11.2%;
+  --accent: 187 44% 92%;
+  --accent-foreground: 221 69% 26%;
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --input: 214.3 31.8% 91.4%;
-  --ring: 215 80% 35%;
+  --input: 214 31% 88%;
+  --ring: 221 69% 39%;
 
-  --chart-1: 215 80% 35%;
-  --chart-2: 45 90% 55%;
-  --chart-3: 215 50% 60%;
-  --chart-4: 45 80% 70%;
-  --chart-5: 220 30% 80%;
+  --chart-1: 221 69% 39%;
+  --chart-2: 38 94% 61%;
+  --chart-3: 188 47% 46%;
+  --chart-4: 214 59% 68%;
+  --chart-5: 221 34% 80%;
 
-  --app-font-sans: 'Poppins', sans-serif;
-  --app-font-serif: Georgia, serif;
+  --app-font-sans: 'Be Vietnam Pro', sans-serif;
+  --app-font-serif: 'Plus Jakarta Sans', sans-serif;
   --app-font-mono: Menlo, monospace;
-  --radius: 0.75rem; /* softer corners */
+  --radius: 1rem;
 
   --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
@@ -216,7 +211,163 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at top left, rgba(233, 240, 255, 0.9), transparent 28%),
+      linear-gradient(180deg, #f8fbff 0%, #ffffff 24%, #f7fbff 100%);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif tracking-tight text-slate-950;
+  }
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    @apply transition duration-200 ease-out;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-white;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .motion-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .motion-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .motion-enter {
+    animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .motion-enter-delay-1 { animation-delay: 0.08s; }
+  .motion-enter-delay-2 { animation-delay: 0.16s; }
+  .motion-enter-delay-3 { animation-delay: 0.24s; }
+  .motion-enter-delay-4 { animation-delay: 0.32s; }
+  .motion-enter-delay-5 { animation-delay: 0.4s; }
+
+  .hero-image-float {
+    animation:
+      rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+      float-gentle 7s ease-in-out 1.2s infinite;
+    transform-origin: center;
+  }
+
+  .premium-panel {
+    border: 1px solid rgba(226, 232, 240, 0.82);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 255, 0.94)),
+      radial-gradient(circle at top right, rgba(37, 80, 181, 0.08), transparent 42%);
+    box-shadow:
+      0 18px 38px rgba(15, 39, 103, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+  }
+
+  .premium-card {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 252, 255, 0.96)),
+      radial-gradient(circle at top right, rgba(37, 80, 181, 0.06), transparent 46%);
+  }
+
+  .loading-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .loading-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(90deg);
+  }
+
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease;
+  }
+
+  .faq-answer > * {
+    overflow: hidden;
+  }
+
+  .faq-item[open] .faq-answer {
+    grid-template-rows: 1fr;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
   }
 }

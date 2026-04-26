@@ -9,7 +9,11 @@ export default function LoginPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const login = useAdminLogin();
-  const { register, handleSubmit, formState: { isSubmitting } } = useForm<{
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<{
     email: string;
     password: string;
   }>({

@@ -111,7 +111,7 @@ export function BannersAdmin() {
                   </button>
                   <button
                     onClick={async () => {
-                      if (!confirm("Xoá banner này?")) return;
+                      if (!confirm("Xóa banner này?")) return;
                       await remove.mutateAsync({ id: b.id });
                       qc.invalidateQueries();
                     }}
@@ -135,7 +135,7 @@ export function BannersAdmin() {
           <input {...register("sortOrder")} type="number" placeholder="Thứ tự" className="w-full px-3 py-2 border rounded" />
           <div className="flex justify-end gap-2">
             <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 border rounded">
-              Huỷ
+              Hủy
             </button>
             <button className="px-4 py-2 bg-[hsl(215,80%,35%)] text-white rounded">Lưu</button>
           </div>

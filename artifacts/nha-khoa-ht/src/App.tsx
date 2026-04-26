@@ -4,16 +4,37 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
-import LandingPage from "@/pages/public/LandingPage";
 import LoginPage from "@/pages/admin/LoginPage";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
+import {
+  AboutPage,
+  ContactPage,
+  HomePage,
+  KnowledgePage,
+  NewsPage,
+  PostDetailPage,
+  PromotionsPage,
+  ReviewsPage,
+  ServiceDetailPage,
+  ServicesPage,
+} from "@/pages/public/SitePages";
 
 const queryClient = new QueryClient();
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={LandingPage} />
+      <Route path="/" component={HomePage} />
+      <Route path="/gioi-thieu" component={AboutPage} />
+      <Route path="/dich-vu" component={ServicesPage} />
+      <Route path="/dich-vu/:slug" component={ServiceDetailPage} />
+      <Route path="/kien-thuc" component={KnowledgePage} />
+      <Route path="/kien-thuc/:slug" component={PostDetailPage} />
+      <Route path="/tin-tuc" component={NewsPage} />
+      <Route path="/tin-tuc/:slug" component={PostDetailPage} />
+      <Route path="/khuyen-mai" component={PromotionsPage} />
+      <Route path="/nhan-xet" component={ReviewsPage} />
+      <Route path="/lien-he" component={ContactPage} />
       <Route path="/admin/login" component={LoginPage} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/:page" component={AdminDashboard} />

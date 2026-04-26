@@ -1,93 +1,138 @@
-import { Phone, MapPin, Mail, Clock, Facebook, Youtube, Instagram, Globe } from "lucide-react";
+import { useListServices } from "@workspace/api-client-react";
 import {
-  HOTLINE,
-  HOTLINE_DISPLAY,
-  ADDRESS,
-  CLINIC_NAME,
-  CLINIC_EMAIL,
-  CLINIC_WEBSITE,
-  LOGO_URL,
-  SOCIAL,
-} from "@/lib/api";
+  Facebook,
+  Globe,
+  Instagram,
+  Mail,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Youtube,
+} from "lucide-react";
+import { Link } from "wouter";
+import { CLINIC_LOGO_ALT, LOGO_URL } from "@/lib/api";
+import {
+  CLINIC_PROFILE,
+  FOOTER_POLICIES,
+  GOOGLE_MAPS_URL,
+  SITE_NAV,
+  slugify,
+} from "@/lib/site";
 
 export function Footer() {
+  const { data: services = [] } = useListServices();
+
   return (
-    <footer id="contact" className="bg-[hsl(215,80%,18%)] text-white pt-14 pb-6">
-      <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
+    <footer className="bg-[linear-gradient(160deg,hsl(223,68%,19%),hsl(226,55%,14%))] text-white">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-2 xl:grid-cols-[1.1fr_.9fr_.9fr_.9fr]">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img src={LOGO_URL} alt={CLINIC_NAME} className="w-14 h-14 rounded-full bg-white p-1" />
-            <div className="font-bold text-lg leading-tight">{CLINIC_NAME}</div>
+          <div className="flex items-center gap-4">
+            <img src={LOGO_URL} alt={CLINIC_LOGO_ALT} className="h-16 w-16 rounded-2xl border border-white/10 bg-white object-cover" />
+            <div>
+              <div className="text-lg font-bold uppercase tracking-[0.08em]">{CLINIC_PROFILE.name}</div>
+              <div className="mt-1 text-sm text-blue-100">{CLINIC_PROFILE.slogan}</div>
+            </div>
           </div>
-          <p className="text-sm text-blue-100 mb-4">
-            Phòng khám nha khoa uy tín tại Gia Kiệm – Đồng Nai. Tận tâm chăm sóc nụ cười Việt với đội ngũ bác sĩ giàu kinh nghiệm.
+          <p className="mt-5 max-w-md text-sm leading-7 text-blue-100/95">
+            {CLINIC_PROFILE.description}
           </p>
-          <div className="flex gap-2">
-            <a href={SOCIAL.facebook} className="w-9 h-9 rounded-full bg-white/10 grid place-items-center hover:bg-[#3b5998] transition" aria-label="Facebook">
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            <a href={CLINIC_PROFILE.social.facebook} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-white/20" aria-label="Facebook">
               <Facebook className="h-4 w-4" />
             </a>
-            <a href={SOCIAL.youtube} className="w-9 h-9 rounded-full bg-white/10 grid place-items-center hover:bg-[#ff0000] transition" aria-label="Youtube">
+            <a href={CLINIC_PROFILE.social.youtube} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-white/20" aria-label="YouTube">
               <Youtube className="h-4 w-4" />
             </a>
-            <a href={SOCIAL.instagram} className="w-9 h-9 rounded-full bg-white/10 grid place-items-center hover:bg-pink-600 transition" aria-label="Instagram">
+            <a href={CLINIC_PROFILE.social.instagram} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-white/20" aria-label="Instagram">
               <Instagram className="h-4 w-4" />
             </a>
           </div>
+
+          <a
+            href={GOOGLE_MAPS_URL}
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
+          >
+            <MapPin className="h-4 w-4 text-[hsl(45,90%,65%)]" />
+            Xem bản đồ và chỉ đường
+          </a>
         </div>
 
         <div>
-          <h4 className="font-semibold mb-4 text-[hsl(45,90%,55%)]">Dịch vụ</h4>
-          <ul className="space-y-2 text-sm text-blue-100">
-            <li>Trám răng – nhổ răng</li>
-            <li>Tẩy trắng răng</li>
-            <li>Chữa tủy nội nha</li>
-            <li>Phục hình tháo lắp</li>
-            <li>Răng sứ Zirconia</li>
-            <li>Cấy ghép Implant</li>
-          </ul>
+          <div className="text-lg font-semibold">Dịch vụ nổi bật</div>
+          <div className="mt-5 space-y-3 text-sm text-blue-100">
+            {(services as { id: number; name: string }[]).slice(0, 6).map((service) => (
+              <Link
+                key={service.id}
+                href={`/dich-vu/${slugify(service.name)}`}
+                className="block transition hover:text-white"
+              >
+                {service.name}
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div>
-          <h4 className="font-semibold mb-4 text-[hsl(45,90%,55%)]">Liên hệ</h4>
-          <ul className="space-y-3 text-sm text-blue-100">
-            <li className="flex gap-2">
-              <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <span>{ADDRESS}</span>
-            </li>
-            <li className="flex gap-2">
-              <Phone className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <a href={`tel:${HOTLINE}`}>{HOTLINE_DISPLAY}</a>
-            </li>
-            <li className="flex gap-2">
-              <Mail className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <span>{CLINIC_EMAIL}</span>
-            </li>
-            <li className="flex gap-2">
-              <Globe className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <span>{CLINIC_WEBSITE}</span>
-            </li>
-            <li className="flex gap-2">
-              <Clock className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <span>T2–T7: 8h–20h • CN: 8h–12h</span>
-            </li>
-          </ul>
+          <div className="text-lg font-semibold">Thông tin liên hệ</div>
+          <div className="mt-5 space-y-4 text-sm text-blue-100">
+            <a href={`tel:${CLINIC_PROFILE.hotline.replace(/\s+/g, "")}`} className="flex items-start gap-3 transition hover:text-white">
+              <Phone className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(45,90%,65%)]" />
+              <span>{CLINIC_PROFILE.hotline}</span>
+            </a>
+            <a href={GOOGLE_MAPS_URL} className="flex items-start gap-3 transition hover:text-white">
+              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(45,90%,65%)]" />
+              <span>{CLINIC_PROFILE.fullAddress}</span>
+            </a>
+            <a href={`mailto:${CLINIC_PROFILE.email}`} className="flex items-start gap-3 transition hover:text-white">
+              <Mail className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(45,90%,65%)]" />
+              <span>{CLINIC_PROFILE.email}</span>
+            </a>
+            <a href={CLINIC_PROFILE.siteUrl} className="flex items-start gap-3 transition hover:text-white">
+              <Globe className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(45,90%,65%)]" />
+              <span>{CLINIC_PROFILE.website}</span>
+            </a>
+          </div>
+
+          <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-white/5 p-4 text-sm text-blue-100">
+            <div className="font-semibold text-white">Giờ làm việc</div>
+            <div className="mt-2">{CLINIC_PROFILE.hours.weekdays}</div>
+            <div>{CLINIC_PROFILE.hours.sunday}</div>
+          </div>
         </div>
 
         <div>
-          <h4 className="font-semibold mb-4 text-[hsl(45,90%,55%)]">Thông tin</h4>
-          <ul className="space-y-2 text-sm text-blue-100">
-            <li><a href="#about" className="hover:text-white">Giới thiệu</a></li>
-            <li><a href="#blog" className="hover:text-white">Tin tức – Kiến thức</a></li>
-            <li><a href="#feedback" className="hover:text-white">Cảm nhận khách hàng</a></li>
-            <li><a href="#promotions" className="hover:text-white">Khuyến mãi</a></li>
-            <li><a href="#booking" className="hover:text-white">Đặt lịch hẹn</a></li>
-            <li><a href="/admin/login" className="hover:text-white">Đăng nhập quản trị</a></li>
-          </ul>
+          <div className="text-lg font-semibold">Điều hướng nhanh</div>
+          <div className="mt-5 space-y-3 text-sm text-blue-100">
+            {SITE_NAV.map((item) => (
+              <Link key={item.href} href={item.href} className="block transition hover:text-white">
+                {item.label}
+              </Link>
+            ))}
+            <Link href="/admin/login" className="block transition hover:text-white">
+              Đăng nhập quản trị
+            </Link>
+          </div>
+
+          <div className="mt-6 text-sm font-semibold uppercase tracking-[0.16em] text-[hsl(45,90%,65%)]">
+            Chính sách
+          </div>
+          <div className="mt-3 space-y-3 text-sm text-blue-100">
+            {FOOTER_POLICIES.map((policy) => (
+              <div key={policy} className="flex items-start gap-2">
+                <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(45,90%,65%)]" />
+                <span>{policy}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10 mt-10 pt-6 text-center text-sm text-blue-200">
-        © {new Date().getFullYear()} {CLINIC_NAME}. Tất cả các quyền được bảo lưu.
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-sm text-blue-100 md:flex-row md:items-center md:justify-between">
+          <div>© {new Date().getFullYear()} {CLINIC_PROFILE.name}. Tất cả quyền được bảo lưu.</div>
+          <div>{CLINIC_PROFILE.shortAddress}</div>
+        </div>
       </div>
     </footer>
   );

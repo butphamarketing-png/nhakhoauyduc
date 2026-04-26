@@ -57,7 +57,17 @@ export function FeedbackAdmin() {
   });
 
   const toggleApprove = async (f: Feedback) => {
-    await update.mutateAsync({ id: f.id, data: { approved: !f.approved } });
+    await update.mutateAsync({
+      id: f.id,
+      data: {
+        name: f.name,
+        service: f.service,
+        content: f.content,
+        rating: f.rating,
+        imageUrl: f.imageUrl,
+        approved: !f.approved,
+      },
+    });
     qc.invalidateQueries();
   };
 
@@ -111,7 +121,7 @@ export function FeedbackAdmin() {
                   </button>
                   <button
                     onClick={async () => {
-                      if (!confirm("Xoá?")) return;
+                      if (!confirm("Xóa?")) return;
                       await remove.mutateAsync({ id: f.id });
                       qc.invalidateQueries();
                     }}
@@ -139,7 +149,7 @@ export function FeedbackAdmin() {
             <input type="checkbox" {...register("approved")} /> Duyệt hiển thị
           </label>
           <div className="flex justify-end gap-2">
-            <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 border rounded">Huỷ</button>
+            <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 border rounded">Hủy</button>
             <button className="px-4 py-2 bg-[hsl(215,80%,35%)] text-white rounded">Lưu</button>
           </div>
         </form>

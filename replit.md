@@ -1,4 +1,4 @@
-# Nha Khoa HT — Dental Clinic Website
+# Nha Khoa HT - Dental Clinic Website
 
 Vietnamese dental clinic website with public landing page and admin dashboard.
 
@@ -8,7 +8,7 @@ Vietnamese dental clinic website with public landing page and admin dashboard.
 - **API**: Express + Drizzle ORM (`artifacts/api-server`, served at `/api`)
 - **Database**: PostgreSQL (Replit-provisioned)
 - **Auth**: Cookie-based session for admin (`nkht_admin` cookie)
-- **API Codegen**: OpenAPI spec at `lib/api-spec/openapi.yaml` → `@workspace/api-client-react` and `@workspace/api-zod`
+- **API Codegen**: OpenAPI spec at `lib/api-spec/openapi.yaml` -> `@workspace/api-client-react` and `@workspace/api-zod`
 
 ## Brand
 - Hotline: **0974166440**
@@ -17,21 +17,21 @@ Vietnamese dental clinic website with public landing page and admin dashboard.
 - Fonts: Poppins, Roboto
 
 ## Public Page Sections (`/`)
-Header with hotline → hero slideshow → quick contact bar → about → services slider →
-5 commitments → animated stats → promotions → testimonials → booking form → blog → footer.
+Header with hotline -> hero slideshow -> quick contact bar -> about -> services slider ->
+5 commitments -> animated stats -> promotions -> testimonials -> booking form -> blog -> footer.
 Floating call/zalo/booking buttons.
 
 ## Admin (`/admin`)
 - Login: `/admin/login` (default: `admin@nhakhoaht.vn` / `admin123`)
 - Pages: dashboard overview (charts), banners, services, promotions, feedback, posts, bookings, settings
-- Booking statuses: "Chưa xử lý", "Đã liên hệ", "Hoàn tất", "Huỷ"
+- Booking statuses: `"Chưa xử lý"`, `"Đã liên hệ"`, `"Hoàn tất"`, `"Hủy"`
 
 ## Database (Drizzle, `lib/db/src/schema/index.ts`)
 Tables: `admins`, `banners`, `services`, `promotions`, `feedback`, `posts`, `bookings`, `settings`
 
 ## Seeding
 Seed script at `artifacts/api-server/src/seed.ts`. Run via:
-```
+```bash
 pnpm exec esbuild artifacts/api-server/src/seed.ts --bundle --platform=node --format=esm \
   --outfile=artifacts/api-server/dist/seed.mjs \
   --banner:js="import { createRequire as __cr } from 'node:module'; globalThis.require = __cr(import.meta.url);"
