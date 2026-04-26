@@ -16,6 +16,7 @@ import { Footer } from "@/components/site/Footer";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { ReferenceHeroSlider } from "@/components/site/ReferenceHeroSlider";
 import { AboutPreviewSection } from "@/components/site/AboutPreviewSection";
+import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
 import { SeoHead } from "@/components/site/SeoHead";
 import {
   buildArticleSchema,
@@ -1443,7 +1444,7 @@ export function HomePage() {
       <ReferenceHeroSlider banners={banners} />
       <QuickLeadForm />
       <AboutPreviewSection imageUrl={services[0]?.imageUrl || LOGO_URL} />
-      <ServicesPreview services={services} loading={servicesQuery.isLoading} />
+      <FeaturedServicesSection services={services} />
       <CommitmentsSection />
       <StatsSection />
       <PromotionsPreview promotions={promotions} loading={promotionsQuery.isLoading} />
