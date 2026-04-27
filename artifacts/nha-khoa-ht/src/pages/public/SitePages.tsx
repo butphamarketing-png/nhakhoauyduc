@@ -52,6 +52,7 @@ import { LOGO_URL } from "@/lib/api";
 import {
   FALLBACK_ABOUT_IMAGE,
   FALLBACK_FEEDBACK,
+  FALLBACK_POSTS,
   FALLBACK_PROMOTIONS,
   FALLBACK_SERVICES,
 } from "@/lib/fallback-content";
@@ -125,6 +126,10 @@ type FeedbackItem = {
 
 function withFallbackFeedback(items: FeedbackItem[]) {
   return items.length ? items : (FALLBACK_FEEDBACK as FeedbackItem[]);
+}
+
+function withFallbackPosts(items: PostItem[]) {
+  return items.length ? items : (FALLBACK_POSTS as PostItem[]);
 }
 
 const phoneRules = {
@@ -885,109 +890,119 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
   }>();
 
   return (
-    <section id="booking" className="relative overflow-hidden bg-[linear-gradient(135deg,hsl(223,68%,39%),hsl(226,55%,23%))] py-20">
-      <div className="pointer-events-none absolute -left-12 top-10 h-52 w-52 rounded-full bg-white/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-48 w-48 rounded-full bg-[hsl(42,94%,58%)]/15 blur-3xl" />
-      <Reveal className="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-        <div className="text-white">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm">
-            <CalendarDays className="h-4 w-4 text-[hsl(42,94%,58%)]" />
-            Đặt lịch thăm khám
-          </div>
-          <h2 className="mt-4 text-4xl font-bold">Đăng ký lịch hẹn chỉ với vài thông tin cơ bản</h2>
-          <p className="mt-4 text-lg text-blue-50/95">
-            Bạn có thể để lại nhu cầu chính ngay bây giờ, đội ngũ sẽ liên hệ xác nhận lại để chốt lịch phù hợp.
-          </p>
-          <div className="mt-8 grid gap-4">
-            {BOOKING_STEPS.map((item, index) => (
-              <div key={item} className="flex items-start gap-4 rounded-[1.4rem] bg-white/10 p-4 backdrop-blur">
-                <div className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full bg-[hsl(42,94%,58%)] text-[hsl(223,68%,18%)] font-bold">
-                  {index + 1}
+    <section id="booking" className="relative overflow-hidden bg-[linear-gradient(180deg,#eef4ff_0%,#d8e5ff_100%)] py-18 sm:py-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top_left,rgba(53,101,215,.16),transparent_55%)]" />
+      <Reveal className="mx-auto max-w-7xl px-4">
+        <div className="grid gap-8 rounded-[2.4rem] border border-white/70 bg-[linear-gradient(135deg,rgba(29,60,146,.96),rgba(29,55,122,.94))] p-6 shadow-[0_28px_72px_rgba(16,37,96,.18)] lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:p-8">
+          <div className="text-white">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-1.5 text-sm">
+              <CalendarDays className="h-4 w-4 text-[hsl(42,94%,58%)]" />
+              ??t l?ch th?m kh?m
+            </div>
+            <h2 className="mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-[2.6rem]">
+              ??ng k? l?ch h?n v?i c?m gi?c r? r?ng, nh? nh?ng v? ?t b??c h?n.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-8 text-blue-50/92">
+              B?n ch? c?n ?? l?i th?ng tin c? b?n. Ph?ng kh?m s? g?i l?i ?? x?c nh?n nhu c?u, khung gi? ph? h?p v? h??ng d?n tr??c khi ??n.
+            </p>
+            <div className="mt-7 space-y-3">
+              {BOOKING_STEPS.map((item, index) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-4 rounded-[1.5rem] border border-white/12 bg-white/8 px-4 py-4 backdrop-blur"
+                >
+                  <div className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full bg-[hsl(42,94%,58%)] text-[hsl(223,68%,18%)] font-bold shadow-sm">
+                    {index + 1}
+                  </div>
+                  <div className="text-[15px] leading-7 text-blue-50">{item}</div>
                 </div>
-                <div className="pt-1 text-blue-50">{item}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <form
-          onSubmit={handleSubmit(async (data) => {
-            try {
-              await create.mutateAsync({ data });
-              toast({
-                title: "Đặt lịch thành công",
-                description: "Phòng khám sẽ liên hệ lại để xác nhận lịch phù hợp với bạn.",
-              });
-              reset();
-            } catch {
-              toast({
-                title: "Chưa gửi được lịch hẹn",
-                description: "Vui lòng thử lại hoặc gọi trực tiếp hotline để được hỗ trợ nhanh hơn.",
-                variant: "destructive",
-              });
-            }
-          })}
-          className="premium-panel rounded-[2rem] bg-white p-7 shadow-[0_25px_70px_rgba(16,31,88,.25)]"
-        >
-          <div className="mb-5">
-            <div className="text-sm font-semibold uppercase tracking-[0.18em] text-[hsl(223,68%,39%)]">
-              Nhận lịch tư vấn
+              ))}
             </div>
-            <div className="mt-2 text-2xl font-bold text-[hsl(223,68%,24%)]">
-              Phù hợp cho khách mới và khách tái khám
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-blue-50/90">
+              <Phone className="h-4 w-4 text-[hsl(42,94%,58%)]" />
+              N?u c?n g?p, b?n v?n c? th? g?i tr?c ti?p {CLINIC_PROFILE.hotline}
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <input
-                {...register("name", { required: "Vui lòng nhập họ và tên" })}
-                placeholder="Họ và tên *"
-                className="h-12 w-full rounded-2xl border border-slate-200 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
-              />
-              <FieldError message={errors.name?.message} />
-            </div>
-            <div>
-              <input
-                {...register("phone", phoneRules)}
-                placeholder="Số điện thoại *"
-                className="h-12 w-full rounded-2xl border border-slate-200 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
-              />
-              <FieldError message={errors.phone?.message} />
-            </div>
-            <div>
-              <select
-                {...register("service")}
-                className="h-12 w-full rounded-2xl border border-slate-200 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
-              >
-                <option value="">Chọn dịch vụ quan tâm</option>
-                {services.map((service) => (
-                  <option key={service.id} value={service.name}>
-                    {service.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <input
-                {...register("appointmentTime")}
-                type="datetime-local"
-                className="h-12 w-full rounded-2xl border border-slate-200 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
-              />
-            </div>
-          </div>
-
-          <button
-            disabled={isSubmitting}
-            className={`mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[hsl(42,94%,58%)] px-6 py-3 font-semibold text-[hsl(223,68%,18%)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60 ${isSubmitting ? "animate-pulse" : ""}`}
+          <form
+            onSubmit={handleSubmit(async (data) => {
+              try {
+                await create.mutateAsync({ data });
+                toast({
+                  title: "??t l?ch th?nh c?ng",
+                  description: "Ph?ng kh?m s? li?n h? l?i ?? x?c nh?n l?ch ph? h?p v?i b?n.",
+                });
+                reset();
+              } catch {
+                toast({
+                  title: "Ch?a g?i ???c l?ch h?n",
+                  description: "Vui l?ng th? l?i ho?c g?i tr?c ti?p hotline ?? ???c h? tr? nhanh h?n.",
+                  variant: "destructive",
+                });
+              }
+            })}
+            className="rounded-[2rem] bg-white p-6 shadow-[0_30px_80px_rgba(15,31,88,.18)] ring-1 ring-white/60 lg:p-8"
           >
-            {isSubmitting ? "Đang gửi lịch..." : "Đặt lịch ngay"}
-            <ArrowRight className="h-4 w-4" />
-          </button>
-          <p className="mt-3 text-sm text-slate-500">
-            Sau khi nhận thông tin, phòng khám sẽ gọi lại để xác nhận khung giờ phù hợp.
-          </p>
-        </form>
+            <div className="mb-5">
+              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-[hsl(223,68%,39%)]">
+                Nh?n l?ch t? v?n
+              </div>
+              <div className="mt-2 text-[2rem] font-bold leading-tight text-[hsl(223,68%,24%)]">
+                Ph? h?p cho kh?ch m?i v? kh?ch t?i kh?m
+              </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <input
+                  {...register("name", { required: "Vui l?ng nh?p h? v? t?n" })}
+                  placeholder="H? v? t?n *"
+                  className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
+                />
+                <FieldError message={errors.name?.message} />
+              </div>
+              <div>
+                <input
+                  {...register("phone", phoneRules)}
+                  placeholder="S? ?i?n tho?i *"
+                  className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
+                />
+                <FieldError message={errors.phone?.message} />
+              </div>
+              <div>
+                <select
+                  {...register("service")}
+                  className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
+                >
+                  <option value="">Ch?n d?ch v? quan t?m</option>
+                  {services.map((service) => (
+                    <option key={service.id} value={service.name}>
+                      {service.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <input
+                  {...register("appointmentTime")}
+                  type="datetime-local"
+                  className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
+                />
+              </div>
+            </div>
+
+            <button
+              disabled={isSubmitting}
+              className={`mt-5 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[hsl(42,94%,58%)] px-6 py-3 font-semibold text-[hsl(223,68%,18%)] shadow-[0_14px_32px_rgba(251,191,36,.26)] transition hover:-translate-y-0.5 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60 ${isSubmitting ? "animate-pulse" : ""}`}
+            >
+              {isSubmitting ? "?ang g?i l?ch..." : "??t l?ch ngay"}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <p className="mt-4 text-sm leading-6 text-slate-500">
+              Sau khi nh?n th?ng tin, ph?ng kh?m s? g?i l?i ?? x?c nh?n khung gi? ph? h?p v? d?n tr??c nh?ng ?i?u c?n chu?n b?.
+            </p>
+          </form>
+        </div>
       </Reveal>
     </section>
   );
@@ -1025,6 +1040,8 @@ function PostCard({ post, basePath }: { post: PostItem; basePath: string }) {
 }
 
 function BlogPreview({ posts, loading = false }: { posts: PostItem[]; loading?: boolean }) {
+  const postsToShow = posts.length ? posts.slice(0, 3) : (FALLBACK_POSTS as PostItem[]).slice(0, 3);
+
   return (
     <section className="py-20">
       <Reveal className="mx-auto max-w-7xl px-4">
@@ -1060,7 +1077,7 @@ function BlogPreview({ posts, loading = false }: { posts: PostItem[]; loading?: 
                   <LoadingCard className="mt-2 h-4 w-4/5" />
                 </div>
               ))
-            : posts.slice(0, 3).map((post) => (
+            : postsToShow.map((post) => (
                 <PostCard key={post.id} post={post} basePath={getPostBasePath(post.category)} />
               ))}
         </div>
@@ -1447,7 +1464,7 @@ export function HomePage() {
   const services = withFallbackServices((servicesQuery.data ?? []) as ServiceItem[]);
   const promotions = withFallbackPromotions((promotionsQuery.data ?? []) as PromotionItem[]);
   const feedback = withFallbackFeedback((feedbackQuery.data ?? []) as FeedbackItem[]);
-  const posts = (postsQuery.data ?? []) as PostItem[];
+  const posts = withFallbackPosts((postsQuery.data ?? []) as PostItem[]);
 
   return (
     <PublicLayout softBackground>
@@ -1599,7 +1616,7 @@ export function ServiceDetailPage() {
 
 export function KnowledgePage() {
   const postsQuery = useListPosts();
-  const posts = (postsQuery.data ?? []) as PostItem[];
+  const posts = withFallbackPosts((postsQuery.data ?? []) as PostItem[]);
   const knowledgePosts = posts.filter((post) => getPostBasePath(post.category) === "/kien-thuc");
 
   return (
@@ -1628,7 +1645,7 @@ export function KnowledgePage() {
 
 export function NewsPage() {
   const postsQuery = useListPosts();
-  const posts = (postsQuery.data ?? []) as PostItem[];
+  const posts = withFallbackPosts((postsQuery.data ?? []) as PostItem[]);
   const newsPosts = posts.filter((post) => getPostBasePath(post.category) === "/tin-tuc");
 
   return (
@@ -1659,7 +1676,8 @@ export function PostDetailPage() {
   const { slug = "" } = useParams<{ slug: string }>();
   const [location] = useLocation();
   const { data: posts = [] } = useListPosts();
-  const post = (posts as PostItem[]).find((item) => slugify(item.title) === slug);
+  const usablePosts = withFallbackPosts(posts as PostItem[]);
+  const post = usablePosts.find((item) => slugify(item.title) === slug);
   const routeBasePath = location.startsWith("/tin-tuc") ? "/tin-tuc" : "/kien-thuc";
   const preferredBasePath = post ? getPostBasePath(post.category) : routeBasePath;
 
@@ -1696,7 +1714,7 @@ export function PostDetailPage() {
           />
           <PostDetailBody
             post={post}
-            latest={(posts as PostItem[]).filter((item) => item.id !== post.id).slice(0, 4)}
+            latest={usablePosts.filter((item) => item.id !== post.id).slice(0, 4)}
             basePath={preferredBasePath}
           />
         </>

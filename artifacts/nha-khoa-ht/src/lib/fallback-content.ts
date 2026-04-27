@@ -139,6 +139,42 @@ export const FALLBACK_FEEDBACK = [
   },
 ];
 
+export const FALLBACK_POSTS = [
+  {
+    id: 4001,
+    title: "Răng ê buốt kéo dài thì nên kiểm tra gì trước?",
+    excerpt:
+      "Những dấu hiệu như ê buốt khi uống lạnh, đau khi nhai hoặc nhức về đêm thường không nên tự bỏ qua quá lâu.",
+    content:
+      "Ê buốt kéo dài có thể liên quan đến men răng mòn, sâu răng, viêm nướu hoặc viêm tủy. Việc thăm khám sớm giúp xác định đúng nguyên nhân và tránh để cơn đau nặng hơn. Khi đến phòng khám, bác sĩ sẽ kiểm tra tình trạng hiện tại, chụp phim nếu cần và giải thích rõ phương án phù hợp trước khi điều trị.",
+    imageUrl: clinicConsultationImage,
+    category: "Kiến thức",
+    createdAt: "2026-04-20T08:00:00.000Z",
+  },
+  {
+    id: 4002,
+    title: "Niềng răng cần chuẩn bị gì để lịch hẹn đầu nhẹ nhàng hơn?",
+    excerpt:
+      "Chuẩn bị sẵn nhu cầu, hình dung mục tiêu và lịch sinh hoạt sẽ giúp buổi tư vấn đầu diễn ra rõ ràng và tiết kiệm thời gian hơn.",
+    content:
+      "Trước buổi tư vấn niềng răng, bạn nên ghi chú những vấn đề mình đang quan tâm như răng chen chúc, hô, móm hay thói quen ăn nhai. Bác sĩ sẽ đánh giá khớp cắn, tư vấn lộ trình và giải thích những giai đoạn quan trọng để bạn dễ cân nhắc trước khi bắt đầu.",
+    imageUrl: heroSmileImage,
+    category: "Kiến thức",
+    createdAt: "2026-04-16T08:00:00.000Z",
+  },
+  {
+    id: 4003,
+    title: "Ưu đãi thăm khám ban đầu cho khách đặt lịch sớm trong tuần",
+    excerpt:
+      "Một số khung giờ trong tuần được ưu tiên cho khách muốn kiểm tra tổng quát và nghe tư vấn rõ ràng trước khi quyết định điều trị.",
+    content:
+      "Phòng khám hiện mở thêm các khung giờ linh hoạt cho khách muốn thăm khám sớm trong tuần. Khi đặt lịch trước, bạn sẽ được giữ chỗ thuận tiện hơn, nhận hướng dẫn chuẩn bị trước buổi hẹn và dễ chủ động thời gian tái khám nếu cần.",
+    imageUrl: clinicLoungeImage,
+    category: "Tin tức",
+    createdAt: "2026-04-12T08:00:00.000Z",
+  },
+];
+
 export function getFallbackServiceImage(serviceName: string) {
   const name = serviceName.toLowerCase();
 
