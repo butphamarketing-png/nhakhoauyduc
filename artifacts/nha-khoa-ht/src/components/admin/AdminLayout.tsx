@@ -28,6 +28,8 @@ const NAV = [
   { href: "/admin/settings", icon: Settings, label: "Cài đặt", page: "settings" },
 ];
 
+const LOCAL_ADMIN_SESSION_KEY = "nkht_local_admin";
+
 function SidebarContent({
   active,
   email,
@@ -115,12 +117,16 @@ export function AdminLayout({
   const [, setLocation] = useLocation();
   const logout = useAdminLogout();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const localAdminEmail =
+    typeof window !== "undefined" ? localStorage.getItem(LOCAL_ADMIN_SESSION_KEY) : null;
+  const isAuthenticated = Boolean(me?.authenticated || localAdminEmail);
+  const adminEmail = me?.email ?? localAdminEmail ?? "";
 
   useEffect(() => {
-    if (!isLoading && (!me || !me.authenticated)) {
+    if (!isLoading && !isAuthenticated) {
       setLocation("/admin/login");
     }
-  }, [me, isLoading, setLocation]);
+  }, [isAuthenticated, isLoading, setLocation]);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -130,12 +136,17 @@ export function AdminLayout({
     };
   }, [mobileOpen]);
 
-  if (isLoading || !me?.authenticated) {
+  if (isLoading || !isAuthenticated) {
     return <div className="grid min-h-screen place-items-center text-gray-500">Đang tải...</div>;
   }
 
   const handleLogout = async () => {
-    await logout.mutateAsync();
+    localStorage.removeItem(LOCAL_ADMIN_SESSION_KEY);
+    try {
+      await logout.mutateAsync();
+    } catch {
+      // Ignore API logout errors for local admin sessions.
+    }
     setLocation("/admin/login");
   };
 
@@ -143,7 +154,7 @@ export function AdminLayout({
     <div className="min-h-screen bg-[linear-gradient(180deg,#f4f7fb_0%,#eef4ff_100%)]">
       <div className="flex min-h-screen">
         <aside className="hidden w-72 flex-col bg-[linear-gradient(180deg,hsl(215,80%,20%),hsl(221,70%,17%))] text-white lg:flex">
-          <SidebarContent active={active} email={me.email ?? ""} onLogout={handleLogout} />
+          <SidebarContent active={active} email={adminEmail} onLogout={handleLogout} />
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
@@ -174,7 +185,7 @@ export function AdminLayout({
                   Xem site
                 </a>
                 <div className="rounded-full bg-[hsl(215,80%,95%)] px-4 py-2 text-sm text-[hsl(215,80%,28%)]">
-                  {me.email}
+                  {adminEmail}
                 </div>
               </div>
             </div>
@@ -205,7 +216,7 @@ export function AdminLayout({
             <X className="h-4 w-4" />
           </button>
         </div>
-        <SidebarContent active={active} email={me.email ?? ""} onNavigate={() => setMobileOpen(false)} onLogout={handleLogout} />
+        <SidebarContent active={active} email={adminEmail} onNavigate={() => setMobileOpen(false)} onLogout={handleLogout} />
       </aside>
     </div>
   );

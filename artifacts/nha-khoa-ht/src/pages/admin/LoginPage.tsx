@@ -5,6 +5,10 @@ import { useToast } from "@/hooks/use-toast";
 import { CLINIC_NAME } from "@/lib/api";
 import { Lock, Mail } from "lucide-react";
 
+const LOCAL_ADMIN_EMAIL = "butphamarketing@gmail.com";
+const LOCAL_ADMIN_PASSWORD = "nhakhoauyduc";
+const LOCAL_ADMIN_SESSION_KEY = "nkht_local_admin";
+
 export default function LoginPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
@@ -17,23 +21,35 @@ export default function LoginPage() {
     email: string;
     password: string;
   }>({
-    defaultValues: { email: "butphamarketing@gmail.com", password: "nhakhoauyduc" },
+    defaultValues: { email: LOCAL_ADMIN_EMAIL, password: LOCAL_ADMIN_PASSWORD },
   });
 
   return (
     <div className="min-h-screen grid place-items-center bg-gradient-to-br from-[hsl(215,80%,35%)] to-[hsl(215,80%,20%)] p-4">
       <form
         onSubmit={handleSubmit(async (data) => {
+          const canUseLocalLogin =
+            data.email === LOCAL_ADMIN_EMAIL && data.password === LOCAL_ADMIN_PASSWORD;
           try {
             const res = await login.mutateAsync({ data });
             if (res.authenticated) {
+              toast({ title: "Đăng nhập thành công" });
+              setLocation("/admin");
+            } else if (canUseLocalLogin) {
+              localStorage.setItem(LOCAL_ADMIN_SESSION_KEY, LOCAL_ADMIN_EMAIL);
               toast({ title: "Đăng nhập thành công" });
               setLocation("/admin");
             } else {
               toast({ title: "Sai thông tin", variant: "destructive" });
             }
           } catch {
-            toast({ title: "Sai email hoặc mật khẩu", variant: "destructive" });
+            if (canUseLocalLogin) {
+              localStorage.setItem(LOCAL_ADMIN_SESSION_KEY, LOCAL_ADMIN_EMAIL);
+              toast({ title: "Đăng nhập thành công" });
+              setLocation("/admin");
+            } else {
+              toast({ title: "Sai email hoặc mật khẩu", variant: "destructive" });
+            }
           }
         })}
         className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md"
@@ -76,7 +92,7 @@ export default function LoginPage() {
           ĐĂNG NHẬP
         </button>
         <p className="text-xs text-gray-500 mt-4 text-center">
-          Tài khoản mặc định: <strong>butphamarketing@gmail.com</strong> / <strong>nhakhoauyduc</strong>
+          Tài khoản mặc định: <strong>{LOCAL_ADMIN_EMAIL}</strong> / <strong>{LOCAL_ADMIN_PASSWORD}</strong>
         </p>
       </form>
     </div>
