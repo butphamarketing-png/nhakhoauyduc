@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import {
   useCreatePost,
@@ -8,13 +9,39 @@ import {
 } from "@workspace/api-client-react";
 import type { Post } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { ExternalLink, Eye, Pencil, Plus, Search, Trash2 } from "lucide-react";
+import { ExternalLink, Eye, ImagePlus, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Modal } from "@/components/admin/Modal";
 import { useToast } from "@/hooks/use-toast";
 import { getPostBasePath, slugify } from "@/lib/site";
 
 type FormData = { title: string; excerpt: string; content: string; imageUrl: string; category: string };
+
+function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => {
+      const maxSize = 1600;
+      const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(image.width * scale);
+      canvas.height = Math.round(image.height * scale);
+      const context = canvas.getContext("2d");
+      if (!context) {
+        reject(new Error("Không thể xử lý ảnh"));
+        return;
+      }
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(image.src);
+      resolve(canvas.toDataURL("image/jpeg", 0.82));
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(image.src);
+      reject(new Error("Ảnh không hợp lệ"));
+    };
+    image.src = URL.createObjectURL(file);
+  });
+}
 
 export function PostsAdmin() {
   const [q, setQ] = useState("");
@@ -27,12 +54,30 @@ export function PostsAdmin() {
   const { toast } = useToast();
   const [editing, setEditing] = useState<Post | null>(null);
   const [open, setOpen] = useState(false);
-  const { register, handleSubmit, reset, watch } = useForm<FormData>();
+  const { register, handleSubmit, reset, watch, setValue } = useForm<FormData>();
   const imagePreview = watch("imageUrl");
   const contentPreview = watch("content");
   const titlePreview = watch("title");
   const categoryPreview = watch("category");
   const previewHref = titlePreview ? `${getPostBasePath(categoryPreview || "Kiến thức")}/${slugify(titlePreview)}` : null;
+
+  const handleImageFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "File không phải là ảnh", variant: "destructive" });
+      return;
+    }
+    try {
+      const dataUrl = await fileToDataUrl(file);
+      setValue("imageUrl", dataUrl, { shouldDirty: true, shouldValidate: true });
+      toast({ title: "Đã chọn ảnh" });
+    } catch {
+      toast({ title: "Không thể đọc ảnh", variant: "destructive" });
+    } finally {
+      event.target.value = "";
+    }
+  };
 
   const openCreate = () => {
     setEditing(null);
@@ -158,7 +203,14 @@ export function PostsAdmin() {
         <form onSubmit={onSubmit} className="space-y-4">
           <input {...register("title", { required: true })} placeholder="Tiêu đề" className="w-full rounded-xl border px-3 py-2" />
           <input {...register("category")} placeholder="Danh mục" className="w-full rounded-xl border px-3 py-2" />
-          <input {...register("imageUrl")} placeholder="URL ảnh" className="w-full rounded-xl border px-3 py-2" />
+          <div className="grid gap-2">
+            <input {...register("imageUrl")} placeholder="URL ảnh hoặc chọn ảnh từ máy" className="w-full rounded-xl border px-3 py-2" />
+            <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[hsl(215,80%,35%)] px-4 py-3 text-sm font-semibold text-[hsl(215,80%,35%)] transition hover:bg-[hsl(215,80%,96%)]">
+              <ImagePlus className="h-4 w-4" />
+              Chọn ảnh từ máy
+              <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" />
+            </label>
+          </div>
           {imagePreview ? <img src={imagePreview} alt="Xem trước bài viết" className="h-44 w-full rounded-lg border object-cover" /> : null}
           <textarea {...register("excerpt")} placeholder="Tóm tắt" rows={2} className="w-full rounded-xl border px-3 py-2" />
           <textarea {...register("content")} placeholder="Nội dung đầy đủ" rows={7} className="w-full rounded-xl border px-3 py-2" />

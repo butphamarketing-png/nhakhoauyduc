@@ -29,6 +29,7 @@ const NAV = [
 ];
 
 const LOCAL_ADMIN_SESSION_KEY = "nkht_local_admin";
+const ADMIN_COOKIE_NAME = "nkht_admin";
 
 function SidebarContent({
   active,
@@ -142,11 +143,10 @@ export function AdminLayout({
 
   const handleLogout = async () => {
     localStorage.removeItem(LOCAL_ADMIN_SESSION_KEY);
+    document.cookie = `${ADMIN_COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
     try {
       await logout.mutateAsync();
-    } catch {
-      // Ignore API logout errors for local admin sessions.
-    }
+    } catch {}
     setLocation("/admin/login");
   };
 

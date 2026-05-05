@@ -8,6 +8,12 @@ import { Lock, Mail } from "lucide-react";
 const LOCAL_ADMIN_EMAIL = "butphamarketing@gmail.com";
 const LOCAL_ADMIN_PASSWORD = "nhakhoauyduc";
 const LOCAL_ADMIN_SESSION_KEY = "nkht_local_admin";
+const ADMIN_COOKIE_NAME = "nkht_admin";
+
+function setLocalAdminSession() {
+  localStorage.setItem(LOCAL_ADMIN_SESSION_KEY, LOCAL_ADMIN_EMAIL);
+  document.cookie = `${ADMIN_COOKIE_NAME}=${btoa(LOCAL_ADMIN_EMAIL)}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+}
 
 export default function LoginPage() {
   const [, setLocation] = useLocation();
@@ -36,7 +42,7 @@ export default function LoginPage() {
               toast({ title: "Đăng nhập thành công" });
               setLocation("/admin");
             } else if (canUseLocalLogin) {
-              localStorage.setItem(LOCAL_ADMIN_SESSION_KEY, LOCAL_ADMIN_EMAIL);
+              setLocalAdminSession();
               toast({ title: "Đăng nhập thành công" });
               setLocation("/admin");
             } else {
@@ -44,7 +50,7 @@ export default function LoginPage() {
             }
           } catch {
             if (canUseLocalLogin) {
-              localStorage.setItem(LOCAL_ADMIN_SESSION_KEY, LOCAL_ADMIN_EMAIL);
+              setLocalAdminSession();
               toast({ title: "Đăng nhập thành công" });
               setLocation("/admin");
             } else {
