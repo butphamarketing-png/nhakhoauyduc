@@ -51,10 +51,6 @@ import {
 import { LOGO_URL } from "@/lib/api";
 import {
   FALLBACK_ABOUT_IMAGE,
-  FALLBACK_FEEDBACK,
-  FALLBACK_POSTS,
-  FALLBACK_PROMOTIONS,
-  FALLBACK_SERVICES,
 } from "@/lib/fallback-content";
 import {
   BOOKING_STEPS,
@@ -100,11 +96,11 @@ type PostItem = {
 };
 
 function withFallbackServices(items: ServiceItem[]) {
-  return items.length ? items : (FALLBACK_SERVICES as ServiceItem[]);
+  return items;
 }
 
 function withFallbackPromotions(items: PromotionItem[]) {
-  return items.length ? items : (FALLBACK_PROMOTIONS as PromotionItem[]);
+  return items;
 }
 
 type PromotionItem = {
@@ -125,11 +121,11 @@ type FeedbackItem = {
 };
 
 function withFallbackFeedback(items: FeedbackItem[]) {
-  return items.length ? items : (FALLBACK_FEEDBACK as FeedbackItem[]);
+  return items;
 }
 
 function withFallbackPosts(items: PostItem[]) {
-  return items.length ? items : (FALLBACK_POSTS as PostItem[]);
+  return items;
 }
 
 const phoneRules = {
@@ -1040,7 +1036,7 @@ function PostCard({ post, basePath }: { post: PostItem; basePath: string }) {
 }
 
 function BlogPreview({ posts, loading = false }: { posts: PostItem[]; loading?: boolean }) {
-  const postsToShow = posts.length ? posts.slice(0, 3) : (FALLBACK_POSTS as PostItem[]).slice(0, 3);
+  const postsToShow = posts.slice(0, 3);
 
   return (
     <section className="py-20">

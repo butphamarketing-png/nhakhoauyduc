@@ -131,10 +131,11 @@ export function Header() {
               </Link>
               <button
                 type="button"
+                onClick={() => setOpen((value) => !value)}
                 className="grid h-11 w-11 place-items-center text-[hsl(231,80%,58%)]"
-                aria-label="Mở menu"
+                aria-label={open ? "Đóng menu" : "Mở menu"}
               >
-                <Menu className="h-8 w-8 stroke-[1.75]" />
+                {open ? <X className="h-8 w-8 stroke-[1.75]" /> : <Menu className="h-8 w-8 stroke-[1.75]" />}
               </button>
             </div>
           </div>
@@ -201,6 +202,26 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      {open ? (
+        <div className="fixed right-6 top-28 z-[60] hidden w-72 rounded-3xl border border-slate-200 bg-white p-3 shadow-[0_22px_60px_rgba(15,23,42,.18)] lg:block">
+          <div className="grid gap-1">
+            {PRIMARY_NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`rounded-2xl px-4 py-3 text-sm font-bold uppercase tracking-[0.04em] transition ${
+                  isActivePath(location, item.href)
+                    ? "bg-[hsl(219,82%,94%)] text-[hsl(221,68%,41%)]"
+                    : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }
