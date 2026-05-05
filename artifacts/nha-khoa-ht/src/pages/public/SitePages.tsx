@@ -897,13 +897,13 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
           <div className="text-white">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-1.5 text-sm">
               <CalendarDays className="h-4 w-4 text-[hsl(42,94%,58%)]" />
-              ??t l?ch th?m kh?m
+              Đặt lịch thăm khám
             </div>
             <h2 className="mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-[2.6rem]">
-              ??ng k? l?ch h?n v?i c?m gi?c r? r?ng, nh? nh?ng v? ?t b??c h?n.
+              Đăng ký lịch hẹn với cảm giác rõ ràng, nhẹ nhàng và ít bước hơn.
             </h2>
             <p className="mt-4 max-w-xl text-base leading-8 text-blue-50/92">
-              B?n ch? c?n ?? l?i th?ng tin c? b?n. Ph?ng kh?m s? g?i l?i ?? x?c nh?n nhu c?u, khung gi? ph? h?p v? h??ng d?n tr??c khi ??n.
+              Bạn chỉ cần để lại thông tin cơ bản. Phòng khám sẽ gọi lại để xác nhận nhu cầu, khung giờ phù hợp và hướng dẫn trước khi đến.
             </p>
             <div className="mt-7 space-y-3">
               {BOOKING_STEPS.map((item, index) => (
@@ -920,7 +920,7 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
             </div>
             <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-blue-50/90">
               <Phone className="h-4 w-4 text-[hsl(42,94%,58%)]" />
-              N?u c?n g?p, b?n v?n c? th? g?i tr?c ti?p {CLINIC_PROFILE.hotline}
+              Nếu cần gấp, bạn vẫn có thể gọi trực tiếp {CLINIC_PROFILE.hotline}
             </div>
           </div>
 
@@ -929,14 +929,14 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
               try {
                 await create.mutateAsync({ data });
                 toast({
-                  title: "??t l?ch th?nh c?ng",
-                  description: "Ph?ng kh?m s? li?n h? l?i ?? x?c nh?n l?ch ph? h?p v?i b?n.",
+                  title: "Đặt lịch thành công",
+                  description: "Phòng khám sẽ liên hệ lại để xác nhận lịch phù hợp với bạn.",
                 });
                 reset();
               } catch {
                 toast({
-                  title: "Ch?a g?i ???c l?ch h?n",
-                  description: "Vui l?ng th? l?i ho?c g?i tr?c ti?p hotline ?? ???c h? tr? nhanh h?n.",
+                  title: "Chưa gửi được lịch hẹn",
+                  description: "Vui lòng thử lại hoặc gọi trực tiếp hotline để được hỗ trợ nhanh hơn.",
                   variant: "destructive",
                 });
               }
@@ -945,18 +945,18 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
           >
             <div className="mb-5">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-[hsl(223,68%,39%)]">
-                Nh?n l?ch t? v?n
+                Nhận lịch tư vấn
               </div>
               <div className="mt-2 text-[2rem] font-bold leading-tight text-[hsl(223,68%,24%)]">
-                Ph? h?p cho kh?ch m?i v? kh?ch t?i kh?m
+                Phù hợp cho khách mới và khách tái khám
               </div>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <input
-                  {...register("name", { required: "Vui l?ng nh?p h? v? t?n" })}
-                  placeholder="H? v? t?n *"
+                  {...register("name", { required: "Vui lòng nhập họ và tên" })}
+                  placeholder="Họ và tên *"
                   className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
                 />
                 <FieldError message={errors.name?.message} />
@@ -964,7 +964,7 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
               <div>
                 <input
                   {...register("phone", phoneRules)}
-                  placeholder="S? ?i?n tho?i *"
+                  placeholder="Số điện thoại *"
                   className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
                 />
                 <FieldError message={errors.phone?.message} />
@@ -974,7 +974,7 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
                   {...register("service")}
                   className="h-14 w-full rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-4 outline-none transition focus:border-[hsl(223,68%,39%)] focus:bg-white focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
                 >
-                  <option value="">Ch?n d?ch v? quan t?m</option>
+                  <option value="">Chọn dịch vụ quan tâm</option>
                   {services.map((service) => (
                     <option key={service.id} value={service.name}>
                       {service.name}
@@ -995,11 +995,11 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
               disabled={isSubmitting}
               className={`mt-5 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[hsl(42,94%,58%)] px-6 py-3 font-semibold text-[hsl(223,68%,18%)] shadow-[0_14px_32px_rgba(251,191,36,.26)] transition hover:-translate-y-0.5 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60 ${isSubmitting ? "animate-pulse" : ""}`}
             >
-              {isSubmitting ? "?ang g?i l?ch..." : "??t l?ch ngay"}
+              {isSubmitting ? "Đang gửi lịch..." : "Đặt lịch ngay"}
               <ArrowRight className="h-4 w-4" />
             </button>
             <p className="mt-4 text-sm leading-6 text-slate-500">
-              Sau khi nh?n th?ng tin, ph?ng kh?m s? g?i l?i ?? x?c nh?n khung gi? ph? h?p v? d?n tr??c nh?ng ?i?u c?n chu?n b?.
+              Sau khi nhận thông tin, phòng khám sẽ gọi lại để xác nhận khung giờ phù hợp và dặn trước những điều cần chuẩn bị.
             </p>
           </form>
         </div>
@@ -1780,8 +1780,8 @@ export function ReviewsPage() {
   const feedback = withFallbackFeedback((feedbackQuery.data ?? []) as FeedbackItem[]);
   const reviewsStructuredData = [
     buildBreadcrumbSchema([
-      { name: "Trang chá»§", path: "/" },
-      { name: "Nháº­n xÃ©t", path: "/nhan-xet" },
+      { name: "Trang chủ", path: "/" },
+      { name: "Nhận xét", path: "/nhan-xet" },
     ]),
   ];
 
@@ -1789,11 +1789,11 @@ export function ReviewsPage() {
     <PublicLayout softBackground>
       <StructuredData data={reviewsStructuredData} />
       <SeoHead
-        title="Nháº­n xÃ©t khÃ¡ch hÃ ng"
-        description="Xem cáº£m nháº­n, Ä‘Ã¡nh giÃ¡ vÃ  pháº£n há»“i tá»« khÃ¡ch hÃ ng Ä‘Ã£ tráº£i nghiá»‡m dá»‹ch vá»¥ táº¡i phÃ²ng khÃ¡m."
+        title="Nhận xét khách hàng"
+        description="Xem cảm nhận, đánh giá và phản hồi từ khách hàng đã trải nghiệm dịch vụ tại phòng khám."
         path="/nhan-xet"
       />
-      <Breadcrumb title="Nháº­n xÃ©t khÃ¡ch hÃ ng" current="Nháº­n xÃ©t" />
+      <Breadcrumb title="Nhận xét khách hàng" current="Nhận xét" />
       <TestimonialsShowcaseSection feedback={feedback} />
       <ContactInformation />
     </PublicLayout>
