@@ -20,11 +20,12 @@ const NAV = [
   { href: "/admin", icon: LayoutDashboard, label: "Bảng điều khiển", page: "" },
   { href: "/admin/settings", icon: Settings, label: "Setting", page: "settings" },
   { href: "/admin/bookings", icon: CalendarCheck, label: "Đặt Lịch", page: "bookings", group: "Quản lý Đặt lịch" },
-  { href: "/admin/feedback", icon: MessageSquare, label: "Cảm nhận", page: "feedback", group: "Quản lý Trang Chủ" },
   { href: "/admin/banners", icon: Image, label: "Slide", page: "banners", group: "Quản lý Trang Chủ" },
-  { href: "/admin/services", icon: Briefcase, label: "Dịch vụ", page: "services", group: "Quản lý Nội dung" },
-  { href: "/admin/promotions", icon: Tag, label: "Khuyến mãi", page: "promotions", group: "Quản lý Nội dung" },
-  { href: "/admin/posts", icon: Newspaper, label: "Bài viết", page: "posts", group: "Quản lý Nội dung" },
+  { href: "/admin/feedback", icon: MessageSquare, label: "Danh Mục Feedback", page: "feedback-categories", group: "Quản lý Nội Dung" },
+  { href: "/admin/feedback", icon: MessageSquare, label: "Feedback", page: "feedback", group: "Quản lý Nội Dung" },
+  { href: "/admin/posts", icon: Newspaper, label: "Kiến Thức", page: "posts", group: "Quản lý Nội Dung" },
+  { href: "/admin/promotions", icon: Tag, label: "Khuyến Mãi", page: "promotions", group: "Quản lý Nội Dung" },
+  { href: "/admin/services", icon: Briefcase, label: "Dịch Vụ", page: "services", group: "Quản lý Nội Dung" },
 ];
 
 const LOCAL_ADMIN_SESSION_KEY = "nkht_local_admin";
