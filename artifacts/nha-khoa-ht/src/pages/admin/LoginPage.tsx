@@ -17,7 +17,7 @@ export default function LoginPage() {
     email: string;
     password: string;
   }>({
-    defaultValues: { email: "admin@nhakhoaht.vn", password: "admin123" },
+    defaultValues: { email: "butphamarketing@gmail.com", password: "nhakhoauyduc" },
   });
 
   return (
@@ -76,7 +76,7 @@ export default function LoginPage() {
           ĐĂNG NHẬP
         </button>
         <p className="text-xs text-gray-500 mt-4 text-center">
-          Tài khoản mặc định: <strong>admin@nhakhoaht.vn</strong> / <strong>admin123</strong>
+          Tài khoản mặc định: <strong>butphamarketing@gmail.com</strong> / <strong>nhakhoauyduc</strong>
         </p>
       </form>
     </div>

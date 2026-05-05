@@ -16,14 +16,14 @@ async function main() {
   const existingAdmins = await db.select().from(admins).limit(1);
   if (existingAdmins.length === 0) {
     await db.insert(admins).values({
-      email: "butphamarketing@gmail.comm",
+      email: "butphamarketing@gmail.com",
       password: "nhakhoauyduc",
     });
   } else {
     await db
       .update(admins)
       .set({
-        email: "butphamarketing@gmail.comm",
+        email: "butphamarketing@gmail.com",
         password: "nhakhoauyduc",
       })
       .where(eq(admins.id, existingAdmins[0].id));
