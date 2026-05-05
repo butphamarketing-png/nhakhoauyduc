@@ -36,15 +36,11 @@ export function TestimonialsShowcaseSection({
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          {SERVICE_TABS.map((tab, index) => (
+          {SERVICE_TABS.map((tab) => (
             <button
               key={tab}
               type="button"
-              className={`rounded-full px-7 py-3 text-lg font-semibold transition ${
-                index === 0
-                  ? "border border-slate-200 bg-white text-[hsl(223,68%,32%)] shadow-[0_12px_28px_rgba(24,44,100,.10)]"
-                  : "bg-[hsl(233,48%,39%)] text-white shadow-[0_10px_24px_rgba(24,44,100,.08)] hover:bg-[hsl(233,48%,35%)]"
-              }`}
+              className="rounded-full border border-slate-200 bg-white px-7 py-3 text-lg font-semibold text-[hsl(223,68%,32%)] shadow-[0_12px_28px_rgba(24,44,100,.10)] transition hover:border-[hsl(233,48%,39%)] hover:bg-[hsl(233,48%,39%)] hover:text-white hover:shadow-[0_10px_24px_rgba(24,44,100,.08)]"
             >
               {tab}
             </button>
