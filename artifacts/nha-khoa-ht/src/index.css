@@ -351,6 +351,67 @@
   .faq-item[open] .faq-answer {
     grid-template-rows: 1fr;
   }
+
+  .home-white-text {
+    background:
+      radial-gradient(circle at top left, rgba(80, 124, 255, 0.22), transparent 28%),
+      linear-gradient(180deg, hsl(224, 58%, 18%) 0%, hsl(226, 52%, 15%) 100%);
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .home-white-text section:not(:first-child):not(#booking),
+  .home-white-text .soft-section-surface {
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 28%),
+      linear-gradient(180deg, rgba(33, 60, 136, 0.92), rgba(22, 42, 102, 0.94)) !important;
+  }
+
+  .home-white-text h1,
+  .home-white-text h2,
+  .home-white-text h3,
+  .home-white-text h4,
+  .home-white-text [class*="text-slate-950"],
+  .home-white-text [class*="text-slate-900"],
+  .home-white-text [class*="text-slate-800"],
+  .home-white-text [class*="text-slate-700"],
+  .home-white-text [class*="text-\\[hsl\\(223"],
+  .home-white-text [class*="text-\\[hsl\\(226"],
+  .home-white-text [class*="text-\\[hsl\\(223\\,68\\%\\,24\\%\\)"],
+  .home-white-text [class*="text-\\[hsl\\(223\\,68\\%\\,22\\%\\)"] {
+    color: #ffffff !important;
+  }
+
+  .home-white-text p,
+  .home-white-text [class*="text-slate-600"],
+  .home-white-text [class*="text-slate-500"] {
+    color: rgba(255, 255, 255, 0.82) !important;
+  }
+
+  .home-white-text .premium-panel,
+  .home-white-text .premium-card,
+  .home-white-text article,
+  .home-white-text form,
+  .home-white-text details,
+  .home-white-text [class*="bg-white"] {
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    background:
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.10), transparent 42%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08)) !important;
+    color: #ffffff !important;
+  }
+
+  .home-white-text input,
+  .home-white-text select,
+  .home-white-text textarea {
+    border-color: rgba(255, 255, 255, 0.24) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+  }
+
+  .home-white-text input::placeholder,
+  .home-white-text textarea::placeholder {
+    color: rgba(255, 255, 255, 0.70) !important;
+  }
 }
 
 @keyframes rise-in {

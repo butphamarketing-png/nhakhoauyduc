@@ -36,7 +36,7 @@ export function Footer() {
               <Phone className="h-4 w-4 text-[hsl(45,90%,65%)]" />
               Tư vấn nhanh: {CLINIC_PROFILE.hotline}
             </div>
-            <h2 className="mt-4 max-w-2xl text-2xl font-bold leading-tight sm:text-3xl">
+            <h2 className="mt-4 max-w-2xl text-2xl font-bold leading-tight text-white sm:text-3xl">
               Phòng khám gia đình ưu tiên lịch hẹn rõ ràng, tư vấn kỹ và theo dõi sau điều trị.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-blue-100/90">
@@ -46,7 +46,7 @@ export function Footer() {
           <div className="flex flex-wrap gap-3 md:justify-end">
             <a
               href={`tel:${CLINIC_PROFILE.hotline.replace(/\s+/g, "")}`}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 py-3 font-semibold text-[hsl(223,68%,24%)] transition hover:-translate-y-0.5"
+              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white/12 px-5 py-3 font-semibold text-white ring-1 ring-white/18 transition hover:-translate-y-0.5 hover:bg-white/18"
             >
               <Phone className="h-4 w-4" />
               Gọi hotline

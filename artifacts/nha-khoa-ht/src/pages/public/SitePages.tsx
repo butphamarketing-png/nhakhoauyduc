@@ -899,7 +899,7 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
               <CalendarDays className="h-4 w-4 text-[hsl(42,94%,58%)]" />
               Đặt lịch thăm khám
             </div>
-            <h2 className="mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-[2.6rem]">
+            <h2 className="mt-5 max-w-xl text-3xl font-bold leading-tight text-white sm:text-[2.6rem]">
               Đăng ký lịch hẹn với cảm giác rõ ràng, nhẹ nhàng và ít bước hơn.
             </h2>
             <p className="mt-4 max-w-xl text-base leading-8 text-blue-50/92">
@@ -947,7 +947,7 @@ function BookingSection({ services }: { services: ServiceItem[] }) {
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-[hsl(223,68%,39%)]">
                 Nhận lịch tư vấn
               </div>
-              <div className="mt-2 text-[2rem] font-bold leading-tight text-[hsl(223,68%,24%)]">
+              <div className="mt-2 text-[2rem] font-bold leading-tight text-white">
                 Phù hợp cho khách mới và khách tái khám
               </div>
             </div>
@@ -1474,21 +1474,23 @@ export function HomePage() {
         path="/"
       />
       <StructuredData data={[buildLocalBusinessSchema(), buildWebsiteSchema(), buildFaqSchema(FAQ_HOME)]} />
-      <ReferenceHeroSlider banners={banners} />
-      <QuickLeadForm />
-      <AboutPreviewSection imageUrl={services[0]?.imageUrl || FALLBACK_ABOUT_IMAGE} />
-      <FeaturedServicesSection services={services} />
-      <CommitmentsShowcaseSection />
-      <StatsSection />
-      <PromotionsShowcaseSection promotions={promotions} />
-      <TestimonialsShowcaseSection feedback={feedback} />
-      <FaqSection
-        title="Những điều khách hàng thường hỏi trước khi đặt lịch"
-        description="Giải đáp nhanh các thắc mắc thường gặp để bạn dễ quyết định hơn trước khi đến thăm khám."
-        items={FAQ_HOME}
-      />
-      <BookingSection services={services} />
-      <BlogPreview posts={posts} loading={postsQuery.isLoading} />
+      <div className="home-white-text">
+        <ReferenceHeroSlider banners={banners} />
+        <QuickLeadForm />
+        <AboutPreviewSection imageUrl={services[0]?.imageUrl || FALLBACK_ABOUT_IMAGE} />
+        <FeaturedServicesSection services={services} />
+        <CommitmentsShowcaseSection />
+        <StatsSection />
+        <PromotionsShowcaseSection promotions={promotions} />
+        <TestimonialsShowcaseSection feedback={feedback} />
+        <FaqSection
+          title="Những điều khách hàng thường hỏi trước khi đặt lịch"
+          description="Giải đáp nhanh các thắc mắc thường gặp để bạn dễ quyết định hơn trước khi đến thăm khám."
+          items={FAQ_HOME}
+        />
+        <BookingSection services={services} />
+        <BlogPreview posts={posts} loading={postsQuery.isLoading} />
+      </div>
     </PublicLayout>
   );
 }
