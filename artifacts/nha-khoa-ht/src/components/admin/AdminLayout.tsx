@@ -120,14 +120,15 @@ export function AdminLayout({
   const [mobileOpen, setMobileOpen] = useState(false);
   const localAdminEmail =
     typeof window !== "undefined" ? localStorage.getItem(LOCAL_ADMIN_SESSION_KEY) : null;
-  const isAuthenticated = Boolean(me?.authenticated || localAdminEmail);
+  const hasLocalSession = Boolean(localAdminEmail);
+  const isAuthenticated = Boolean(me?.authenticated || hasLocalSession);
   const adminEmail = me?.email ?? localAdminEmail ?? "";
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!hasLocalSession && !isLoading && !isAuthenticated) {
       setLocation("/admin/login");
     }
-  }, [isAuthenticated, isLoading, setLocation]);
+  }, [hasLocalSession, isAuthenticated, isLoading, setLocation]);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -137,7 +138,7 @@ export function AdminLayout({
     };
   }, [mobileOpen]);
 
-  if (isLoading || !isAuthenticated) {
+  if ((!hasLocalSession && isLoading) || !isAuthenticated) {
     return <div className="grid min-h-screen place-items-center text-gray-500">Đang tải...</div>;
   }
 
