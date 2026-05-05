@@ -18,4 +18,9 @@ export interface Settings {
   zalo: string;
   metaTitle: string;
   metaDescription: string;
+  aboutTitle: string;
+  aboutDescription1: string;
+  aboutDescription2: string;
+  aboutDescription3: string;
+  aboutImageUrl: string;
 }

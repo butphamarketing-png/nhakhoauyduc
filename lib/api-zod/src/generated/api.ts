@@ -353,6 +353,11 @@ export const GetSettingsResponse = zod.object({
   zalo: zod.string(),
   metaTitle: zod.string(),
   metaDescription: zod.string(),
+  aboutTitle: zod.string(),
+  aboutDescription1: zod.string(),
+  aboutDescription2: zod.string(),
+  aboutDescription3: zod.string(),
+  aboutImageUrl: zod.string(),
 });
 
 export const UpdateSettingsBody = zod.object({
@@ -367,6 +372,11 @@ export const UpdateSettingsBody = zod.object({
   zalo: zod.string(),
   metaTitle: zod.string(),
   metaDescription: zod.string(),
+  aboutTitle: zod.string(),
+  aboutDescription1: zod.string(),
+  aboutDescription2: zod.string(),
+  aboutDescription3: zod.string(),
+  aboutImageUrl: zod.string(),
 });
 
 export const UpdateSettingsResponse = zod.object({
@@ -381,6 +391,11 @@ export const UpdateSettingsResponse = zod.object({
   zalo: zod.string(),
   metaTitle: zod.string(),
   metaDescription: zod.string(),
+  aboutTitle: zod.string(),
+  aboutDescription1: zod.string(),
+  aboutDescription2: zod.string(),
+  aboutDescription3: zod.string(),
+  aboutImageUrl: zod.string(),
 });
 
 export const GetDashboardSummaryResponse = zod.object({

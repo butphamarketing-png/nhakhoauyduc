@@ -67,6 +67,11 @@ export const settings = pgTable("settings", {
   zalo: text("zalo").notNull().default("https://zalo.me"),
   metaTitle: text("meta_title").notNull().default("Phòng Khám Nha Khoa HT - Hoàn Thiện Nụ Cười"),
   metaDescription: text("meta_description").notNull().default("Phòng khám nha khoa uy tín tại TP.HCM với hơn 10 năm kinh nghiệm"),
+  aboutTitle: text("about_title").notNull().default("Nha Khoa Uy Đức Smile - Đồng hành cùng nụ cười khỏe đẹp cho cả gia đình"),
+  aboutDescription1: text("about_description_1").notNull().default("Phòng khám tập trung vào trải nghiệm thăm khám nhẹ nhàng, giao tiếp rõ ràng và lộ trình điều trị phù hợp thay vì tạo áp lực cho khách hàng."),
+  aboutDescription2: text("about_description_2").notNull().default("Từ lần khám đầu tiên, đội ngũ sẽ lắng nghe nhu cầu, kiểm tra tình trạng và giải thích phương án phù hợp với mục tiêu của bạn: điều trị, phục hình hay cải thiện thẩm mỹ."),
+  aboutDescription3: text("about_description_3").notNull().default("Chúng tôi ưu tiên cảm giác yên tâm và dễ hiểu trong suốt hành trình, từ đặt lịch, tiếp đón, thực hiện dịch vụ đến chăm sóc sau điều trị."),
+  aboutImageUrl: text("about_image_url").notNull().default(""),
 });
 
 export const admins = pgTable("admins", {
