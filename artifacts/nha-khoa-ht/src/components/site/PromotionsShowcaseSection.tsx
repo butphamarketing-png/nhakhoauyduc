@@ -1,6 +1,5 @@
 import { ArrowRight, CalendarDays } from "lucide-react";
 import { Link } from "wouter";
-import { FALLBACK_PROMOTIONS } from "@/lib/fallback-content";
 
 type PromotionItem = {
   id: number;
@@ -16,7 +15,7 @@ export function PromotionsShowcaseSection({
 }: {
   promotions: PromotionItem[];
 }) {
-  const items = promotions.length ? promotions : FALLBACK_PROMOTIONS;
+  const items = promotions;
 
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7fbff_0%,#ffffff_55%,#f8fbff_100%)] py-20">
@@ -51,7 +50,7 @@ export function PromotionsShowcaseSection({
             >
               <div className={`relative ${index === 0 ? "h-[340px]" : "h-[280px]"}`}>
                 <img
-                  src={promo.imageUrl || FALLBACK_PROMOTIONS[0].imageUrl}
+                  src={promo.imageUrl || ""}
                   alt={promo.title}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
                 />

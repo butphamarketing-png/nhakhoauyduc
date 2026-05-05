@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import { CLINIC_LOGO_ALT, LOGO_URL } from "@/lib/api";
-import { FALLBACK_SERVICES } from "@/lib/fallback-content";
 import {
   CLINIC_PROFILE,
   FOOTER_POLICIES,
@@ -22,10 +21,7 @@ import {
 
 export function Footer() {
   const { data: services = [] } = useListServices();
-  const featuredServices = ((services as { id: number; name: string }[]).length
-    ? (services as { id: number; name: string }[])
-    : FALLBACK_SERVICES.map((service) => ({ id: service.id, name: service.name }))
-  ).slice(0, 5);
+  const featuredServices = (services as { id: number; name: string }[]).slice(0, 5);
 
   return (
     <footer className="border-t border-slate-200 bg-[linear-gradient(180deg,#192b63_0%,#172655_100%)] text-white">

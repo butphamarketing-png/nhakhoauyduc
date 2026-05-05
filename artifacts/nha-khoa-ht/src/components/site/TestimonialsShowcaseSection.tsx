@@ -1,5 +1,4 @@
 import { ArrowRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { FALLBACK_FEEDBACK } from "@/lib/fallback-content";
 
 type FeedbackItem = {
   id: number;
@@ -17,7 +16,7 @@ export function TestimonialsShowcaseSection({
 }: {
   feedback: FeedbackItem[];
 }) {
-  const items = (feedback.length ? feedback : FALLBACK_FEEDBACK).slice(0, 3);
+  const items = feedback.slice(0, 3);
 
   return (
     <section id="feedback" className="relative overflow-hidden bg-[linear-gradient(180deg,#f8fbff_0%,#fff_35%,#f6f9ff_100%)] py-20">
@@ -71,7 +70,7 @@ export function TestimonialsShowcaseSection({
               >
                 <div className="h-[390px] overflow-hidden rounded-b-[1.65rem]">
                   <img
-                    src={item.imageUrl || FALLBACK_FEEDBACK[0].imageUrl}
+                    src={item.imageUrl || ""}
                     alt={item.name}
                     className="h-full w-full object-cover transition duration-700 hover:scale-[1.03]"
                   />
