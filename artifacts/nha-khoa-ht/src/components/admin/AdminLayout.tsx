@@ -15,17 +15,16 @@ import {
   Tag,
   X,
 } from "lucide-react";
-import { CLINIC_NAME } from "@/lib/api";
 
 const NAV = [
-  { href: "/admin", icon: LayoutDashboard, label: "Tổng quan", page: "" },
-  { href: "/admin/banners", icon: Image, label: "Banner", page: "banners" },
-  { href: "/admin/services", icon: Briefcase, label: "Dịch vụ", page: "services" },
-  { href: "/admin/promotions", icon: Tag, label: "Khuyến mãi", page: "promotions" },
-  { href: "/admin/feedback", icon: MessageSquare, label: "Cảm nhận", page: "feedback" },
-  { href: "/admin/posts", icon: Newspaper, label: "Bài viết", page: "posts" },
-  { href: "/admin/bookings", icon: CalendarCheck, label: "Lịch hẹn", page: "bookings" },
-  { href: "/admin/settings", icon: Settings, label: "Cài đặt", page: "settings" },
+  { href: "/admin", icon: LayoutDashboard, label: "Bảng điều khiển", page: "" },
+  { href: "/admin/settings", icon: Settings, label: "Setting", page: "settings" },
+  { href: "/admin/bookings", icon: CalendarCheck, label: "Đặt Lịch", page: "bookings", group: "Quản lý Đặt lịch" },
+  { href: "/admin/feedback", icon: MessageSquare, label: "Cảm nhận", page: "feedback", group: "Quản lý Trang Chủ" },
+  { href: "/admin/banners", icon: Image, label: "Slide", page: "banners", group: "Quản lý Trang Chủ" },
+  { href: "/admin/services", icon: Briefcase, label: "Dịch vụ", page: "services", group: "Quản lý Nội dung" },
+  { href: "/admin/promotions", icon: Tag, label: "Khuyến mãi", page: "promotions", group: "Quản lý Nội dung" },
+  { href: "/admin/posts", icon: Newspaper, label: "Bài viết", page: "posts", group: "Quản lý Nội dung" },
 ];
 
 const LOCAL_ADMIN_SESSION_KEY = "nkht_local_admin";
@@ -44,57 +43,53 @@ function SidebarContent({
 }) {
   return (
     <>
-      <div className="border-b border-white/10 p-5">
-        <div className="flex items-center gap-3">
-          <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[hsl(45,90%,55%)] font-bold text-[hsl(215,80%,20%)] shadow-sm">
-            UD
-          </div>
-          <div className="min-w-0">
-            <div className="truncate font-bold">{CLINIC_NAME}</div>
-            <div className="text-xs text-blue-200">Bảng điều khiển nội dung</div>
-          </div>
-        </div>
+      <div className="p-7">
+        <div className="truncate text-lg font-bold text-slate-950">Nha Khoa HT ADMIN</div>
       </div>
 
-      <nav className="flex-1 space-y-1 p-3">
-        {NAV.map((item) => {
+      <nav className="flex-1 space-y-2 overflow-y-auto px-6 pb-4">
+        {NAV.map((item, index) => {
           const isActive = active === item.page;
+          const previous = NAV[index - 1];
+          const showGroup = item.group && item.group !== previous?.group;
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onNavigate}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition ${
-                isActive
-                  ? "bg-[hsl(45,90%,55%)] font-semibold text-[hsl(215,80%,20%)] shadow-sm"
-                  : "text-blue-100 hover:bg-white/10"
-              }`}
-            >
-              <item.icon className="h-4 w-4" />
-              {item.label}
-            </Link>
+            <div key={item.href}>
+              {showGroup ? <div className="px-2 pb-1 pt-5 text-sm text-slate-500">{item.group}</div> : null}
+              <Link
+                href={item.href}
+                onClick={onNavigate}
+                className={`flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition ${
+                  isActive
+                    ? "bg-[#2f66ed] font-semibold text-white shadow-sm"
+                    : "text-slate-600 hover:bg-white hover:text-[#2f66ed]"
+                }`}
+              >
+                <item.icon className="h-5 w-5" />
+                {item.label}
+              </Link>
+            </div>
           );
         })}
       </nav>
 
-      <div className="border-t border-white/10 p-3">
-        <div className="mb-3 rounded-xl bg-white/5 px-3 py-2 text-xs text-blue-100">
-          <div className="text-[10px] uppercase tracking-[0.16em] text-blue-200">Đăng nhập bởi</div>
-          <div className="mt-1 truncate">{email}</div>
+      <div className="border-t border-slate-200 p-4">
+        <div className="mb-3 rounded-xl bg-white px-3 py-2 text-xs text-slate-500">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-slate-400">Hồ sơ của tôi</div>
+          <div className="mt-1 truncate text-slate-700">{email}</div>
         </div>
         <div className="grid gap-2">
           <a
             href="/"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-blue-100 transition hover:bg-white/10"
+            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-600 transition hover:bg-white"
           >
             <ExternalLink className="h-4 w-4" />
             Xem site public
           </a>
           <button
             onClick={onLogout}
-            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-blue-100 transition hover:bg-white/10"
+            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-600 transition hover:bg-white"
           >
             <LogOut className="h-4 w-4" />
             Đăng xuất
@@ -152,14 +147,14 @@ export function AdminLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#f4f7fb_0%,#eef4ff_100%)]">
+    <div className="min-h-screen bg-[#eef6ff]">
       <div className="flex min-h-screen">
-        <aside className="hidden w-72 flex-col bg-[linear-gradient(180deg,hsl(215,80%,20%),hsl(221,70%,17%))] text-white lg:flex">
+        <aside className="hidden w-64 flex-col bg-[#eaf3ff] text-slate-700 lg:flex">
           <SidebarContent active={active} email={adminEmail} onLogout={handleLogout} />
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="sticky top-0 z-30 border-b border-white/70 bg-white/92 backdrop-blur">
+          <header className="sticky top-0 z-30 bg-[#eef6ff]">
             <div className="flex items-center justify-between gap-4 px-4 py-4 sm:px-6">
               <div className="flex items-center gap-3">
                 <button
@@ -169,9 +164,8 @@ export function AdminLayout({
                 >
                   <Menu className="h-5 w-5" />
                 </button>
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[hsl(215,80%,35%)]">Admin</div>
-                  <h1 className="text-xl font-bold text-[hsl(215,80%,20%)]">{title}</h1>
+                <div className="lg:hidden">
+                  <h1 className="text-xl font-bold text-slate-950">{title}</h1>
                 </div>
               </div>
 
@@ -185,14 +179,14 @@ export function AdminLayout({
                   <ExternalLink className="h-4 w-4" />
                   Xem site
                 </a>
-                <div className="rounded-full bg-[hsl(215,80%,95%)] px-4 py-2 text-sm text-[hsl(215,80%,28%)]">
-                  {adminEmail}
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-black text-sm font-bold text-white">
+                  {(adminEmail || "A").charAt(0).toUpperCase()}
                 </div>
               </div>
             </div>
           </header>
 
-          <main className="min-w-0 flex-1 p-4 sm:p-6">{children}</main>
+          <main className="min-w-0 flex-1 rounded-tl-[1.6rem] bg-white p-6 shadow-[0_0_0_1px_rgba(226,232,240,.7)] sm:p-8">{children}</main>
         </div>
       </div>
 
@@ -203,16 +197,16 @@ export function AdminLayout({
         onClick={() => setMobileOpen(false)}
       />
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-[linear-gradient(180deg,hsl(215,80%,20%),hsl(221,70%,17%))] text-white shadow-[0_20px_50px_rgba(15,23,42,.35)] transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-[#eaf3ff] text-slate-700 shadow-[0_20px_50px_rgba(15,23,42,.20)] transition-transform duration-300 lg:hidden ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-          <div className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-100">Điều hướng</div>
+        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+          <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Điều hướng</div>
           <button
             type="button"
             onClick={() => setMobileOpen(false)}
-            className="rounded-full border border-white/10 p-2 text-blue-100 transition hover:bg-white/10"
+            className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-white"
           >
             <X className="h-4 w-4" />
           </button>
