@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import {
   useCreateService,
@@ -12,6 +13,7 @@ import { ExternalLink, ImagePlus, Pencil, Plus, Search, Trash2 } from "lucide-re
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Modal } from "@/components/admin/Modal";
 import { useToast } from "@/hooks/use-toast";
+import { fileToImageDataUrl } from "@/lib/admin-image";
 import { slugify } from "@/lib/site";
 
 type FormData = { name: string; description: string; imageUrl: string };
@@ -26,7 +28,7 @@ export function ServicesAdmin() {
   const [editing, setEditing] = useState<Service | null>(null);
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
-  const { register, handleSubmit, reset, watch } = useForm<FormData>();
+  const { register, handleSubmit, reset, watch, setValue } = useForm<FormData>();
   const imagePreview = watch("imageUrl");
   const namePreview = watch("name");
 
@@ -75,6 +77,24 @@ export function ServicesAdmin() {
   });
 
   const previewHref = namePreview ? `/dich-vu/${slugify(namePreview)}` : null;
+
+  const handleImageFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "File không phải là ảnh", variant: "destructive" });
+      return;
+    }
+    try {
+      const dataUrl = await fileToImageDataUrl(file);
+      setValue("imageUrl", dataUrl, { shouldDirty: true, shouldValidate: true });
+      toast({ title: "Đã chọn ảnh" });
+    } catch {
+      toast({ title: "Không thể đọc ảnh", variant: "destructive" });
+    } finally {
+      event.target.value = "";
+    }
+  };
 
   return (
     <AdminLayout active="services" title="Quản lý dịch vụ">
@@ -152,7 +172,14 @@ export function ServicesAdmin() {
         <form onSubmit={onSubmit} className="space-y-4">
           <input {...register("name", { required: true })} placeholder="Tên dịch vụ" className="w-full rounded-xl border px-3 py-2" />
           <textarea {...register("description")} placeholder="Mô tả" rows={4} className="w-full rounded-xl border px-3 py-2" />
-          <input {...register("imageUrl")} placeholder="URL ảnh" className="w-full rounded-xl border px-3 py-2" />
+          <div className="grid gap-2">
+            <input {...register("imageUrl")} placeholder="URL ảnh hoặc chọn ảnh từ máy" className="w-full rounded-xl border px-3 py-2" />
+            <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[hsl(215,80%,35%)] px-4 py-3 text-sm font-semibold text-[hsl(215,80%,35%)] transition hover:bg-[hsl(215,80%,96%)]">
+              <ImagePlus className="h-4 w-4" />
+              Chọn ảnh từ máy
+              <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" />
+            </label>
+          </div>
           <div className="rounded-xl border bg-slate-50 p-3">
             <div className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-600">
               <ImagePlus className="h-4 w-4" />

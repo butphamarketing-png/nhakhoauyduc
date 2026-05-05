@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import {
   useListFeedback,
@@ -9,8 +10,9 @@ import {
 import type { Feedback } from "@workspace/api-client-react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Modal } from "@/components/admin/Modal";
-import { Plus, Pencil, Trash2, Star, Check, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, Check, X, ImagePlus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { fileToImageDataUrl } from "@/lib/admin-image";
 import { useQueryClient } from "@tanstack/react-query";
 
 type FormData = {
@@ -31,7 +33,8 @@ export function FeedbackAdmin() {
   const qc = useQueryClient();
   const [editing, setEditing] = useState<Feedback | null>(null);
   const [open, setOpen] = useState(false);
-  const { register, handleSubmit, reset } = useForm<FormData>();
+  const { register, handleSubmit, reset, watch, setValue } = useForm<FormData>();
+  const imagePreview = watch("imageUrl");
 
   const openCreate = () => {
     setEditing(null);
@@ -69,6 +72,24 @@ export function FeedbackAdmin() {
       },
     });
     qc.invalidateQueries();
+  };
+
+  const handleImageFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "File không phải là ảnh", variant: "destructive" });
+      return;
+    }
+    try {
+      const dataUrl = await fileToImageDataUrl(file);
+      setValue("imageUrl", dataUrl, { shouldDirty: true, shouldValidate: true });
+      toast({ title: "Đã chọn ảnh" });
+    } catch {
+      toast({ title: "Không thể đọc ảnh", variant: "destructive" });
+    } finally {
+      event.target.value = "";
+    }
   };
 
   return (
@@ -141,7 +162,15 @@ export function FeedbackAdmin() {
           <input {...register("name", { required: true })} placeholder="Tên khách hàng" className="w-full px-3 py-2 border rounded" />
           <input {...register("service")} placeholder="Dịch vụ" className="w-full px-3 py-2 border rounded" />
           <textarea {...register("content")} placeholder="Nội dung" rows={3} className="w-full px-3 py-2 border rounded" />
-          <input {...register("imageUrl")} placeholder="URL ảnh" className="w-full px-3 py-2 border rounded" />
+          <div className="grid gap-2">
+            <input {...register("imageUrl")} placeholder="URL ảnh hoặc chọn ảnh từ máy" className="w-full px-3 py-2 border rounded" />
+            <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[hsl(215,80%,35%)] px-4 py-3 text-sm font-semibold text-[hsl(215,80%,35%)] transition hover:bg-[hsl(215,80%,96%)]">
+              <ImagePlus className="h-4 w-4" />
+              Chọn ảnh từ máy
+              <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" />
+            </label>
+            {imagePreview ? <img src={imagePreview} alt="Xem trước cảm nhận" className="h-40 w-full rounded-lg border object-cover" /> : null}
+          </div>
           <select {...register("rating")} className="w-full px-3 py-2 border rounded">
             {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n} sao</option>)}
           </select>
