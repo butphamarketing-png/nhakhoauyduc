@@ -9,15 +9,24 @@ import {
   settings,
   bookings,
 } from "@workspace/db";
+import { eq } from "drizzle-orm";
 
 async function main() {
   // Admin
   const existingAdmins = await db.select().from(admins).limit(1);
   if (existingAdmins.length === 0) {
     await db.insert(admins).values({
-      email: "admin@nhakhoaht.vn",
-      password: "admin123",
+      email: "butphamarketing@gmail.comm",
+      password: "nhakhoauyduc",
     });
+  } else {
+    await db
+      .update(admins)
+      .set({
+        email: "butphamarketing@gmail.comm",
+        password: "nhakhoauyduc",
+      })
+      .where(eq(admins.id, existingAdmins[0].id));
   }
 
   // Settings
