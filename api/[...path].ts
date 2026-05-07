@@ -1,3 +1,3 @@
-import app from "../artifacts/api-server/src/app.ts";
+import app from "@workspace/api-server/app";
 
 export default app;
