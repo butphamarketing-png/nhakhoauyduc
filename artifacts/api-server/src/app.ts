@@ -7,6 +7,26 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
+function getErrorDetails(err: unknown) {
+  if (!(err instanceof Error)) {
+    return { message: "Internal Server Error" };
+  }
+
+  const cause = err.cause;
+  const causeRecord =
+    cause && typeof cause === "object" ? (cause as Record<string, unknown>) : null;
+
+  return {
+    message: err.message,
+    cause:
+      cause instanceof Error
+        ? cause.message
+        : causeRecord?.["message"] ?? null,
+    code: causeRecord?.["code"] ?? null,
+    detail: causeRecord?.["detail"] ?? null,
+  };
+}
+
 app.use(
   pinoHttp({
     logger,
@@ -40,9 +60,7 @@ app.use(
     _next: express.NextFunction,
   ) => {
     logger.error({ err }, "Unhandled API error");
-    res.status(500).json({
-      error: err instanceof Error ? err.message : "Internal Server Error",
-    });
+    res.status(500).json({ error: getErrorDetails(err) });
   },
 );
 
