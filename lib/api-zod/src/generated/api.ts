@@ -404,6 +404,9 @@ export const GetDashboardSummaryResponse = zod.object({
   totalServices: zod.number(),
   totalFeedback: zod.number(),
   pendingBookings: zod.number(),
+  storageUsedBytes: zod.number(),
+  storageLimitBytes: zod.number(),
+  storageUsagePercent: zod.number(),
 });
 
 export const GetBookingsByDayResponseItem = zod.object({

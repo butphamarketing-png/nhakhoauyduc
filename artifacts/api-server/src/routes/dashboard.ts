@@ -3,14 +3,36 @@ import { requireAdmin } from "../lib/auth";
 import { supabase, throwIfSupabaseError } from "../lib/supabase";
 
 const router: IRouter = Router();
+const STORAGE_LIMIT_BYTES = 10 * 1024 * 1024 * 1024;
+const STORAGE_TABLES = [
+  "banners",
+  "services",
+  "promotions",
+  "feedback",
+  "posts",
+  "bookings",
+  "settings",
+  "admins",
+];
+
+async function estimateStorageUsedBytes() {
+  const results = await Promise.all(
+    STORAGE_TABLES.map((table) => supabase.from(table).select("*")),
+  );
+  results.forEach((result) => throwIfSupabaseError(result.error));
+  return results.reduce((total, result) => {
+    return total + Buffer.byteLength(JSON.stringify(result.data ?? []), "utf8");
+  }, 0);
+}
 
 router.get("/dashboard/summary", requireAdmin, async (_req, res) => {
-  const [totalB, totalP, totalS, totalF, pending] = await Promise.all([
+  const [totalB, totalP, totalS, totalF, pending, storageUsedBytes] = await Promise.all([
     supabase.from("bookings").select("*", { count: "exact", head: true }),
     supabase.from("posts").select("*", { count: "exact", head: true }),
     supabase.from("services").select("*", { count: "exact", head: true }),
     supabase.from("feedback").select("*", { count: "exact", head: true }),
     supabase.from("bookings").select("*", { count: "exact", head: true }).eq("status", "Chưa xử lý"),
+    estimateStorageUsedBytes(),
   ]);
   [totalB, totalP, totalS, totalF, pending].forEach((result) => throwIfSupabaseError(result.error));
   res.json({
@@ -19,6 +41,9 @@ router.get("/dashboard/summary", requireAdmin, async (_req, res) => {
     totalServices: totalS.count ?? 0,
     totalFeedback: totalF.count ?? 0,
     pendingBookings: pending.count ?? 0,
+    storageUsedBytes,
+    storageLimitBytes: STORAGE_LIMIT_BYTES,
+    storageUsagePercent: Number(((storageUsedBytes / STORAGE_LIMIT_BYTES) * 100).toFixed(4)),
   });
 });
 

@@ -10,6 +10,7 @@ import {
   Briefcase,
   MessageSquare,
   AlertCircle,
+  Database,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -22,10 +23,25 @@ import {
 } from "recharts";
 import { STATUS_CLASS } from "@/lib/api";
 
+function formatBytes(bytes = 0) {
+  if (bytes < 1024) return `${bytes} B`;
+  const units = ["KB", "MB", "GB", "TB"];
+  let value = bytes / 1024;
+  let unitIndex = 0;
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024;
+    unitIndex += 1;
+  }
+  return `${value.toFixed(value >= 10 ? 1 : 2)} ${units[unitIndex]}`;
+}
+
 export function DashboardOverview() {
   const { data: summary } = useGetDashboardSummary();
   const { data: byDay = [] } = useGetBookingsByDay();
   const { data: recent = [] } = useListBookings();
+  const storageUsed = summary?.storageUsedBytes ?? 0;
+  const storageLimit = summary?.storageLimitBytes ?? 10 * 1024 * 1024 * 1024;
+  const storagePercent = Math.min(summary?.storageUsagePercent ?? 0, 100);
 
   const cards = [
     { label: "Tổng lịch hẹn", value: summary?.totalBookings ?? 0, icon: CalendarCheck, color: "bg-blue-500" },
@@ -47,6 +63,34 @@ export function DashboardOverview() {
             <div className="text-xs text-gray-500">{c.label}</div>
           </div>
         ))}
+      </div>
+
+      <div className="bg-white p-5 rounded-xl border shadow-sm mb-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-sky-500 text-white rounded-xl grid place-items-center">
+              <Database className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-[hsl(215,80%,20%)]">Dung lượng dữ liệu</h3>
+              <p className="text-sm text-gray-500">
+                Đã dùng {formatBytes(storageUsed)} / {formatBytes(storageLimit)}
+              </p>
+            </div>
+          </div>
+          <div className="text-left md:text-right">
+            <div className="text-2xl font-bold text-[hsl(215,80%,20%)]">
+              {storagePercent.toFixed(storagePercent >= 1 ? 2 : 4)}%
+            </div>
+            <div className="text-xs text-gray-500">Mốc giới hạn 10GB</div>
+          </div>
+        </div>
+        <div className="mt-4 h-3 overflow-hidden rounded-full bg-gray-100">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-sky-500 to-blue-600"
+            style={{ width: `${Math.max(storagePercent, storageUsed > 0 ? 0.2 : 0)}%` }}
+          />
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">

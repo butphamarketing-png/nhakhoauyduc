@@ -156,6 +156,9 @@ export interface DashboardSummary {
   totalServices: number;
   totalFeedback: number;
   pendingBookings: number;
+  storageUsedBytes: number;
+  storageLimitBytes: number;
+  storageUsagePercent: number;
 }
 
 export interface BookingsByDay {
