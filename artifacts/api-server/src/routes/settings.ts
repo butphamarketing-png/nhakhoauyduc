@@ -1,16 +1,18 @@
 import { Router, type IRouter } from "express";
-import { db, settings } from "@workspace/db";
-import { eq } from "drizzle-orm";
 import { UpdateSettingsBody } from "@workspace/api-zod";
 import { requireAdmin } from "../lib/auth";
+import { supabase, throwIfSupabaseError, toCamelObject, toSnakeObject } from "../lib/supabase";
 
 const router: IRouter = Router();
 
 async function ensureSettings() {
-  const [row] = await db.select().from(settings).limit(1);
-  if (row) return row;
-  const [created] = await db.insert(settings).values({}).returning();
-  return created;
+  const { data, error } = await supabase.from("settings").select("*").limit(1).maybeSingle();
+  throwIfSupabaseError(error);
+  if (data) return toCamelObject(data);
+
+  const inserted = await supabase.from("settings").insert({}).select("*").single();
+  throwIfSupabaseError(inserted.error);
+  return toCamelObject(inserted.data);
 }
 
 router.get("/settings", async (_req, res) => {
@@ -25,12 +27,14 @@ router.put("/settings", requireAdmin, async (req, res) => {
     return;
   }
   const existing = await ensureSettings();
-  const [row] = await db
-    .update(settings)
-    .set(parsed.data)
-    .where(eq(settings.id, existing.id))
-    .returning();
-  res.json(row);
+  const { data, error } = await supabase
+    .from("settings")
+    .update(toSnakeObject(parsed.data))
+    .eq("id", existing.id)
+    .select("*")
+    .single();
+  throwIfSupabaseError(error);
+  res.json(toCamelObject(data));
 });
 
 export default router;

@@ -1,29 +1,26 @@
 import { Router, type IRouter } from "express";
-import { db, posts } from "@workspace/db";
-import { desc, eq, ilike, or } from "drizzle-orm";
 import { CreatePostBody, UpdatePostBody } from "@workspace/api-zod";
 import { requireAdmin } from "../lib/auth";
+import { supabase, throwIfSupabaseError, toCamelArray, toCamelObject, toSnakeObject } from "../lib/supabase";
 
 const router: IRouter = Router();
 
 router.get("/posts", async (req, res) => {
   const q = typeof req.query.q === "string" ? req.query.q : "";
+  let query = supabase.from("posts").select("*").order("created_at", { ascending: false });
   if (q) {
-    const rows = await db
-      .select()
-      .from(posts)
-      .where(or(ilike(posts.title, `%${q}%`), ilike(posts.excerpt, `%${q}%`)))
-      .orderBy(desc(posts.createdAt));
-    res.json(rows);
-    return;
+    query = query.or(`title.ilike.%${q}%,excerpt.ilike.%${q}%`);
   }
-  const rows = await db.select().from(posts).orderBy(desc(posts.createdAt));
-  res.json(rows);
+  const { data, error } = await query;
+  throwIfSupabaseError(error);
+  res.json(toCamelArray(data ?? []));
 });
 
 router.get("/posts/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const [row] = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
+  const { data, error } = await supabase.from("posts").select("*").eq("id", id).maybeSingle();
+  throwIfSupabaseError(error);
+  const row = data ? toCamelObject(data) : null;
   if (!row) {
     res.status(404).json({ error: "Not found" });
     return;
@@ -37,8 +34,9 @@ router.post("/posts", requireAdmin, async (req, res) => {
     res.status(400).json({ error: "Invalid" });
     return;
   }
-  const [row] = await db.insert(posts).values(parsed.data).returning();
-  res.status(201).json(row);
+  const { data, error } = await supabase.from("posts").insert(toSnakeObject(parsed.data)).select("*").single();
+  throwIfSupabaseError(error);
+  res.status(201).json(toCamelObject(data));
 });
 
 router.put("/posts/:id", requireAdmin, async (req, res) => {
@@ -48,17 +46,20 @@ router.put("/posts/:id", requireAdmin, async (req, res) => {
     res.status(400).json({ error: "Invalid" });
     return;
   }
-  const [row] = await db
-    .update(posts)
-    .set(parsed.data)
-    .where(eq(posts.id, id))
-    .returning();
-  res.json(row);
+  const { data, error } = await supabase
+    .from("posts")
+    .update(toSnakeObject(parsed.data))
+    .eq("id", id)
+    .select("*")
+    .single();
+  throwIfSupabaseError(error);
+  res.json(toCamelObject(data));
 });
 
 router.delete("/posts/:id", requireAdmin, async (req, res) => {
   const id = Number(req.params.id);
-  await db.delete(posts).where(eq(posts.id, id));
+  const { error } = await supabase.from("posts").delete().eq("id", id);
+  throwIfSupabaseError(error);
   res.json({ ok: true });
 });
 

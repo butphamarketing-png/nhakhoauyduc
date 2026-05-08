@@ -1,8 +1,7 @@
 import { Router, type IRouter } from "express";
-import { db, admins } from "@workspace/db";
-import { eq } from "drizzle-orm";
 import { AdminLoginBody } from "@workspace/api-zod";
 import { setAdminCookie, clearAdminCookie, getAdminEmail } from "../lib/auth";
+import { supabase, throwIfSupabaseError, toCamelObject } from "../lib/supabase";
 
 const router: IRouter = Router();
 const FALLBACK_ADMIN_EMAIL = "butphamarketing@gmail.com";
@@ -20,11 +19,13 @@ router.post("/auth/login", async (req, res) => {
     res.json({ authenticated: true, email: FALLBACK_ADMIN_EMAIL });
     return;
   }
-  const [admin] = await db
-    .select()
-    .from(admins)
-    .where(eq(admins.email, email))
-    .limit(1);
+  const { data, error } = await supabase
+    .from("admins")
+    .select("*")
+    .eq("email", email)
+    .maybeSingle();
+  throwIfSupabaseError(error);
+  const admin = data ? toCamelObject<{ email: string; password: string }>(data) : null;
   if (!admin || admin.password !== password) {
     res.status(401).json({ authenticated: false, email: null });
     return;

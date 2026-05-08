@@ -1,14 +1,15 @@
 import { Router, type IRouter } from "express";
-import { db, feedback } from "@workspace/db";
-import { asc, eq } from "drizzle-orm";
 import { CreateFeedbackBody, UpdateFeedbackBody } from "@workspace/api-zod";
 import { requireAdmin } from "../lib/auth";
+import { supabase, throwIfSupabaseError, toCamelArray, toCamelObject, toSnakeObject } from "../lib/supabase";
 
 const router: IRouter = Router();
 
 router.get("/feedback", async (req, res) => {
   const approvedParam = req.query.approved;
-  const rows = await db.select().from(feedback).orderBy(asc(feedback.id));
+  const { data, error } = await supabase.from("feedback").select("*").order("id");
+  throwIfSupabaseError(error);
+  const rows = toCamelArray<{ approved?: boolean } & Record<string, unknown>>(data ?? []);
   if (approvedParam === "true") {
     res.json(rows.filter((r) => r.approved));
     return;
@@ -26,8 +27,9 @@ router.post("/feedback", async (req, res) => {
     res.status(400).json({ error: "Invalid" });
     return;
   }
-  const [row] = await db.insert(feedback).values(parsed.data).returning();
-  res.status(201).json(row);
+  const { data, error } = await supabase.from("feedback").insert(toSnakeObject(parsed.data)).select("*").single();
+  throwIfSupabaseError(error);
+  res.status(201).json(toCamelObject(data));
 });
 
 router.put("/feedback/:id", requireAdmin, async (req, res) => {
@@ -37,17 +39,20 @@ router.put("/feedback/:id", requireAdmin, async (req, res) => {
     res.status(400).json({ error: "Invalid" });
     return;
   }
-  const [row] = await db
-    .update(feedback)
-    .set(parsed.data)
-    .where(eq(feedback.id, id))
-    .returning();
-  res.json(row);
+  const { data, error } = await supabase
+    .from("feedback")
+    .update(toSnakeObject(parsed.data))
+    .eq("id", id)
+    .select("*")
+    .single();
+  throwIfSupabaseError(error);
+  res.json(toCamelObject(data));
 });
 
 router.delete("/feedback/:id", requireAdmin, async (req, res) => {
   const id = Number(req.params.id);
-  await db.delete(feedback).where(eq(feedback.id, id));
+  const { error } = await supabase.from("feedback").delete().eq("id", id);
+  throwIfSupabaseError(error);
   res.json({ ok: true });
 });
 

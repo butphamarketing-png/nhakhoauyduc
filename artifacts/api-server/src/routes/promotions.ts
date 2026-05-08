@@ -1,14 +1,14 @@
 import { Router, type IRouter } from "express";
-import { db, promotions } from "@workspace/db";
-import { asc, eq } from "drizzle-orm";
 import { CreatePromotionBody, UpdatePromotionBody } from "@workspace/api-zod";
 import { requireAdmin } from "../lib/auth";
+import { supabase, throwIfSupabaseError, toCamelArray, toCamelObject, toSnakeObject } from "../lib/supabase";
 
 const router: IRouter = Router();
 
 router.get("/promotions", async (_req, res) => {
-  const rows = await db.select().from(promotions).orderBy(asc(promotions.id));
-  res.json(rows);
+  const { data, error } = await supabase.from("promotions").select("*").order("id");
+  throwIfSupabaseError(error);
+  res.json(toCamelArray(data ?? []));
 });
 
 router.post("/promotions", requireAdmin, async (req, res) => {
@@ -17,8 +17,9 @@ router.post("/promotions", requireAdmin, async (req, res) => {
     res.status(400).json({ error: "Invalid" });
     return;
   }
-  const [row] = await db.insert(promotions).values(parsed.data).returning();
-  res.status(201).json(row);
+  const { data, error } = await supabase.from("promotions").insert(toSnakeObject(parsed.data)).select("*").single();
+  throwIfSupabaseError(error);
+  res.status(201).json(toCamelObject(data));
 });
 
 router.put("/promotions/:id", requireAdmin, async (req, res) => {
@@ -28,17 +29,20 @@ router.put("/promotions/:id", requireAdmin, async (req, res) => {
     res.status(400).json({ error: "Invalid" });
     return;
   }
-  const [row] = await db
-    .update(promotions)
-    .set(parsed.data)
-    .where(eq(promotions.id, id))
-    .returning();
-  res.json(row);
+  const { data, error } = await supabase
+    .from("promotions")
+    .update(toSnakeObject(parsed.data))
+    .eq("id", id)
+    .select("*")
+    .single();
+  throwIfSupabaseError(error);
+  res.json(toCamelObject(data));
 });
 
 router.delete("/promotions/:id", requireAdmin, async (req, res) => {
   const id = Number(req.params.id);
-  await db.delete(promotions).where(eq(promotions.id, id));
+  const { error } = await supabase.from("promotions").delete().eq("id", id);
+  throwIfSupabaseError(error);
   res.json({ ok: true });
 });
 
