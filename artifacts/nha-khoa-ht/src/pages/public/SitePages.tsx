@@ -20,7 +20,6 @@ import { CommitmentsShowcaseSection } from "@/components/site/CommitmentsShowcas
 import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
 import { PromotionsShowcaseSection } from "@/components/site/PromotionsShowcaseSection";
 import { SeoHead } from "@/components/site/SeoHead";
-import { TestimonialsShowcaseSection } from "@/components/site/TestimonialsShowcaseSection";
 import {
   buildArticleSchema,
   buildBreadcrumbSchema,
@@ -350,88 +349,85 @@ function HeroSlider({ banners }: { banners: BannerItem[] }) {
   const active = slides[index];
 
   return (
-    <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,.18),transparent_32%),linear-gradient(135deg,hsl(223,68%,42%),hsl(226,55%,22%))]">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:py-20">
+    <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,.12),transparent_40%),linear-gradient(135deg,hsl(223,68%,42%),hsl(226,55%,22%))]">
+      <div className="pointer-events-none absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]" />
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:py-24">
         <div key={active.id} className="text-white">
-          <div className="motion-enter motion-enter-delay-1 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium">
+          <div className="motion-enter motion-enter-delay-1 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm">
             <Sparkles className="h-4 w-4 text-[hsl(42,94%,58%)]" />
-            Đặt lịch nhanh - tư vấn rõ ràng - theo dõi sau điều trị
+            <span className="tracking-wide uppercase text-[10px] font-bold opacity-90">Dịch vụ chuẩn quốc tế</span>
           </div>
-          <h1 className="motion-enter motion-enter-delay-2 mt-6 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+          <h1 className="motion-enter motion-enter-delay-2 mt-6 max-w-3xl text-balance text-4xl font-bold leading-[1.15] sm:text-5xl lg:text-6xl">
             {active.title}
           </h1>
-          <p className="motion-enter motion-enter-delay-3 mt-5 max-w-2xl text-lg leading-8 text-blue-50/95">
+          <p className="motion-enter motion-enter-delay-3 mt-6 max-w-2xl text-lg leading-relaxed text-blue-50/90">
             {active.subtitle || CLINIC_PROFILE.description}
           </p>
 
-          <div className="motion-enter motion-enter-delay-4 mt-8 flex flex-wrap gap-3">
+          <div className="motion-enter motion-enter-delay-4 mt-10 flex flex-wrap gap-4">
             <a
               href="/lien-he#booking"
-              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[hsl(223,68%,22%)] shadow-lg shadow-[rgba(12,25,75,.24)] transition hover:-translate-y-0.5"
+              className="group inline-flex min-h-[3.5rem] items-center gap-3 rounded-full bg-white px-8 py-4 font-bold text-[hsl(223,68%,22%)] shadow-xl shadow-blue-950/20 transition-all hover:-translate-y-1 hover:bg-blue-50"
             >
-              <CalendarDays className="h-4 w-4" />
-              {active.ctaText || "Đặt lịch tư vấn"}
+              <CalendarDays className="h-5 w-5 transition-transform group-hover:scale-110" />
+              {active.ctaText || "Đặt lịch tư vấn ngay"}
             </a>
             <a
               href={`tel:${CLINIC_PROFILE.hotline.replace(/\s+/g, "")}`}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white transition hover:bg-white/15"
+              className="inline-flex min-h-[3.5rem] items-center gap-3 rounded-full border border-white/30 bg-white/5 px-8 py-4 font-bold text-white backdrop-blur-sm transition-all hover:bg-white/15"
             >
-              <Phone className="h-4 w-4" />
-              Gọi {CLINIC_PROFILE.hotline}
+              <Phone className="h-5 w-5" />
+              {CLINIC_PROFILE.hotline}
             </a>
           </div>
 
-          <div className="motion-enter motion-enter-delay-5 mt-10 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-[1.75rem] border border-white/15 bg-white/10 p-5 backdrop-blur transition duration-300 hover:-translate-y-1">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Thời gian làm việc</div>
-              <div className="mt-2 text-lg font-semibold">{CLINIC_PROFILE.hours.weekdays}</div>
-              <div className="text-sm text-blue-100">{CLINIC_PROFILE.hours.sunday}</div>
+          <div className="motion-enter motion-enter-delay-5 mt-12 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:bg-white/10">
+              <div className="text-[10px] font-bold uppercase tracking-widest text-blue-200/80">Giờ làm việc</div>
+              <div className="mt-2 font-bold text-lg">{CLINIC_PROFILE.hours.weekdays}</div>
+              <div className="text-xs text-blue-100/70">{CLINIC_PROFILE.hours.sunday}</div>
             </div>
-            <div className="rounded-[1.75rem] border border-white/15 bg-white/10 p-5 backdrop-blur transition duration-300 hover:-translate-y-1">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Khu vực phục vụ</div>
-              <div className="mt-2 text-lg font-semibold">{CLINIC_PROFILE.shortAddress}</div>
-              <div className="text-sm text-blue-100">Tiện ghé thăm khám và tái khám định kỳ</div>
+            <div className="rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:bg-white/10">
+              <div className="text-[10px] font-bold uppercase tracking-widest text-blue-200/80">Địa chỉ</div>
+              <div className="mt-2 font-bold text-lg">{CLINIC_PROFILE.shortAddress}</div>
+              <div className="text-xs text-blue-100/70">Dễ dàng tìm thấy & có chỗ đậu xe</div>
             </div>
-            <div className="rounded-[1.75rem] border border-white/15 bg-white/10 p-5 backdrop-blur transition duration-300 hover:-translate-y-1">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Cam kết</div>
-              <div className="mt-2 text-lg font-semibold">Minh bạch và nhẹ nhàng</div>
-              <div className="text-sm text-blue-100">Giải thích rõ trước khi bắt đầu điều trị</div>
+            <div className="rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:bg-white/10">
+              <div className="text-[10px] font-bold uppercase tracking-widest text-blue-200/80">Chất lượng</div>
+              <div className="mt-2 font-bold text-lg">Tận tâm & Minh bạch</div>
+              <div className="text-xs text-blue-100/70">Cam kết không phát sinh chi phí</div>
             </div>
           </div>
         </div>
 
         <div key={`visual-${active.id}`} className="motion-enter motion-enter-delay-3 relative">
-          <div className="absolute inset-0 rounded-[2rem] bg-white/10 blur-2xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-4 shadow-[0_26px_70px_rgba(5,17,62,.28)] backdrop-blur">
-            <div className="overflow-hidden rounded-[1.6rem] bg-white">
+          <div className="absolute -inset-4 rounded-[3rem] bg-blue-400/20 blur-3xl" />
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-sm">
+            <div className="overflow-hidden rounded-[2rem] bg-slate-100">
               <img
                 src={active.imageUrl || LOGO_URL}
                 alt={active.title}
-                className="hero-image-float h-[420px] w-full object-cover"
+                className="hero-image-float h-[460px] w-full object-cover"
               />
             </div>
-            <div className="mt-4 grid gap-3 rounded-[1.5rem] bg-white p-5 text-[hsl(223,68%,24%)] shadow-lg sm:grid-cols-[1fr_auto] sm:items-center">
+            <div className="absolute inset-x-8 bottom-8 rounded-3xl bg-white/95 p-6 text-[hsl(223,68%,24%)] shadow-2xl backdrop-blur-md sm:flex sm:items-center sm:justify-between">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  Lý do khách hàng quay lại
-                </div>
-                <div className="mt-2 text-lg font-semibold">
-                  Khám kỹ, tư vấn dễ hiểu và đồng hành sau điều trị
-                </div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Tin cậy từ khách hàng</div>
+                <div className="mt-1 font-bold">Khám kỹ, tư vấn dễ hiểu & nhẹ nhàng</div>
               </div>
               {slides.length > 1 ? (
-                <div className="flex gap-2">
+                <div className="mt-4 flex gap-2 sm:mt-0">
                   <button
                     onClick={() => setIndex((index - 1 + slides.length) % slides.length)}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
-                    aria-label="Xem slide trước"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition-colors hover:bg-slate-50"
+                    aria-label="Slide trước"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setIndex((index + 1) % slides.length)}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
-                    aria-label="Xem slide sau"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition-colors hover:bg-slate-50"
+                    aria-label="Slide sau"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </button>
@@ -456,20 +452,20 @@ function QuickLeadForm({ floating = true }: { floating?: boolean }) {
   } = useForm<{ name: string; phone: string }>();
 
   return (
-    <section className={floating ? "-mt-10 relative z-10" : "relative"}>
+    <section className={floating ? "-mt-12 relative z-10" : "relative"}>
       <div className="mx-auto max-w-7xl px-4">
-        <Reveal className="rounded-[2rem] bg-white p-6 shadow-[0_24px_60px_rgba(18,41,110,.12)] ring-1 ring-slate-100">
-          <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+        <Reveal className="rounded-[2.5rem] bg-white p-8 shadow-2xl ring-1 ring-slate-100 lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-[hsl(42,94%,95%)] px-3 py-1 text-sm font-semibold text-[hsl(33,89%,38%)]">
+              <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-orange-600">
                 <HeartHandshake className="h-4 w-4" />
-                Tư vấn nhanh trong giờ làm việc
+                Hỗ trợ trực tuyến 24/7
               </div>
-              <h2 className="mt-3 text-2xl font-bold text-[hsl(223,68%,24%)]">
-                Để lại số điện thoại để được gọi lại và gợi ý dịch vụ phù hợp
+              <h2 className="mt-4 text-3xl font-bold text-slate-900 leading-tight">
+                Để lại thông tin, chúng tôi sẽ gọi lại ngay
               </h2>
-              <p className="mt-2 text-slate-600">
-                Phù hợp khi bạn cần hỏi nhanh về tình trạng hiện tại, khung giờ trống hoặc chi phí dự kiến.
+              <p className="mt-3 text-slate-500 leading-relaxed">
+                Tư vấn miễn phí về tình trạng răng miệng, báo giá dịch vụ và đặt lịch hẹn nhanh chóng.
               </p>
             </div>
 
@@ -478,41 +474,41 @@ function QuickLeadForm({ floating = true }: { floating?: boolean }) {
                 try {
                   await create.mutateAsync({ data });
                   toast({
-                    title: "Đã gửi yêu cầu",
-                    description: "Đội ngũ sẽ liên hệ lại với bạn trong thời gian sớm nhất.",
+                    title: "Gửi yêu cầu thành công!",
+                    description: "Chúng tôi sẽ liên hệ lại với bạn trong giây lát.",
                   });
                   reset();
                 } catch {
                   toast({
-                    title: "Chưa gửi được yêu cầu",
-                    description: "Vui lòng thử lại sau ít phút hoặc gọi trực tiếp hotline.",
+                    title: "Lỗi gửi yêu cầu",
+                    description: "Vui lòng kiểm tra lại kết nối hoặc gọi hotline.",
                     variant: "destructive",
                   });
                 }
               })}
-              className="grid gap-3 md:grid-cols-[1fr_1fr_auto]"
+              className="grid gap-4 sm:grid-cols-[1fr_1fr_auto]"
             >
-              <div>
+              <div className="space-y-1">
                 <input
-                  {...register("name", { required: "Vui lòng nhập họ và tên" })}
-                  placeholder="Họ và tên"
-                  className="h-12 w-full rounded-full border border-slate-200 px-5 outline-none transition focus:border-[hsl(223,68%,39%)] focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
+                  {...register("name", { required: "Vui lòng nhập họ tên" })}
+                  placeholder="Họ và tên của bạn"
+                  className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-6 outline-none transition-all focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10"
                 />
                 <FieldError message={errors.name?.message} />
               </div>
-              <div>
+              <div className="space-y-1">
                 <input
                   {...register("phone", phoneRules)}
                   placeholder="Số điện thoại"
-                  className="h-12 w-full rounded-full border border-slate-200 px-5 outline-none transition focus:border-[hsl(223,68%,39%)] focus:ring-4 focus:ring-[rgba(37,80,181,.12)]"
+                  className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-6 outline-none transition-all focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10"
                 />
                 <FieldError message={errors.phone?.message} />
               </div>
               <button
                 disabled={isSubmitting}
-                className={`inline-flex min-h-12 items-center justify-center rounded-full bg-[hsl(223,68%,39%)] px-6 py-3 font-semibold text-white transition hover:bg-[hsl(223,68%,32%)] disabled:cursor-not-allowed disabled:opacity-60 ${isSubmitting ? "animate-pulse" : ""}`}
+                className="h-14 rounded-2xl bg-primary px-8 font-bold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Đang gửi..." : "Nhận tư vấn"}
+                {isSubmitting ? "Đang xử lý..." : "Nhận tư vấn ngay"}
               </button>
             </form>
           </div>
@@ -526,52 +522,55 @@ function AboutPreview({ services }: { services: ServiceItem[] }) {
   const imageUrl = services[0]?.imageUrl || LOGO_URL;
 
   return (
-    <section className="py-14 sm:py-16">
-      <Reveal className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
+    <section className="py-20 sm:py-24">
+      <Reveal className="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-[0.45fr_0.55fr] lg:items-center">
         <div className="relative">
+          <div className="absolute -inset-4 rounded-[2rem] bg-blue-100/50 blur-2xl" />
           <img
             src={imageUrl}
             alt={`${CLINIC_PROFILE.name} không gian và dịch vụ`}
-            className="relative h-[320px] w-full rounded-[1.5rem] object-cover shadow-[0_16px_36px_rgba(20,41,102,.1)] sm:h-[380px] lg:h-[430px]"
+            className="relative h-[400px] w-full rounded-[2rem] object-cover shadow-2xl sm:h-[480px] lg:h-[540px]"
           />
-          <div className="premium-panel absolute -bottom-6 right-6 max-w-xs rounded-[1.6rem] p-5">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[hsl(223,68%,39%)]">
-              Trải nghiệm tại phòng khám
+          <div className="premium-panel absolute -bottom-8 -right-4 max-w-[280px] rounded-3xl p-6 shadow-2xl">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-primary">
+              Trải nghiệm chuẩn mực
             </div>
-            <div className="mt-2 text-lg font-semibold text-[hsl(223,68%,22%)]">
-              Không gian sáng, quy trình rõ và phù hợp cho cả khách mới lẫn gia đình tái khám định kỳ
+            <div className="mt-3 text-lg font-bold text-slate-900 leading-snug">
+              Không gian hiện đại, quy trình vô trùng tuyệt đối
             </div>
           </div>
         </div>
         <div>
           <SectionHeading
-            eyebrow="Giới thiệu"
-            title={`${CLINIC_PROFILE.name} - Đồng hành cùng nụ cười khỏe đẹp cho cả gia đình`}
-            description="Phòng khám tập trung vào trải nghiệm thăm khám nhẹ nhàng, giao tiếp rõ ràng và lộ trình điều trị phù hợp thay vì tạo áp lực cho khách hàng."
+            eyebrow="Về chúng tôi"
+            title={`${CLINIC_PROFILE.name} - Nơi khởi đầu của nụ cười hạnh phúc`}
+            description="Chúng tôi không chỉ điều trị răng miệng, mà còn chăm sóc cảm giác an tâm của bạn qua từng chi tiết nhỏ nhất."
           />
-          <div className="mt-6 space-y-4 text-slate-600">
+          <div className="mt-8 space-y-5 text-lg text-slate-600 leading-relaxed">
             <p>
-              Từ lần khám đầu tiên, đội ngũ sẽ lắng nghe nhu cầu, kiểm tra tình trạng và giải thích phương án phù hợp với mục tiêu của bạn: điều trị, phục hình hay cải thiện thẩm mỹ.
+              Với đội ngũ bác sĩ giàu kinh nghiệm, chúng tôi ưu tiên phương pháp điều trị <strong>bảo tồn tối đa</strong> và <strong>không đau</strong>, giúp bạn luôn thoải mái trong suốt quá trình thăm khám.
             </p>
             <p>
-              Chúng tôi ưu tiên cảm giác yên tâm và dễ hiểu trong suốt hành trình, từ đặt lịch, tiếp đón, thực hiện dịch vụ đến chăm sóc sau điều trị.
+              Mọi kế hoạch điều trị đều được giải thích rõ ràng, minh bạch về chi phí và cam kết đồng hành lâu dài cùng sức khỏe răng miệng của gia đình bạn.
             </p>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {SITE_FACTS.map((fact) => (
-              <div key={fact.label} className="premium-panel rounded-[1.5rem] p-5">
-                <div className="text-3xl font-bold text-[hsl(223,68%,39%)]">{fact.value}</div>
-                <div className="mt-2 text-sm leading-6 text-slate-600">{fact.label}</div>
+              <div key={fact.label} className="premium-panel rounded-3xl p-6">
+                <div className="text-4xl font-black text-primary">
+                  <CountUp value={fact.value} suffix={fact.value.includes("+") ? "+" : ""} />
+                </div>
+                <div className="mt-2 text-sm font-bold text-slate-500 uppercase tracking-wide">{fact.label}</div>
               </div>
             ))}
           </div>
-          <div className="mt-8">
+          <div className="mt-10">
             <Link
               href="/gioi-thieu"
-              className="inline-flex items-center gap-2 rounded-full bg-[hsl(223,68%,39%)] px-6 py-3 font-semibold text-white transition hover:bg-[hsl(223,68%,32%)]"
+              className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-bold text-white shadow-xl shadow-primary/20 transition-all hover:bg-primary/90 hover:-translate-y-1"
             >
-              Tìm hiểu thêm
-              <ArrowRight className="h-4 w-4" />
+              Tìm hiểu câu chuyện của chúng tôi
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
         </div>
@@ -584,36 +583,36 @@ function ServiceCard({ service }: { service: ServiceItem }) {
   const highlights = getServiceHighlights(service.name).slice(0, 2);
 
   return (
-    <article className="group premium-card overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-[0_26px_50px_rgba(15,39,103,.12)]">
-      <div className="relative h-56 overflow-hidden bg-slate-100">
+    <article className="group premium-card overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-sm transition-all hover:shadow-2xl">
+      <div className="relative h-64 overflow-hidden bg-slate-100">
         <img
           src={service.imageUrl || LOGO_URL}
           alt={service.name}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-x-4 bottom-4 inline-flex items-center gap-2 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold text-[hsl(223,68%,24%)] shadow-sm backdrop-blur">
-          <Stethoscope className="h-3.5 w-3.5 text-[hsl(223,68%,39%)]" />
-          Dịch vụ được quan tâm nhiều
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-x-4 bottom-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-900 shadow-xl backdrop-blur-md">
+          <Sparkles className="h-3.5 w-3.5 text-orange-500" />
+          Dịch vụ tiêu biểu
         </div>
       </div>
-      <div className="relative p-6">
-        <div className="absolute right-6 top-0 h-16 w-16 rounded-full bg-[radial-gradient(circle,rgba(37,80,181,.14),transparent_70%)]" />
-        <h3 className="text-xl font-semibold text-[hsl(223,68%,24%)]">{service.name}</h3>
-        <p className="mt-3 text-sm leading-6 text-slate-600">{buildExcerpt(service.description, 135)}</p>
-        <div className="mt-4 space-y-2">
+      <div className="p-8">
+        <h3 className="text-2xl font-bold text-slate-900 group-hover:text-primary transition-colors">{service.name}</h3>
+        <p className="mt-3 text-slate-500 leading-relaxed line-clamp-2">{service.description}</p>
+        <div className="mt-6 space-y-3">
           {highlights.map((item) => (
-            <div key={item} className="flex items-start gap-2 text-sm text-slate-600">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(42,94%,52%)]" />
+            <div key={item} className="flex items-center gap-3 text-sm font-medium text-slate-600">
+              <div className="h-1.5 w-1.5 rounded-full bg-primary" />
               <span>{item}</span>
             </div>
           ))}
         </div>
         <Link
           href={`/dich-vu/${slugify(service.name)}`}
-          className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[hsl(223,68%,39%)]"
+          className="mt-8 inline-flex items-center gap-2 font-bold text-primary transition-all hover:gap-3"
         >
-          Xem chi tiết
-          <ArrowRight className="h-4 w-4" />
+          Chi tiết dịch vụ
+          <ArrowRight className="h-5 w-5" />
         </Link>
       </div>
     </article>
@@ -1478,7 +1477,6 @@ export function HomePage() {
         <CommitmentsShowcaseSection />
         <StatsSection />
         <PromotionsShowcaseSection promotions={promotions} />
-        <TestimonialsShowcaseSection feedback={feedback} />
         <FaqSection
           title="Những điều khách hàng thường hỏi trước khi đặt lịch"
           description="Giải đáp nhanh các thắc mắc thường gặp để bạn dễ quyết định hơn trước khi đến thăm khám."
@@ -1792,7 +1790,6 @@ export function ReviewsPage() {
         path="/nhan-xet"
       />
       <Breadcrumb title="Nhận xét khách hàng" current="Nhận xét" />
-      <TestimonialsShowcaseSection feedback={feedback} />
       <ContactInformation />
     </PublicLayout>
   );
