@@ -25,6 +25,7 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
   buildLocalBusinessSchema,
+  buildOrganizationSchema,
   buildServiceSchema,
   buildWebsiteSchema,
   StructuredData,
@@ -408,6 +409,7 @@ function HeroSlider({ banners }: { banners: BannerItem[] }) {
                 src={active.imageUrl || LOGO_URL}
                 alt={active.title}
                 className="hero-image-float h-[460px] w-full object-cover"
+                loading="lazy"
               />
             </div>
             <div className="absolute inset-x-8 bottom-8 rounded-3xl bg-white/95 p-6 text-[hsl(223,68%,24%)] shadow-2xl backdrop-blur-md sm:flex sm:items-center sm:justify-between">
@@ -530,6 +532,7 @@ function AboutPreview({ services }: { services: ServiceItem[] }) {
             src={imageUrl}
             alt={`${CLINIC_PROFILE.name} không gian và dịch vụ`}
             className="relative h-[400px] w-full rounded-[2rem] object-cover shadow-2xl sm:h-[480px] lg:h-[540px]"
+            loading="lazy"
           />
           <div className="premium-panel absolute -bottom-8 -right-4 max-w-[280px] rounded-3xl p-6 shadow-2xl">
             <div className="text-[10px] font-bold uppercase tracking-widest text-primary">
@@ -589,6 +592,7 @@ function ServiceCard({ service }: { service: ServiceItem }) {
           src={service.imageUrl || LOGO_URL}
           alt={service.name}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         <div className="absolute inset-x-4 bottom-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-900 shadow-xl backdrop-blur-md">
@@ -1468,7 +1472,7 @@ export function HomePage() {
         description="Đặt lịch tư vấn nhanh tại Nha Khoa Uy Đức Smile. Khám kỹ, tư vấn rõ ràng, dịch vụ nhẹ nhàng và đồng hành sau điều trị."
         path="/"
       />
-      <StructuredData data={[buildLocalBusinessSchema(), buildWebsiteSchema(), buildFaqSchema(FAQ_HOME)]} />
+      <StructuredData data={[buildLocalBusinessSchema(), buildOrganizationSchema(), buildWebsiteSchema(), buildFaqSchema(FAQ_HOME)]} />
       <div className="home-white-text">
         <ReferenceHeroSlider banners={banners} />
         <QuickLeadForm />
@@ -1800,6 +1804,7 @@ export function ContactPage() {
   const services = withFallbackServices(rawServices as ServiceItem[]);
   const contactStructuredData = [
     buildLocalBusinessSchema(),
+    buildOrganizationSchema(),
     buildBreadcrumbSchema([
       { name: "Trang chủ", path: "/" },
       { name: "Liên hệ", path: "/lien-he" },

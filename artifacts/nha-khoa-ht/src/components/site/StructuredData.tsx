@@ -164,3 +164,78 @@ export function buildArticleSchema(post: {
     },
   };
 }
+
+export function buildOrganizationSchema(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    name: CLINIC_PROFILE.name,
+    description: CLINIC_PROFILE.description,
+    url: SITE_URL,
+    logo: absoluteUrl(LOGO_URL),
+    image: absoluteUrl(DEFAULT_OG_IMAGE),
+    telephone: HOTLINE,
+    email: CLINIC_PROFILE.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: CLINIC_PROFILE.fullAddress,
+      addressLocality: "Gia Kiệm",
+      addressRegion: "Đồng Nai",
+      postalCode: "76000",
+      addressCountry: "VN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "10.9524",
+      longitude: "107.0673",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "08:00",
+        closes: "20:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Sunday",
+        opens: "08:00",
+        closes: "12:00",
+      },
+    ],
+    sameAs: Object.values(CLINIC_PROFILE.social ?? {}).filter(Boolean),
+  };
+}
+
+export function buildImageObjectSchema(imagePath: string, caption: string): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    url: absoluteUrl(imagePath),
+    caption,
+    encoding: [
+      {
+        "@type": "MediaObject",
+        contentUrl: absoluteUrl(imagePath),
+        encodingFormat: "image/jpeg",
+      },
+    ],
+  };
+}
+
+export function buildCorporationSchema(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Corporation",
+    name: CLINIC_PROFILE.name,
+    description: CLINIC_PROFILE.description,
+    url: SITE_URL,
+    logo: absoluteUrl(LOGO_URL),
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: HOTLINE,
+      contactType: "customer service",
+      availableLanguage: "Vietnamese",
+    },
+  };
+}

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/site";
+import { CLINIC_NAME } from "@/lib/api";
 
 type SeoHeadProps = {
   title: string;
@@ -8,6 +9,7 @@ type SeoHeadProps = {
   image?: string;
   type?: "website" | "article";
   noIndex?: boolean;
+  keywords?: string;
 };
 
 function ensureMeta(selector: string, create: () => HTMLMetaElement) {
@@ -46,6 +48,8 @@ function setCanonical(url: string) {
   link.href = url;
 }
 
+const DEFAULT_KEYWORDS = "nha khoa Uy Đức Smile, nha khoa Gia Kiệm, niềng răng, trồng răng implant, bọc răng sứ, điều trị răng, phòng khám nha khoa Đồng Nai, khám răng miệng";
+
 export function SeoHead({
   title,
   description,
@@ -53,11 +57,12 @@ export function SeoHead({
   image = DEFAULT_OG_IMAGE,
   type = "website",
   noIndex = false,
+  keywords = DEFAULT_KEYWORDS,
 }: SeoHeadProps) {
   useEffect(() => {
     const url = new URL(path, SITE_URL).toString();
     const imageUrl = new URL(image, SITE_URL).toString();
-    const fullTitle = `${title} | Nha Khoa Uy Đức Smile`;
+    const fullTitle = `${title} | ${CLINIC_NAME}`;
 
     document.title = fullTitle;
     document.documentElement.lang = "vi";
@@ -65,18 +70,29 @@ export function SeoHead({
     setCanonical(url);
     setMetaByName("description", description);
     setMetaByName("robots", noIndex ? "noindex, nofollow" : "index, follow");
+    setMetaByName("keywords", keywords);
+    setMetaByName("author", CLINIC_NAME);
+    setMetaByName("copyright", `© ${new Date().getFullYear()} ${CLINIC_NAME}`);
+
+    setMetaByName("geo.region", "VN");
+    setMetaByName("geo.placename", "Gia Kiệm, Đồng Nai");
 
     setMetaByProperty("og:title", fullTitle);
     setMetaByProperty("og:description", description);
     setMetaByProperty("og:url", url);
     setMetaByProperty("og:type", type);
     setMetaByProperty("og:image", imageUrl);
+    setMetaByProperty("og:image:width", "1200");
+    setMetaByProperty("og:image:height", "630");
+    setMetaByProperty("og:locale", "vi_VN");
+    setMetaByProperty("og:site_name", CLINIC_NAME);
 
     setMetaByName("twitter:card", "summary_large_image");
     setMetaByName("twitter:title", fullTitle);
     setMetaByName("twitter:description", description);
     setMetaByName("twitter:image", imageUrl);
-  }, [description, image, noIndex, path, title, type]);
+    setMetaByName("twitter:site", "@nhakhoauyduc");
+  }, [description, image, keywords, noIndex, path, title, type]);
 
   return null;
 }
