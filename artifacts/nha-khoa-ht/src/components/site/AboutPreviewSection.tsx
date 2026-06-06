@@ -15,16 +15,16 @@ type AboutSettings = {
 export function AboutPreviewSection({ imageUrl }: { imageUrl?: string | null }) {
   const { data: settings } = useGetSettings();
   const aboutSettings = settings as AboutSettings | undefined;
-  const title = aboutSettings?.aboutTitle || "Nha Khoa Uy Đức Smile - Đồng hành cùng nụ cười khỏe đẹp cho cả gia đình";
+  const title = aboutSettings?.aboutTitle || "Về Nha Khoa Đăng Khoa";
   const paragraphs = [
     aboutSettings?.aboutDescription1 ||
-      "Phòng khám tập trung vào trải nghiệm thăm khám nhẹ nhàng, giao tiếp rõ ràng và lộ trình điều trị phù hợp thay vì tạo áp lực cho khách hàng.",
+      "Hệ thống nha khoa uy tín tại Tây Ninh với đội ngũ bác sĩ giàu kinh nghiệm, trang thiết bị hiện đại và quy trình chuẩn chỉ khoa học quốc tế.",
     aboutSettings?.aboutDescription2 ||
       "Từ lần khám đầu tiên, đội ngũ sẽ lắng nghe nhu cầu, kiểm tra tình trạng và giải thích phương án phù hợp với mục tiêu của bạn: điều trị, phục hình hay cải thiện thẩm mỹ.",
     aboutSettings?.aboutDescription3 ||
       "Chúng tôi ưu tiên cảm giác yên tâm và dễ hiểu trong suốt hành trình, từ đặt lịch, tiếp đón, thực hiện dịch vụ đến chăm sóc sau điều trị.",
   ].filter(Boolean);
-  const aboutImage = aboutSettings?.aboutImageUrl || imageUrl || FALLBACK_ABOUT_IMAGE;
+  const aboutImage = aboutSettings?.aboutImageUrl || imageUrl || "/images/about-rang-su-10000.png";
 
   return (
     <section className="py-14 sm:py-16">

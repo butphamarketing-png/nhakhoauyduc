@@ -14,7 +14,7 @@ import {
 export const SITE_URL = `https://${CLINIC_WEBSITE}`;
 export const DEFAULT_OG_IMAGE = "/opengraph.jpg";
 export const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=134%2F5+B%E1%BA%A1ch+L%C3%A2m+1%2C+X%C3%A3+Th%E1%BB%91ng+Nh%E1%BA%A5t%2C+T%E1%BB%89nh+%C4%90%E1%BB%93ng+Nai";
+  "https://www.google.com/maps/search/?api=1&query=345%20-347%20%C4%90i%C3%AAn%20Bi%C3%AAn%20Ph%C3%BA%2C%20Ninh%20Ph%C3%BAc%2C%20Ph.%20Ninh%20Th%C3%A0nh%2C%20T%C3%A2y%20Ninh";
 
 export const SITE_NAV = [
   { label: "Trang chủ", href: "/" },

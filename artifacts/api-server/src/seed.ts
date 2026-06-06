@@ -40,27 +40,27 @@ async function main() {
   if (existingBanners.length === 0) {
     await db.insert(banners).values([
       {
-        title: "GRAND OPENING",
+        title: "NHA KHOA ĐĂNG KHOA",
         subtitle:
-          "Khuyến mãi đặc biệt: Cạo vôi 100.000đ • Trám răng 150.000đ • Voucher răng sứ Zirconia chỉ 1.900.000đ",
-        imageUrl: "/images/banner-1.png",
-        ctaText: "ĐẶT HẸN NGAY",
+          "Uy tín - Chất lượng - Tận tâm",
+        imageUrl: "/images/COVER PAGE.jpg",
+        ctaText: "ĐẶT LỊCH NGAY",
         sortOrder: 1,
       },
       {
-        title: "RĂNG SỨ THẨM MỸ ZIRCONIA",
+        title: "10.000+ CA RĂNG SỨ THÀNH CÔNG",
         subtitle:
-          "Công nghệ Đức – Bảo hành chính hãng – Hoàn thiện nụ cười tự nhiên",
-        imageUrl: "/images/banner-2.png",
+          "Tin cậy, chất lượng, tận tâm",
+        imageUrl: "/images/hero-slide-10000-rang-su.png",
         ctaText: "Tư vấn miễn phí",
         sortOrder: 2,
       },
       {
-        title: "CẤY GHÉP IMPLANT AN TOÀN",
+        title: "DỊCH VỤ CHUYÊN NGHIỆP",
         subtitle:
-          "Đội ngũ bác sĩ hơn 10 năm kinh nghiệm – Hơn 6.000 ca thành công",
-        imageUrl: "/images/banner-3.png",
-        ctaText: "Đặt lịch khám",
+          "Niềng răng, Implant, Răng sứ và nhiều hơn",
+        imageUrl: "/images/hero-slide-01.png",
+        ctaText: "Xem chi tiết",
         sortOrder: 3,
       },
     ]);
@@ -71,40 +71,28 @@ async function main() {
   if (existingServices.length === 0) {
     await db.insert(services).values([
       {
-        name: "Trám răng, nhổ răng, tiểu phẫu",
-        description:
-          "Điều trị triệt để các vấn đề sâu răng, viêm tủy với công nghệ hiện đại, không đau, an toàn.",
-        imageUrl: "/images/service-1.png",
-      },
-      {
-        name: "Tẩy trắng răng",
-        description:
-          "Công nghệ tẩy trắng răng laser hiện đại giúp răng trắng sáng tự nhiên chỉ sau 1 lần điều trị.",
-        imageUrl: "/images/service-2.png",
-      },
-      {
-        name: "Chữa tủy nội nha",
-        description:
-          "Bảo tồn răng thật, điều trị tủy chính xác bằng máy nội nha kỹ thuật số.",
-        imageUrl: "/images/service-3.png",
-      },
-      {
-        name: "Phục hình tháo lắp",
-        description:
-          "Răng giả tháo lắp thẩm mỹ, phục hồi chức năng ăn nhai và nụ cười tự nhiên.",
-        imageUrl: "/images/service-4.png",
-      },
-      {
-        name: "Phục hình cố định - Răng sứ Zirconia",
-        description:
-          "Răng sứ thẩm mỹ Zirconia cao cấp, độ bền vượt trội, màu sắc tự nhiên.",
-        imageUrl: "/images/service-5.png",
-      },
-      {
         name: "Cấy ghép Implant",
         description:
-          "Phục hồi răng mất bằng trụ Implant Hàn Quốc/Mỹ, bảo hành dài hạn.",
-        imageUrl: "/images/service-6.png",
+          "Trồng răng implant hiện đại, an toàn, bảo hành dài hạn.",
+        imageUrl: "/images/service-implant.png",
+      },
+      {
+        name: "Niềng răng",
+        description:
+          "Niềng răng kim loại, sứ, Invisalign - đưa nụ cười hoàn hảo.",
+        imageUrl: "/images/service-nieng-rang.png",
+      },
+      {
+        name: "Nhổ răng khôn",
+        description:
+          "Nhổ răng khôn không đau, an toàn, hồi phục nhanh.",
+        imageUrl: "/images/service-nho-rang-khon.png",
+      },
+      {
+        name: "Công nghệ iTero",
+        description:
+          "Quét răng 3D hiện đại, không cần cạo răng dấu.",
+        imageUrl: "/images/service-cong-nghe-itero.png",
       },
     ]);
   }
@@ -114,28 +102,32 @@ async function main() {
   if (existingPromos.length === 0) {
     await db.insert(promotions).values([
       {
-        title: "Cạo vôi răng siêu khuyến mãi",
-        content: "Cạo vôi + đánh bóng răng toàn hàm",
-        price: "100.000đ",
+        title: "Cần tiếp sớm - Ưu đãi đặc biệt",
+        content: "Ưu đãi đặc biệt cho khách hàng đến khám sớm.",
+        price: "Liên hệ",
         validUntil: "31/12/2026",
+        imageUrl: "/images/promo-can-tiep-som.png",
       },
       {
-        title: "Trám răng thẩm mỹ",
-        content: "Trám răng Composite cao cấp 1 mặt",
-        price: "150.000đ",
+        title: "Chính nhà 10%",
+        content: "Giảm 10% cho dịch vụ niềng răng.",
+        price: "Giảm 10%",
         validUntil: "31/12/2026",
+        imageUrl: "/images/promo-chinh-nha-10.png",
       },
       {
-        title: "Răng sứ Zirconia cao cấp",
-        content: "Voucher giảm giá đặc biệt cho dịch vụ răng sứ Zirconia",
-        price: "1.900.000đ",
+        title: "Mua vàng chỉnh nha",
+        content: "Ưu đãi đặc biệt cho khách hàng chỉnh nha.",
+        price: "Ưu đãi",
         validUntil: "31/12/2026",
+        imageUrl: "/images/promo-mua-vang-chinh-nha.png",
       },
       {
-        title: "Miễn phí tư vấn & thăm khám",
-        content: "Áp dụng cho tất cả khách hàng đến phòng khám",
-        price: "0đ",
+        title: "Niềng răng hè",
+        content: "Chương trình khuyến mãi niềng răng mùa hè.",
+        price: "Khuyến mãi",
         validUntil: "31/12/2026",
+        imageUrl: "/images/promo-nieng-rang-he.png",
       },
     ]);
   }
@@ -145,39 +137,39 @@ async function main() {
   if (existingFeedback.length === 0) {
     await db.insert(feedback).values([
       {
-        name: "Dương Quốc Hiệp",
-        service: "Làm Sứ",
+        name: "Đàm Thị Lát",
+        service: "Niềng răng",
         content:
-          "Dịch vụ rất tốt, bác sĩ tận tâm. Răng sứ đẹp tự nhiên, mình rất hài lòng!",
+          "Niềng răng tại Nha Khoa Đăng Khoa rất tốt, bác sĩ tận tâm, kết quả ưng ý!",
         rating: 5,
-        imageUrl: "/images/feedback-1.png",
+        imageUrl: "/images/testimonial-dam-thi-lat.png",
         approved: true,
       },
       {
-        name: "Cô Mai Thị Cương",
-        service: "Phục Hình Răng Sứ Zirconia",
+        name: "Lê Thị Thúy",
+        service: "Răng sứ",
         content:
-          "Sau khi làm răng sứ tại Nha Khoa HT, mình tự tin hơn rất nhiều khi cười.",
+          "Răng sứ đẹp tự nhiên, mình rất hài lòng với dịch vụ!",
         rating: 5,
-        imageUrl: "/images/feedback-2.png",
+        imageUrl: "/images/testimonial-le-thi-thuy.png",
         approved: true,
       },
       {
-        name: "Cô Việt Kiều Mỹ",
-        service: "Phục Hình Sứ Cercon HT 2 Hàm",
+        name: "Nguyễn Đình Phương",
+        service: "Implant",
         content:
-          "Tôi từ Mỹ về làm răng tại Nha Khoa HT, chất lượng quốc tế, giá hợp lý.",
+          "Cấy ghép implant không đau, hồi phục nhanh!",
         rating: 5,
-        imageUrl: "/images/feedback-3.png",
+        imageUrl: "/images/testimonial-nguyen-dinh-phuong.png",
         approved: true,
       },
       {
-        name: "Anh Nguyễn Văn Hùng",
-        service: "Cấy ghép Implant",
+        name: "Nguyễn Thị Kim Hạnh",
+        service: "Tẩy trắng",
         content:
-          "Cấy ghép Implant không đau, hồi phục nhanh, ăn uống bình thường sau 1 tuần.",
+          "Tẩy trắng răng nhanh, hiệu quả, răng trắng sáng tự nhiên!",
         rating: 5,
-        imageUrl: "/images/feedback-4.png",
+        imageUrl: "/images/testimonial-nguyen-thi-kim-hanh.png",
         approved: true,
       },
     ]);
